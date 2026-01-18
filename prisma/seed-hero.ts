@@ -81,7 +81,8 @@ async function main() {
   })
   console.log(`✅ Created hero video`)
 
-  // Seed magazine
+  // Seed magazine (commented out - model doesn't exist yet)
+  /*
   const magazine = await prisma.heroMagazine.create({
     data: {
       title: 'TELOS MAED',
@@ -95,6 +96,7 @@ async function main() {
     }
   })
   console.log(`✅ Created hero magazine`)
+  */
 
   console.log('\n🎉 Hero data seeded successfully!')
 }
