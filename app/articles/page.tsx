@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import { ArticlesGrid } from '@/components/articles/articles-grid'
 import { ArticlesFilters } from '@/components/articles/articles-filters'
 import { PageHeader } from '@/components/ui/page-header'
@@ -20,12 +21,16 @@ export default function ArticlesPage() {
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
-            <ArticlesFilters />
+            <Suspense fallback={<div>Loading filters...</div>}>
+              <ArticlesFilters />
+            </Suspense>
           </div>
           
           {/* Articles Grid */}
           <div className="mt-8 lg:mt-0 lg:col-span-3">
-            <ArticlesGrid />
+            <Suspense fallback={<div>Loading articles...</div>}>
+              <ArticlesGrid />
+            </Suspense>
           </div>
         </div>
       </div>
