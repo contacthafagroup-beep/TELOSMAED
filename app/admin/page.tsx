@@ -222,7 +222,7 @@ export default function AdminDashboard() {
               </div>
             ) : recentArticles.length > 0 ? (
               <div className="space-y-4">
-                {recentArticles.map((article) => (
+                {recentArticles.map((article: any) => (
                   <div key={article.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                     <div className="flex-1">
                       <h4 className="font-medium text-gray-900">{article.title}</h4>
@@ -358,7 +358,7 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {formattedUsers.length > 0 ? formattedUsers.map((user) => (
+              {formattedUsers.length > 0 ? formattedUsers.map((user: any) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
@@ -477,7 +477,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Articles</h3>
           <div className="space-y-4">
-            {recentArticles.slice(0, 5).map((article, index) => (
+            {recentArticles.slice(0, 5).map((article: any, index: number) => (
               <div key={article.id} className="flex items-center justify-between">
                 <div className="flex items-center">
                   <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-medium mr-3">
@@ -542,7 +542,7 @@ export default function AdminDashboard() {
       <div className="bg-white rounded-xl shadow-lg border border-gray-100">
         {formattedComments.length > 0 ? (
           <div className="divide-y divide-gray-200">
-            {formattedComments.map((comment) => (
+            {formattedComments.map((comment: any) => (
               <div key={comment.id} className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -798,7 +798,7 @@ export default function AdminDashboard() {
         <nav className="w-64 bg-white shadow-sm min-h-screen">
           <div className="p-4">
             <div className="space-y-2">
-              {navigationItems.map((item) => (
+              {navigationItems.map((item: any) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
