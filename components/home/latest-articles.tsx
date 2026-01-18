@@ -156,16 +156,16 @@ export function LatestArticles() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-4 sm:mb-6 lg:mb-8"
         >
           <div className="inline-flex items-center px-4 py-2 bg-secondary-100 dark:bg-secondary-900/20 text-secondary-800 dark:text-secondary-300 rounded-full text-sm font-medium mb-4">
             <ArrowTrendingUpIcon className="h-4 w-4 mr-2" />
             Fresh Content
           </div>
-          <h2 className="text-4xl font-display font-bold text-gray-900 dark:text-gray-100 sm:text-5xl mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-gray-900 dark:text-gray-100 mb-2 sm:mb-3 lg:mb-4">
             Latest Articles
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Fresh perspectives on faith, leadership, and spiritual growth from our community of writers
           </p>
         </motion.div>
@@ -182,7 +182,7 @@ export function LatestArticles() {
             <div className="lg:grid lg:grid-cols-5 lg:gap-0">
               {/* Article Image */}
               <div className="lg:col-span-2 relative">
-                <div className="aspect-[16/6] sm:aspect-[16/8] lg:aspect-[4/5] relative overflow-hidden lg:rounded-l-3xl">
+                <div className="aspect-[16/4] sm:aspect-[16/6] lg:aspect-[4/5] relative overflow-hidden lg:rounded-l-3xl">
                   {featuredArticle.coverImage ? (
                     <Image
                       src={featuredArticle.coverImage}
@@ -245,8 +245,8 @@ export function LatestArticles() {
               </div>
 
               {/* Article Content */}
-              <div className="lg:col-span-3 p-4 sm:p-6 lg:p-8">
-                <div className="flex items-center justify-between mb-3 sm:mb-4 lg:mb-6">
+              <div className="lg:col-span-3 p-2 sm:p-4 lg:p-6">
+                <div className="flex items-center justify-between mb-1 sm:mb-2 lg:mb-3">
                   <div className="flex items-center space-x-3">
                     <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${categoryColors[featuredArticle.category as keyof typeof categoryColors]}`}>
                       {getCategoryLabel(featuredArticle.category)}
@@ -274,7 +274,7 @@ export function LatestArticles() {
                   </div>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-display font-bold text-gray-900 dark:text-gray-100 mb-3 sm:mb-4 lg:mb-6 leading-tight hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-display font-bold text-gray-900 dark:text-gray-100 mb-1 sm:mb-2 lg:mb-3 leading-tight hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
                   <Link href={`/articles/${featuredArticle.slug}`}>
                     {featuredArticle.title}
                   </Link>
@@ -282,17 +282,17 @@ export function LatestArticles() {
 
                 {/* Amharic Title */}
                 {featuredArticle.titleAm && (
-                  <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-600 dark:text-gray-400 mb-2 sm:mb-3 lg:mb-4" dir="rtl">
+                  <h4 className="text-base sm:text-lg lg:text-xl font-bold text-gray-600 dark:text-gray-400 mb-1 sm:mb-2" dir="rtl">
                     {featuredArticle.titleAm}
                   </h4>
                 )}
 
-                <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4 sm:mb-6 lg:mb-8">
+                <p className="text-xs sm:text-sm lg:text-base text-gray-600 dark:text-gray-400 leading-relaxed mb-2 sm:mb-3 lg:mb-4">
                   {featuredArticle.excerpt || 'Read this amazing article...'}
                 </p>
 
                 {/* Author Info */}
-                <div className="flex items-center justify-between mb-4 sm:mb-6 lg:mb-8">
+                <div className="flex items-center justify-between mb-2 sm:mb-3 lg:mb-4">
                   <div className="flex items-center space-x-4">
                     {/* CSS-Generated Avatar */}
                     {featuredArticle.author.avatar ? (
@@ -359,7 +359,7 @@ export function LatestArticles() {
 
         {/* Regular Articles Grid */}
         {regularArticles.length > 0 && (
-          <div className="grid gap-4 sm:gap-6 lg:grid-cols-3 mb-16">
+          <div className="grid gap-2 sm:gap-3 lg:gap-4 lg:grid-cols-3 mb-8 sm:mb-12">
             {regularArticles.map((article, index) => (
               <motion.article
                 key={article.id}
@@ -372,7 +372,7 @@ export function LatestArticles() {
                 <Link href={`/articles/${article.slug}`} className="block">
                   <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 cursor-pointer">
                   {/* Article Image */}
-                  <div className="aspect-[16/6] sm:aspect-[16/8] relative overflow-hidden">
+                  <div className="aspect-[16/4] sm:aspect-[16/6] relative overflow-hidden">
                     {article.coverImage ? (
                       <Image
                         src={article.coverImage}
@@ -423,8 +423,8 @@ export function LatestArticles() {
                   </div>
 
                   {/* Article Content */}
-                  <div className="p-3 sm:p-4 lg:p-6">
-                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                  <div className="p-2 sm:p-3 lg:p-4">
+                    <div className="flex items-center justify-between mb-1 sm:mb-2">
                       <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                         <CalendarIcon className="h-4 w-4 mr-1" />
                         {new Date(article.publishedAt || (article as any).createdAt || Date.now()).toLocaleDateString('en-US', { 
@@ -438,7 +438,7 @@ export function LatestArticles() {
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg lg:text-xl font-display font-bold text-gray-900 dark:text-gray-100 mb-2 sm:mb-3 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+                    <h3 className="text-sm sm:text-base lg:text-lg font-display font-bold text-gray-900 dark:text-gray-100 mb-1 sm:mb-2 line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
                       {article.title}
                     </h3>
 
@@ -449,7 +449,7 @@ export function LatestArticles() {
                       </h4>
                     )}
 
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-2 sm:mb-3 line-clamp-2">
+                    <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-1 sm:mb-2 line-clamp-1">
                       {article.excerpt || 'Read this amazing article...'}
                     </p>
 
