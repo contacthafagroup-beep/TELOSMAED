@@ -174,7 +174,7 @@ export function PoetryGrid() {
                         {poem.author.name}
                       </p>
                       <p className="text-xs text-white/80">
-                        {new Date(poem.publishedAt || poem.createdAt).toLocaleDateString('en-US', { 
+                        {new Date(poem.publishedAt || (poem as any).createdAt || Date.now()).toLocaleDateString('en-US', { 
                           month: 'short', 
                           day: 'numeric',
                           year: 'numeric'
