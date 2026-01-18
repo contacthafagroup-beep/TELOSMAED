@@ -203,7 +203,7 @@ export function Header() {
             />
           ))}
         </div>
-        <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
+        <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-hidden" aria-label="Top">
           <div className="flex h-16 items-center justify-between">
             {/* ENHANCED Logo with Spectacular Effects */}
             <motion.div 
@@ -211,7 +211,7 @@ export function Header() {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <Link href="/" className="flex items-center space-x-3 group relative">
+              <Link href="/" className="flex items-center space-x-2 xl:space-x-3 group relative">
                 {/* Logo Glow Effect */}
                 <motion.div
                   className="absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -233,7 +233,7 @@ export function Header() {
                 
                 <div className="flex flex-col relative z-10">
                   <motion.span 
-                    className="font-display text-xl font-semibold relative"
+                    className="font-display text-lg xl:text-xl font-semibold relative"
                     style={{
                       background: 'linear-gradient(135deg, #1F3C88 0%, #F4C430 50%, #2F56B0 100%)',
                       backgroundSize: '200% 200%',
@@ -250,7 +250,7 @@ export function Header() {
                     TELOS MAED
                   </motion.span>
                   <motion.span 
-                    className="text-xs text-wisdom dark:text-dark-secondary font-medium tracking-wider"
+                    className="text-xs text-wisdom dark:text-dark-secondary font-medium tracking-wide xl:tracking-wider"
                     whileHover={{ 
                       color: '#1F3C88',
                       scale: 1.05
@@ -286,8 +286,8 @@ export function Header() {
               </Link>
             </motion.div>
 
-            {/* SPECTACULAR Desktop Navigation */}
-            <div className="hidden lg:flex lg:items-center lg:space-x-1">
+            {/* SPECTACULAR Desktop Navigation - Fixed Overflow */}
+            <div className="hidden lg:flex lg:items-center lg:space-x-0.5 xl:space-x-1">
               {navigation.map((item, index) => (
                 <motion.div 
                   key={item.name} 
@@ -298,12 +298,12 @@ export function Header() {
                 >
                   {item.simple ? (
                     <motion.div
-                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileHover={{ scale: 1.02, y: -1 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <Link
                         href={item.href}
-                        className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 overflow-hidden group ${
+                        className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 overflow-hidden group whitespace-nowrap ${
                           pathname === item.href
                             ? 'text-light-word bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg'
                             : item.highlight
@@ -331,36 +331,6 @@ export function Header() {
                         >
                           {item.name}
                         </motion.span>
-                        
-                        {/* Floating Particles on Hover */}
-                        {!item.highlight && (
-                          <motion.div
-                            className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
-                            initial={{ opacity: 0 }}
-                            whileHover={{ opacity: 1 }}
-                          >
-                            {[...Array(3)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                className="absolute w-1 h-1 bg-primary-400 rounded-full"
-                                style={{
-                                  left: `${20 + i * 20}%`,
-                                  top: `${30 + i * 10}%`,
-                                }}
-                                animate={{
-                                  y: [0, -8, 0],
-                                  opacity: [0.5, 1, 0.5],
-                                  scale: [0.5, 1, 0.5]
-                                }}
-                                transition={{
-                                  duration: 1.5,
-                                  repeat: Infinity,
-                                  delay: i * 0.2
-                                }}
-                              />
-                            ))}
-                          </motion.div>
-                        )}
                       </Link>
                     </motion.div>
                   ) : (
@@ -371,12 +341,12 @@ export function Header() {
                           e.stopPropagation()
                           setActiveDropdown(activeDropdown === item.name ? null : item.name)
                         }}
-                        className={`flex items-center space-x-1 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group relative overflow-hidden ${
+                        className={`flex items-center space-x-1 px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 group relative overflow-hidden whitespace-nowrap ${
                           pathname.startsWith(item.href)
                             ? 'text-primary-600 dark:text-dark-primary bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-lg'
                             : 'text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 dark:hover:from-primary-900/20 dark:hover:to-secondary-900/20'
                         }`}
-                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileHover={{ scale: 1.02, y: -1 }}
                         whileTap={{ scale: 0.98 }}
                       >
                         {/* Animated Background */}
@@ -514,14 +484,14 @@ export function Header() {
               ))}
             </div>
 
-            {/* SPECTACULAR Right Side Actions */}
-            <div className="flex items-center space-x-2">
+            {/* SPECTACULAR Right Side Actions - Compact */}
+            <div className="flex items-center space-x-1 xl:space-x-2">
               {/* Enhanced Search Button */}
               <motion.button
                 onClick={() => setSearchOpen(true)}
-                className="p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-xl transition-all duration-300 group relative overflow-hidden"
+                className="p-2 xl:p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden"
                 aria-label="Search"
-                whileHover={{ scale: 1.1, y: -2 }}
+                whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {/* Button Background Effect */}
@@ -560,9 +530,9 @@ export function Header() {
               {/* Enhanced Notifications Button */}
               <motion.button
                 onClick={() => setNotificationsOpen(true)}
-                className="p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-xl transition-all duration-300 group relative overflow-hidden"
+                className="p-2 xl:p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden"
                 aria-label="Notifications"
-                whileHover={{ scale: 1.1, y: -2 }}
+                whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {/* Button Background Effect */}
@@ -601,7 +571,7 @@ export function Header() {
 
               {/* Enhanced Theme Toggle */}
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <ThemeToggle />
@@ -609,7 +579,7 @@ export function Header() {
 
               {/* Enhanced User Menu */}
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <UserMenu />
@@ -618,9 +588,9 @@ export function Header() {
               {/* SPECTACULAR Mobile Menu Button */}
               <motion.button
                 type="button"
-                className="lg:hidden p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-xl transition-all duration-300 group relative overflow-hidden"
+                className="lg:hidden p-2 xl:p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                whileHover={{ scale: 1.1, y: -2 }}
+                whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="sr-only">Open main menu</span>
@@ -661,7 +631,7 @@ export function Header() {
                 transition={{ duration: 0.3 }}
                 className="lg:hidden border-t border-gray-200 dark:border-dark-border overflow-hidden"
               >
-                <div className="py-3 space-y-1 max-w-full">
+                <div className="py-3 space-y-1 w-full overflow-hidden">
                   {navigation.map((item) => (
                     <div key={item.name} className="w-full">
                       {item.simple ? (
@@ -695,7 +665,7 @@ export function Header() {
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               <dropdownItem.icon className="h-3 w-3 flex-shrink-0 mt-0.5" />
-                              <div className="flex-1 min-w-0">
+                              <div className="flex-1 min-w-0 overflow-hidden">
                                 <div className={`font-medium truncate ${dropdownItem.amharic ? 'font-serif text-sm' : 'text-xs'}`}>
                                   {dropdownItem.name}
                                 </div>
