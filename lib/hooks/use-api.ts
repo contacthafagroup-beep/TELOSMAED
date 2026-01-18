@@ -15,10 +15,23 @@ function useApiCall<T>(
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const result = await apiCall()
+      setData(result)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     let isMounted = true
 
-    const fetchData = async () => {
+    const loadData = async () => {
       try {
         setLoading(true)
         setError(null)
@@ -37,14 +50,14 @@ function useApiCall<T>(
       }
     }
 
-    fetchData()
+    loadData()
 
     return () => {
       isMounted = false
     }
   }, dependencies)
 
-  return { data, loading, error, refetch: () => fetchData() }
+  return { data, loading, error, refetch: fetchData }
 }
 
 // Articles hooks
