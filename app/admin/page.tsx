@@ -67,7 +67,7 @@ export default function AdminDashboard() {
   const contentActions = useContentActions()
 
   // Format articles for display
-  const recentArticles = articles?.slice(0, 4).map(article => ({
+  const recentArticles = articles?.slice(0, 4).map((article: any) => ({
     id: article.id,
     title: article.title,
     author: article.author.name,
@@ -77,7 +77,7 @@ export default function AdminDashboard() {
   })) || []
 
   // Format users for display
-  const formattedUsers = users?.map(user => ({
+  const formattedUsers = users?.map((user: any) => ({
     id: user.id,
     name: user.name,
     email: user.email,
@@ -87,7 +87,7 @@ export default function AdminDashboard() {
   })) || []
 
   // Format comments for display
-  const formattedComments = comments?.map(comment => ({
+  const formattedComments = comments?.map((comment: any) => ({
     id: comment.id,
     article: comment.article?.title || 'Unknown Article',
     author: comment.author?.name || 'Anonymous',
