@@ -50,12 +50,12 @@ export function PoetryManagement() {
   const contentActions = useContentActions()
 
   // Filter and sort poems
-  const filteredPoems = poems?.filter(poem => {
+  const filteredPoems = poems?.filter((poem: any) => {
     const matchesSearch = poem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          poem.titleAm?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          poem.author.name.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesSearch
-  }).sort((a, b) => {
+  }).sort((a: any, b: any) => {
     switch (sortBy) {
       case 'newest':
         return new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime()
@@ -145,7 +145,7 @@ export function PoetryManagement() {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Published</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {poems?.filter(p => p.published).length || 0}
+                {poems?.filter((p: any) => p.published).length || 0}
               </p>
             </div>
             <CheckCircleIcon className="w-8 h-8 text-green-500" />
@@ -156,7 +156,7 @@ export function PoetryManagement() {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Drafts</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {poems?.filter(p => !p.published).length || 0}
+                {poems?.filter((p: any) => !p.published).length || 0}
               </p>
             </div>
             <ClockIcon className="w-8 h-8 text-orange-500" />
@@ -167,7 +167,7 @@ export function PoetryManagement() {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Total Views</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {poems?.reduce((sum, p) => sum + p.views, 0).toLocaleString() || 0}
+                {poems?.reduce((sum: number, p: any) => sum + p.views, 0).toLocaleString() || 0}
               </p>
             </div>
             <EyeIcon className="w-8 h-8 text-purple-500" />
@@ -212,7 +212,7 @@ export function PoetryManagement() {
 
       {/* Poems Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredPoems.map((poem) => (
+        {filteredPoems.map((poem: any) => (
           <div key={poem.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-200">
             {/* Header with gradient */}
             <div className={`relative p-6 bg-gradient-to-br ${getAvatarGradient(poem.author.name)} text-white`}>
@@ -259,7 +259,7 @@ export function PoetryManagement() {
             {/* Content Preview */}
             <div className="p-4">
               <div className="font-serif text-gray-700 dark:text-gray-300 text-sm leading-relaxed italic mb-4 line-clamp-4">
-                {poem.content.split('\n').slice(0, 3).map((line, i) => (
+                {poem.content.split('\n').slice(0, 3).map((line: string, i: number) => (
                   <div key={i}>{line || '\u00A0'}</div>
                 ))}
               </div>
