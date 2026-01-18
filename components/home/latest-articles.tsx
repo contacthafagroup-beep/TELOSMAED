@@ -253,7 +253,7 @@ export function LatestArticles() {
                     </span>
                     <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                       <CalendarIcon className="h-4 w-4 mr-1" />
-                      {new Date(featuredArticle.publishedAt || featuredArticle.createdAt).toLocaleDateString('en-US', { 
+                      {new Date(featuredArticle.publishedAt || (featuredArticle as any).createdAt || Date.now()).toLocaleDateString('en-US', { 
                         month: 'long', 
                         day: 'numeric',
                         year: 'numeric'
@@ -427,7 +427,7 @@ export function LatestArticles() {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                         <CalendarIcon className="h-4 w-4 mr-1" />
-                        {new Date(article.publishedAt || article.createdAt).toLocaleDateString('en-US', { 
+                        {new Date(article.publishedAt || (article as any).createdAt || Date.now()).toLocaleDateString('en-US', { 
                           month: 'short', 
                           day: 'numeric' 
                         })}
