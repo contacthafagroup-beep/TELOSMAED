@@ -24,11 +24,11 @@ export async function GET(request: NextRequest) {
           { published: true },
           {
             OR: [
-              { title: { contains: query, mode: 'insensitive' } },
-              { titleAm: { contains: query, mode: 'insensitive' } },
-              { excerpt: { contains: query, mode: 'insensitive' } },
-              { content: { contains: query, mode: 'insensitive' } },
-              { tags: { contains: query, mode: 'insensitive' } },
+              { title: { contains: query } },
+              { titleAm: { contains: query } },
+              { excerpt: { contains: query } },
+              { content: { contains: query } },
+              { tags: { contains: query } },
             ]
           },
           ...(category ? [{ category }] : [])
@@ -62,10 +62,10 @@ export async function GET(request: NextRequest) {
           { published: true },
           {
             OR: [
-              { title: { contains: query, mode: 'insensitive' } },
-              { titleAm: { contains: query, mode: 'insensitive' } },
-              { content: { contains: query, mode: 'insensitive' } },
-              { contentAm: { contains: query, mode: 'insensitive' } },
+              { title: { contains: query } },
+              { titleAm: { contains: query } },
+              { content: { contains: query } },
+              { contentAm: { contains: query } },
             ]
           }
         ]
