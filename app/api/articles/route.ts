@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/db'
 
 export async function GET(request: NextRequest) {
   try {
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get articles
-    const articles = await prisma.article.findMany({
+    const articles = await db.article.findMany({
       where,
       include: {
         author: {
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create article
-    const article = await prisma.article.create({
+    const article = await db.article.create({
       data: {
         title: title || titleAm || 'Untitled',
         titleAm: titleAm || null,

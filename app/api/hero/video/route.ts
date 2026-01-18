@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/db'
 
 // Mark this route as dynamic
 export const dynamic = 'force-dynamic'
@@ -7,11 +7,11 @@ export const dynamic = 'force-dynamic'
 // GET video
 export async function GET() {
   try {
-    let video = await prisma.heroVideo.findFirst()
+    let video = await db.heroVideo.findFirst()
     
     // If no video exists, create default one
     if (!video) {
-      video = await prisma.heroVideo.create({
+      video = await db.heroVideo.create({
         data: {
           title: 'Watch Our Story',
           titleAm: 'የእኛን ታሪክ ይመልከቱ',
@@ -36,15 +36,15 @@ export async function PUT(request: Request) {
     const data = await request.json()
     
     // Get the first video or create if doesn't exist
-    let video = await prisma.heroVideo.findFirst()
+    let video = await db.heroVideo.findFirst()
     
     if (video) {
-      video = await prisma.heroVideo.update({
+      video = await db.heroVideo.update({
         where: { id: video.id },
         data
       })
     } else {
-      video = await prisma.heroVideo.create({
+      video = await db.heroVideo.create({
         data
       })
     }
