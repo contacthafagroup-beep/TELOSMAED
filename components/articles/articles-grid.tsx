@@ -252,7 +252,7 @@ export function ArticlesGrid() {
                           {article.author.name}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {new Date(article.publishedAt || article.createdAt).toLocaleDateString('en-US', { 
+                          {new Date(article.publishedAt || (article as any).createdAt || Date.now()).toLocaleDateString('en-US', { 
                             month: 'short', 
                             day: 'numeric',
                             year: 'numeric'
