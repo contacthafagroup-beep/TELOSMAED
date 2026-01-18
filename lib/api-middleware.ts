@@ -52,11 +52,11 @@ export function rateLimit(
     const windowStart = now - windowMs
 
     // Clean up old entries
-    for (const [key, value] of rateLimitStore.entries()) {
+    Array.from(rateLimitStore.entries()).forEach(([key, value]) => {
       if (value.resetTime < windowStart) {
         rateLimitStore.delete(key)
       }
-    }
+    })
 
     // Check current IP
     const current = rateLimitStore.get(ip)
