@@ -152,7 +152,7 @@ export function ArticlesManagement() {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Published</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {articles?.filter(a => a.published).length || 0}
+                {articles?.filter((a: any) => a.published).length || 0}
               </p>
             </div>
             <CheckCircleIcon className="w-8 h-8 text-green-500" />
@@ -163,7 +163,7 @@ export function ArticlesManagement() {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Drafts</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {articles?.filter(a => !a.published).length || 0}
+                {articles?.filter((a: any) => !a.published).length || 0}
               </p>
             </div>
             <ClockIcon className="w-8 h-8 text-orange-500" />
