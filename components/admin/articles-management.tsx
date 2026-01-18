@@ -53,13 +53,13 @@ export function ArticlesManagement() {
   const contentActions = useContentActions()
 
   // Filter and sort articles
-  const filteredArticles = articles?.filter(article => {
+  const filteredArticles = articles?.filter((article: any) => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          article.titleAm?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          article.author.name.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCategory = categoryFilter === 'all' || article.category === categoryFilter
     return matchesSearch && matchesCategory
-  }).sort((a, b) => {
+  }).sort((a: any, b: any) => {
     switch (sortBy) {
       case 'newest':
         return new Date(b.publishedAt || b.createdAt).getTime() - new Date(a.publishedAt || a.createdAt).getTime()
