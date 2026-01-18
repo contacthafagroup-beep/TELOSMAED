@@ -196,7 +196,7 @@ export function ArticlesGrid() {
                   {/* Category Badge */}
                   <div className="absolute top-3 left-3">
                     <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${categoryColors[article.category as keyof typeof categoryColors]}`}>
-                      {categoryInfo?.label || article.category}
+                      {categoryInfo?.english || article.category}
                     </span>
                   </div>
 
