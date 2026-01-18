@@ -32,7 +32,7 @@ export function Newsletter() {
   }
 
   return (
-    <section className="relative py-6 overflow-hidden">
+    <section className="relative py-4 sm:py-6 lg:py-8 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900"></div>
@@ -40,9 +40,9 @@ export function Newsletter() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main CTA Section */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4 sm:mb-6">
           {/* Badge */}
-          <div className="inline-flex items-center px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold rounded-full mb-4">
+          <div className="inline-flex items-center px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold rounded-full mb-3 sm:mb-4">
             <GiftIcon className="h-3 w-3 mr-1.5 text-emerald-400" />
             Free Weekly Newsletter
             <div className="ml-2 flex space-x-0.5">
@@ -53,7 +53,7 @@ export function Newsletter() {
           </div>
 
           {/* Headline */}
-          <h2 className="text-2xl md:text-3xl font-display font-black mb-4 leading-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-black mb-3 sm:mb-4 leading-tight">
             <span className="bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
               Don't Miss Out on
             </span>
@@ -63,12 +63,12 @@ export function Newsletter() {
             </span>
           </h2>
 
-          <p className="text-sm text-white/80 max-w-2xl mx-auto leading-relaxed mb-4">
+          <p className="text-sm text-white/80 max-w-2xl mx-auto leading-relaxed mb-3 sm:mb-4">
             Join 15,000+ young Christians receiving weekly insights, exclusive articles, and spiritual growth resources.
           </p>
 
           {/* Value Propositions */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6">
             {[
               { text: 'Always Free', color: 'text-green-400' },
               { text: 'Weekly Delivery', color: 'text-blue-400' },
@@ -87,7 +87,7 @@ export function Newsletter() {
         </div>
 
         {/* Newsletter Signup Form */}
-        <div className="max-w-lg mx-auto mb-6">
+        <div className="max-w-lg mx-auto mb-4 sm:mb-6">
           {success ? (
             <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
               <div className="inline-flex items-center justify-center w-10 h-10 bg-green-500 rounded-full mb-3">

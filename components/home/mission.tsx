@@ -8,15 +8,15 @@ import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid'
 
 export function Mission() {
   return (
-    <section className="py-8 relative overflow-hidden">
+    <section className="py-6 sm:py-8 lg:py-12 relative overflow-hidden">
       {/* Dark Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           {/* Badge */}
-          <div className="relative inline-block mb-4">
+          <div className="relative inline-block mb-3 sm:mb-4">
             <div className="inline-flex items-center px-6 py-2 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-full shadow-2xl">
               <div className="w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
                 <HeartIconSolid className="h-3 w-3 text-white" />
@@ -26,8 +26,8 @@ export function Mission() {
           </div>
           
           {/* Title */}
-          <div className="mb-8">
-            <h2 className="text-3xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 leading-tight">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 leading-tight">
               TELOS MAED
             </h2>
             
@@ -35,18 +35,18 @@ export function Mission() {
             <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full shadow-lg mb-4" />
             
             {/* Tagline */}
-            <p className="text-xl md:text-2xl font-bold text-blue-200">
+            <p className="text-lg sm:text-xl md:text-2xl font-bold text-blue-200">
               Live Purposefully and Lead Effectively!
             </p>
           </div>
         </div>
 
         {/* Mission Content */}
-        <div className="mb-8">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+        <div className="mb-6 sm:mb-8">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center">
             {/* Left Column - TELOS Meaning */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-800/50 to-purple-800/50 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl">
+              <div className="bg-gradient-to-br from-blue-800/50 to-purple-800/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 shadow-2xl">
                 <div className="text-4xl mb-4 text-center">
                   🎯
                 </div>
@@ -67,7 +67,7 @@ export function Mission() {
 
             {/* Right Column - Ministry Description */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-purple-800/50 to-indigo-800/50 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl">
+              <div className="bg-gradient-to-br from-purple-800/50 to-indigo-800/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 shadow-2xl">
                 <div className="text-4xl mb-4 text-center">
                   📖
                 </div>
@@ -87,16 +87,16 @@ export function Mission() {
         </div>
 
         {/* Core Pillars */}
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 mb-4">
+        <div className="mb-6 sm:mb-8">
+          <div className="text-center mb-4 sm:mb-6">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 mb-3 sm:mb-4">
               Our Four Pillars
             </h3>
             
             <div className="w-20 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full" />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
               {
                 icon: '📖',
@@ -124,15 +124,15 @@ export function Mission() {
               }
             ].map((pillar, index) => (
               <div key={index} className="group">
-                <div className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${pillar.bgColor} backdrop-blur-sm border border-white/20 p-4 shadow-2xl hover:shadow-3xl transition-all duration-300`}>
+                <div className={`relative overflow-hidden rounded-xl bg-gradient-to-br ${pillar.bgColor} backdrop-blur-sm border border-white/20 p-3 sm:p-4 shadow-2xl hover:shadow-3xl transition-all duration-300`}>
                   {/* Icon */}
-                  <div className="text-4xl mb-3 text-center">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 text-center">
                     {pillar.icon}
                   </div>
 
                   {/* Content */}
-                  <div className="text-center space-y-2">
-                    <h4 className="font-bold text-white text-base group-hover:text-yellow-300 transition-colors duration-300">
+                  <div className="text-center space-y-1 sm:space-y-2">
+                    <h4 className="font-bold text-white text-sm sm:text-base group-hover:text-yellow-300 transition-colors duration-300">
                       {pillar.title}
                     </h4>
                     <p className="text-blue-100 text-xs">
@@ -147,8 +147,8 @@ export function Mission() {
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 shadow-xl max-w-4xl mx-auto">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-4 sm:p-6 shadow-xl max-w-4xl mx-auto">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-4">
               Join Our Kingdom Mission
             </h3>
             

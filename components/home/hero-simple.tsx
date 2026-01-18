@@ -34,14 +34,14 @@ export function Hero() {
 
   if (loading) {
     return (
-      <section className="relative overflow-hidden min-h-[100vh] flex items-center justify-center">
+      <section className="relative overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[100vh] flex items-center justify-center">
         <div className="text-lg text-gray-600">Loading...</div>
       </section>
     )
   }
 
   return (
-    <section className="relative overflow-hidden min-h-[100vh] flex items-center justify-center">
+    <section className="relative overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[100vh] flex items-center justify-center">
       {/* Enhanced Background with subtle animations */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50" />
@@ -72,7 +72,7 @@ export function Hero() {
         </div>
       </div>
       
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 z-10">
+      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:py-12 lg:py-16 sm:px-6 lg:px-8 z-10">
         {/* Centered Content */}
         <div className="max-w-4xl mx-auto">
           
