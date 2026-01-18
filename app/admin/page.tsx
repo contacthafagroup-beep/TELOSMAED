@@ -329,7 +329,7 @@ export default function AdminDashboard() {
             <PencilIcon className="w-8 h-8 text-purple-500 mr-3" />
             <div>
               <p className="text-sm font-medium text-gray-600">Contributors</p>
-              <p className="text-2xl font-bold text-gray-900">{formattedUsers.filter(u => u.role === 'contributor').length}</p>
+              <p className="text-2xl font-bold text-gray-900">{formattedUsers.filter((u: any) => u.role === 'contributor').length}</p>
             </div>
           </div>
         </div>
@@ -338,7 +338,7 @@ export default function AdminDashboard() {
             <CogIcon className="w-8 h-8 text-orange-500 mr-3" />
             <div>
               <p className="text-sm font-medium text-gray-600">Admins</p>
-              <p className="text-2xl font-bold text-gray-900">{formattedUsers.filter(u => u.role === 'admin').length}</p>
+              <p className="text-2xl font-bold text-gray-900">{formattedUsers.filter((u: any) => u.role === 'admin').length}</p>
             </div>
           </div>
         </div>
