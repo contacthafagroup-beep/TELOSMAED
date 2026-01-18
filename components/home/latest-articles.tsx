@@ -87,7 +87,7 @@ export function LatestArticles() {
 
   if (loading) {
     return (
-      <section className="py-8 sm:py-12 lg:py-16 xl:py-24 bg-white dark:bg-gray-900">
+      <section className="py-4 sm:py-6 lg:py-12 xl:py-16 bg-white dark:bg-gray-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="animate-pulse">
@@ -111,7 +111,7 @@ export function LatestArticles() {
 
   if (error) {
     return (
-      <section className="py-8 sm:py-12 lg:py-16 xl:py-24 bg-white dark:bg-gray-900">
+      <section className="py-4 sm:py-6 lg:py-12 xl:py-16 bg-white dark:bg-gray-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-600 dark:text-red-400 mb-4">
@@ -132,7 +132,7 @@ export function LatestArticles() {
 
   if (!articles || articles.length === 0) {
     return (
-      <section className="py-8 sm:py-12 lg:py-16 xl:py-24 bg-white dark:bg-gray-900">
+      <section className="py-4 sm:py-6 lg:py-12 xl:py-16 bg-white dark:bg-gray-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <BookOpenIcon className="h-12 w-12 mx-auto mb-4 text-gray-400" />
@@ -148,7 +148,7 @@ export function LatestArticles() {
   const additionalArticles = articles.slice(4)
 
   return (
-    <section className="py-8 sm:py-12 lg:py-16 xl:py-24 bg-white dark:bg-gray-900">
+    <section className="py-4 sm:py-6 lg:py-12 xl:py-16 bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Enhanced Section Header */}
         <motion.div

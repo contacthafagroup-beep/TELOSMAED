@@ -8,13 +8,13 @@ import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid'
 
 export function Mission() {
   return (
-    <section className="py-6 sm:py-8 lg:py-12 relative overflow-hidden">
+    <section className="py-4 sm:py-6 lg:py-8 xl:py-12 relative overflow-hidden">
       {/* Dark Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-6 sm:mb-8">
+        <div className="text-center mb-4 sm:mb-6 lg:mb-8">
           {/* Badge */}
           <div className="relative inline-block mb-3 sm:mb-4">
             <div className="inline-flex items-center px-6 py-2 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-full shadow-2xl">
@@ -42,7 +42,7 @@ export function Mission() {
         </div>
 
         {/* Mission Content */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-4 sm:mb-6 lg:mb-8">
           <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center">
             {/* Left Column - TELOS Meaning */}
             <div className="relative">
@@ -87,7 +87,7 @@ export function Mission() {
         </div>
 
         {/* Core Pillars */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-4 sm:mb-6 lg:mb-8">
           <div className="text-center mb-4 sm:mb-6">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 mb-3 sm:mb-4">
               Our Four Pillars

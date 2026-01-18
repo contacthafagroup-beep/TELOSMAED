@@ -34,14 +34,14 @@ export function Hero() {
 
   if (loading) {
     return (
-      <section className="relative overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[100vh] flex items-center justify-center">
+      <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center">
         <div className="text-lg text-gray-600">Loading...</div>
       </section>
     )
   }
 
   return (
-    <section className="relative overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[100vh] flex items-center justify-center">
+    <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center">
       {/* Enhanced Background with subtle animations */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50" />
@@ -72,7 +72,7 @@ export function Hero() {
         </div>
       </div>
       
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:py-12 lg:py-16 sm:px-6 lg:px-8 z-10">
+      <div className="relative mx-auto max-w-7xl px-4 py-4 sm:py-8 lg:py-16 sm:px-6 lg:px-8 z-10">
         {/* Centered Content */}
         <div className="max-w-4xl mx-auto">
           
@@ -83,7 +83,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 text-blue-700 text-sm font-medium rounded-full mb-8 shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 text-blue-700 text-sm font-medium rounded-full mb-4 sm:mb-6 lg:mb-8 shadow-sm"
             >
               <SparklesIcon className="h-4 w-4 mr-2" />
               Premium Christian Magazine
@@ -94,10 +94,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-8"
+              className="mb-4 sm:mb-6 lg:mb-8"
             >
               <motion.h1 
-                className="font-display font-bold text-5xl lg:text-7xl text-slate-800 mb-6"
+                className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-7xl text-slate-800 mb-3 sm:mb-4 lg:mb-6"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -105,14 +105,14 @@ export function Hero() {
               </motion.h1>
               
               <motion.div 
-                className="w-32 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto mb-6 rounded-full"
+                className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto mb-3 sm:mb-4 lg:mb-6 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: 128 }}
                 transition={{ duration: 1, delay: 0.8 }}
               />
               
               <motion.p 
-                className="text-xl lg:text-2xl font-serif text-amber-600 font-medium"
+                className="text-lg sm:text-xl lg:text-2xl font-serif text-amber-600 font-medium"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1 }}
@@ -126,7 +126,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="max-w-2xl mx-auto mb-12"
+              className="max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-12"
             >
               <p className="text-lg text-slate-600 leading-relaxed mb-3">
                 An Evangelical Christian magazine for young leaders, thinkers, and creatives.
@@ -144,7 +144,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 lg:mb-12"
             >
               {/* Read Latest Issue Button */}
               <motion.div
@@ -193,9 +193,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4 }}
-          className="mt-20"
+          className="mt-8 sm:mt-12 lg:mt-20"
         >
-          <div className="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 rounded-3xl p-8 md:p-12 shadow-2xl border border-indigo-300/20 max-w-5xl mx-auto overflow-hidden">
+          <div className="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 shadow-2xl border border-indigo-300/20 max-w-5xl mx-auto overflow-hidden">
             
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">

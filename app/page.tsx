@@ -5,7 +5,7 @@ import { Newsletter } from '@/components/home/newsletter'
 
 export default function HomePage() {
   return (
-    <div className="space-y-8 sm:space-y-12 lg:space-y-16 xl:space-y-24">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-12 xl:space-y-16">
       <Hero />
       <LatestArticles />
       <Mission />

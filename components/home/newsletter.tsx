@@ -32,7 +32,7 @@ export function Newsletter() {
   }
 
   return (
-    <section className="relative py-4 sm:py-6 lg:py-8 overflow-hidden">
+    <section className="relative py-3 sm:py-4 lg:py-6 xl:py-8 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900"></div>
@@ -40,7 +40,7 @@ export function Newsletter() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main CTA Section */}
-        <div className="text-center mb-4 sm:mb-6">
+        <div className="text-center mb-3 sm:mb-4 lg:mb-6">
           {/* Badge */}
           <div className="inline-flex items-center px-3 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold rounded-full mb-3 sm:mb-4">
             <GiftIcon className="h-3 w-3 mr-1.5 text-emerald-400" />
@@ -87,7 +87,7 @@ export function Newsletter() {
         </div>
 
         {/* Newsletter Signup Form */}
-        <div className="max-w-lg mx-auto mb-4 sm:mb-6">
+        <div className="max-w-lg mx-auto mb-3 sm:mb-4 lg:mb-6">
           {success ? (
             <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
               <div className="inline-flex items-center justify-center w-10 h-10 bg-green-500 rounded-full mb-3">
