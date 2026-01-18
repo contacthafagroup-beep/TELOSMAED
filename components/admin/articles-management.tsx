@@ -174,7 +174,7 @@ export function ArticlesManagement() {
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Total Views</p>
               <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {articles?.reduce((sum, a) => sum + a.views, 0).toLocaleString() || 0}
+                {articles?.reduce((sum: number, a: any) => sum + a.views, 0).toLocaleString() || 0}
               </p>
             </div>
             <EyeIcon className="w-8 h-8 text-purple-500" />
