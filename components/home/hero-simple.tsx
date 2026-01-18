@@ -188,19 +188,19 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Bible Verse Section */}
+        {/* Bible Verse Section - Ultra Compact Mobile */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4 }}
-          className="mt-8 sm:mt-12 lg:mt-20"
+          className="mt-4 sm:mt-6 lg:mt-12"
         >
-          <div className="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 shadow-2xl border border-indigo-300/20 max-w-5xl mx-auto overflow-hidden">
+          <div className="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-6 xl:p-8 shadow-2xl border border-indigo-300/20 max-w-5xl mx-auto overflow-hidden">
             
-            {/* Animated Background Elements */}
+            {/* Animated Background Elements - Reduced */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {/* Floating Particles */}
-              {[...Array(15)].map((_, i) => (
+              {[...Array(6)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-1 h-1 bg-white/30 rounded-full"
@@ -226,8 +226,8 @@ export function Hero() {
 
             {/* Main Content */}
             <div className="relative z-10 text-center">
-              {/* Decorative Header */}
-              <div className="flex justify-center mb-6">
+              {/* Decorative Header - Compact */}
+              <div className="flex justify-center mb-2 sm:mb-3 lg:mb-4">
                 <motion.div
                   animate={{ 
                     rotate: [0, 360],
@@ -239,21 +239,21 @@ export function Hero() {
                   }}
                   className="relative"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
-                    <BookOpenIcon className="h-8 w-8 text-white" />
+                  <div className="w-8 sm:w-12 lg:w-16 h-8 sm:h-12 lg:h-16 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl">
+                    <BookOpenIcon className="h-4 sm:h-6 lg:h-8 w-4 sm:w-6 lg:w-8 text-white" />
                   </div>
                 </motion.div>
               </div>
 
-              {/* Amharic Verse */}
+              {/* Amharic Verse - Ultra Compact */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1.6 }}
-                className="mb-8"
+                className="mb-2 sm:mb-3 lg:mb-4"
               >
                 <motion.blockquote 
-                  className="text-xl md:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 mb-4 leading-relaxed tracking-wide" 
+                  className="text-sm sm:text-base lg:text-lg xl:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-white to-blue-200 mb-1 sm:mb-2 leading-tight tracking-normal" 
                   dir="rtl"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
@@ -262,15 +262,15 @@ export function Hero() {
                 </motion.blockquote>
               </motion.div>
 
-              {/* English Verse */}
+              {/* English Verse - Ultra Compact */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1.8 }}
-                className="mb-8"
+                className="mb-2 sm:mb-3 lg:mb-4"
               >
                 <motion.blockquote 
-                  className="text-lg md:text-xl lg:text-2xl font-semibold text-blue-100 leading-relaxed italic tracking-wide"
+                  className="text-xs sm:text-sm lg:text-base font-semibold text-blue-100 leading-tight italic tracking-normal"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -280,52 +280,52 @@ export function Hero() {
                 </motion.blockquote>
               </motion.div>
 
-              {/* Bible Reference */}
+              {/* Bible Reference - Compact */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.0 }}
                 className="relative"
               >
-                <div className="flex items-center justify-center space-x-4 mb-4">
+                <div className="flex items-center justify-center space-x-2 sm:space-x-3 lg:space-x-4 mb-2 sm:mb-3 lg:mb-4">
                   <motion.div 
-                    className="w-16 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-orange-500"
+                    className="w-8 sm:w-12 lg:w-16 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-orange-500"
                     initial={{ width: 0 }}
-                    animate={{ width: 64 }}
+                    animate={{ width: 32 }}
                     transition={{ duration: 1.5, delay: 2.2 }}
                   />
                   <motion.span 
-                    className="text-yellow-300 font-bold text-lg px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 shadow-lg"
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    className="text-yellow-300 font-bold text-xs sm:text-sm lg:text-base px-2 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 shadow-lg"
+                    whileHover={{ scale: 1.05, y: -1 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
                     ኤፌሶን 3፥18-19 / Ephesians 3:18-19
                   </motion.span>
                   <motion.div 
-                    className="w-16 h-0.5 bg-gradient-to-r from-orange-500 via-yellow-400 to-transparent"
+                    className="w-8 sm:w-12 lg:w-16 h-0.5 bg-gradient-to-r from-orange-500 via-yellow-400 to-transparent"
                     initial={{ width: 0 }}
-                    animate={{ width: 64 }}
+                    animate={{ width: 32 }}
                     transition={{ duration: 1.5, delay: 2.2 }}
                   />
                 </div>
               </motion.div>
 
-              {/* Inspirational Tagline */}
+              {/* Inspirational Tagline - Minimal */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.4 }}
-                className="mt-8"
+                className="mt-2 sm:mt-3 lg:mt-4"
               >
                 <motion.p
-                  className="text-blue-200 text-sm md:text-base font-medium italic"
+                  className="text-blue-200 text-xs sm:text-sm font-medium italic"
                   animate={{ opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 3, repeat: Infinity }}
                 >
                   Exploring the infinite dimensions of Christ's love through faith and intellect
                 </motion.p>
                 <motion.p
-                  className="text-blue-200 text-sm font-medium mt-1" 
+                  className="text-blue-200 text-xs font-medium mt-0.5 sm:mt-1" 
                   dir="rtl"
                   animate={{ opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
