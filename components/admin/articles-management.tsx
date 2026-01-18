@@ -230,7 +230,7 @@ export function ArticlesManagement() {
 
       {/* Articles Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredArticles.map((article) => (
+        {filteredArticles.map((article: any) => (
           <div key={article.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-200">
             {/* Cover Image */}
             <div className="aspect-[16/9] relative overflow-hidden bg-gray-200 dark:bg-gray-700">
