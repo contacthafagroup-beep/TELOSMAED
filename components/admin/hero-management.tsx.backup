@@ -1,0 +1,1069 @@
+'use client'
+
+import { useState } from 'react'
+import { 
+  PhotoIcon,
+  VideoCameraIcon,
+  PlusIcon,
+  PencilIcon,
+  TrashIcon,
+  EyeIcon,
+  XMarkIcon,
+  PlayIcon,
+  PauseIcon,
+  BookOpenIcon,
+  SparklesIcon,
+  CalendarIcon,
+  CheckCircleIcon,
+  ArrowUpTrayIcon
+} from '@heroicons/react/24/outline'
+import { useHeroCategories, useHeroVideo, useHeroMagazine } from '@/lib/hooks/use-hero-api'
+
+interface CategoryCard {
+  id: number
+  nameEn: string
+  nameAm: string
+  descEn: string
+  descAm: string
+  icon: string
+  color: string
+  href: string
+  amharicTitle: string
+  amharicDescription: string
+  features: string[]
+  isActive: boolean
+  order: number
+}
+
+interface HeroVideo {
+  id: number
+  title: string
+  titleAm: string
+  description: string
+  descriptionAm: string
+  videoUrl: string
+  isActive: boolean
+}
+
+interface MagazineCover {
+  id: number
+  title: string
+  titleAm: string
+  subtitle: string
+  subtitleAm: string
+  coverImage: string
+  issue: string
+  publishDate: string
+  isActive: boolean
+}
+
+export default function HeroManagement() {
+  const [activeTab, setActiveTab] = useState('categories')
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState<'category' | 'video' | 'magazine'>('category')
+  const [selectedItem, setSelectedItem] = useState<any>(null)
+  const [showPreview, setShowPreview] = useState(false)
+  const [previewType, setPreviewType] = useState<'video' | 'magazine' | null>(null)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+
+  // Use API hooks instead of mock data
+  const { 
+    categories, 
+    loading: categoriesLoading, 
+    error: categoriesError,
+    updateCategory, 
+    createCategory, 
+    deleteCategory 
+  } = useHeroCategories()
+  
+  const { 
+    video: heroVideo, 
+    loading: videoLoading, 
+    error: videoError,
+    updateVideo 
+  } = useHeroVideo()
+  
+  const { 
+    magazine: magazineCover, 
+    loading: magazineLoading, 
+    error: magazineError,
+    updateMagazine 
+  } = useHeroMagazine()
+      nameEn: 'Leadership',
+      nameAm: 'የመሪ በትር',
+      descEn: 'Leadership',
+      descAm: 'የመሪ በትር',
+      icon: '👑',
+      color: 'from-purple-500/10 to-purple-600/10 border-purple-200',
+      href: '/articles?category=leadership',
+      amharicTitle: 'የመሪ በትር - አመራር',
+      amharicDescription: 'የመሪ በትር ክፍል የክርስቲያን አመራር ላይ የሚያተኩር ክፍል ነው።',
+      features: ['የክርስቲያን አመራር መርሆዎች', 'የቤተክርስቲያን አመራር', 'የንግድ እና ሙያ አመራር', 'የማህበረሰብ ተጽዕኖ'],
+      isActive: true,
+      order: 3
+    },
+    {
+      id: 4,
+      nameEn: 'Poetry',
+      nameAm: 'ግጥም',
+      descEn: 'Poetry',
+      descAm: 'ግጥም',
+      icon: '🎭',
+      color: 'from-rose-500/10 to-rose-600/10 border-rose-200',
+      href: '/poetry',
+      amharicTitle: 'ግጥም - የመንፈሳዊ ግጥም',
+      amharicDescription: 'ግጥም ክፍል የመንፈሳዊ ግጥሞች እና የፈጠራ ጽሑፎች የሚገኙበት ክፍል ነው።',
+      features: ['የመንፈሳዊ ግጥሞች', 'የአምልኮ እና ምስጋና ግጥሞች', 'የወጣት ገጣሚዎች ስራዎች', 'የፈጠራ አምልኮ መግለጫዎች'],
+      isActive: true,
+      order: 4
+    }
+  ])
+
+  // Mock data for hero video
+  const [heroVideo, setHeroVideo] = useState<HeroVideo>({
+    id: 1,
+    title: 'Watch Our Story',
+    titleAm: 'የእኛን ታሪክ ይመልከቱ',
+    description: 'Discover Our Mission',
+    descriptionAm: 'ተልእኳችንን ያውቁ',
+    videoUrl: '',
+    isActive: true
+  })
+
+  // Mock data for magazine cover
+  const [magazineCover, setMagazineCover] = useState<MagazineCover>({
+    id: 1,
+    title: 'TELOS MAED',
+    titleAm: 'ቴሎስ ማዕድ',
+    subtitle: 'Where Faith Meets Intellect',
+    subtitleAm: 'እምነት እና ምሁራዊነት የሚገናኙበት',
+    coverImage: '/images/magazine-cover.jpg',
+    issue: 'Latest Issue',
+    publishDate: '2024-01-15',
+    isActive: true
+  })
+
+  const openModal = (type: 'category' | 'video' | 'magazine', item?: any) => {
+    setModalType(type)
+    setSelectedItem(item || null)
+    setShowModal(true)
+  }
+
+  const closeModal = () => {
+    setShowModal(false)
+    setSelectedItem(null)
+  }
+
+  const toggleActive = (type: 'category' | 'video' | 'magazine', id: number) => {
+    if (type === 'category') {
+      setCategories(cats => 
+        cats.map(cat => cat.id === id ? { ...cat, isActive: !cat.isActive } : cat)
+      )
+    } else if (type === 'video') {
+      setHeroVideo(prev => ({ ...prev, isActive: !prev.isActive }))
+    } else if (type === 'magazine') {
+      setMagazineCover(prev => ({ ...prev, isActive: !prev.isActive }))
+    }
+  }
+
+  const handleSaveVideo = (formData: FormData) => {
+    const updatedVideo = {
+      ...heroVideo,
+      title: formData.get('title') as string,
+      titleAm: formData.get('titleAm') as string,
+      description: formData.get('description') as string,
+      descriptionAm: formData.get('descriptionAm') as string,
+      videoUrl: formData.get('videoUrl') as string,
+      isActive: formData.get('isActive') === 'on'
+    }
+    setHeroVideo(updatedVideo)
+    closeModal()
+  }
+
+  const handleSaveMagazine = (formData: FormData) => {
+    const updatedMagazine = {
+      ...magazineCover,
+      title: formData.get('title') as string,
+      titleAm: formData.get('titleAm') as string,
+      subtitle: formData.get('subtitle') as string,
+      subtitleAm: formData.get('subtitleAm') as string,
+      issue: formData.get('issue') as string,
+      publishDate: formData.get('publishDate') as string,
+      isActive: formData.get('isActive') === 'on'
+    }
+    setMagazineCover(updatedMagazine)
+    closeModal()
+  }
+
+  const handleSaveCategory = (formData: FormData) => {
+    const features = (formData.get('features') as string).split(',').map(f => f.trim())
+    
+    if (selectedItem) {
+      // Update existing category
+      setCategories(cats =>
+        cats.map(cat =>
+          cat.id === selectedItem.id
+            ? {
+                ...cat,
+                nameEn: formData.get('nameEn') as string,
+                nameAm: formData.get('nameAm') as string,
+                descEn: formData.get('descEn') as string,
+                descAm: formData.get('descAm') as string,
+                amharicTitle: formData.get('amharicTitle') as string,
+                amharicDescription: formData.get('amharicDescription') as string,
+                features,
+                icon: formData.get('icon') as string,
+                href: formData.get('href') as string,
+                order: parseInt(formData.get('order') as string),
+                color: formData.get('color') as string,
+                isActive: formData.get('isActive') === 'on'
+              }
+            : cat
+        )
+      )
+    } else {
+      // Add new category
+      const newCategory: CategoryCard = {
+        id: Math.max(...categories.map(c => c.id)) + 1,
+        nameEn: formData.get('nameEn') as string,
+        nameAm: formData.get('nameAm') as string,
+        descEn: formData.get('descEn') as string,
+        descAm: formData.get('descAm') as string,
+        amharicTitle: formData.get('amharicTitle') as string,
+        amharicDescription: formData.get('amharicDescription') as string,
+        features,
+        icon: formData.get('icon') as string,
+        href: formData.get('href') as string,
+        order: parseInt(formData.get('order') as string),
+        color: formData.get('color') as string,
+        isActive: formData.get('isActive') === 'on'
+      }
+      setCategories([...categories, newCategory])
+    }
+    closeModal()
+  }
+
+  const handleThumbnailUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setMagazineCover(prev => ({ ...prev, coverImage: reader.result as string }))
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const openPreview = (type: 'video' | 'magazine') => {
+    setPreviewType(type)
+    setShowPreview(true)
+  }
+
+  const closePreview = () => {
+    setShowPreview(false)
+    setPreviewType(null)
+  }
+
+  const renderCategoryManagement = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-xl font-semibold text-gray-900">Category Cards</h3>
+          <p className="text-sm text-gray-600 mt-1">Manage the 4 category cards displayed on the hero section</p>
+        </div>
+        <button
+          onClick={() => openModal('category')}
+          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+        >
+          <PlusIcon className="w-5 h-5 mr-2" />
+          Add Category
+        </button>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {categories.map((category) => (
+          <div key={category.id} className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div className={`p-6 bg-gradient-to-br ${category.color}`}>
+              <div className="flex items-start justify-between mb-4">
+                <div className="text-4xl">{category.icon}</div>
+                <div className="flex space-x-2">
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${category.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                    {category.isActive ? 'Active' : 'Inactive'}
+                  </span>
+                  <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    Order: {category.order}
+                  </span>
+                </div>
+              </div>
+              
+              <h4 className="font-bold text-gray-900 text-lg mb-2">{category.nameAm}</h4>
+              <p className="text-sm text-gray-700 mb-1">{category.nameEn}</p>
+              <p className="text-xs text-gray-600">{category.href}</p>
+            </div>
+            
+            <div className="p-4 bg-gray-50">
+              <div className="mb-3">
+                <p className="text-xs font-medium text-gray-500 mb-1">Amharic Title:</p>
+                <p className="text-sm text-gray-900">{category.amharicTitle}</p>
+              </div>
+              
+              <div className="mb-3">
+                <p className="text-xs font-medium text-gray-500 mb-1">Features:</p>
+                <ul className="text-xs text-gray-700 space-y-1">
+                  {category.features.slice(0, 2).map((feature, idx) => (
+                    <li key={idx} className="flex items-center">
+                      <span className="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>
+                      {feature}
+                    </li>
+                  ))}
+                  {category.features.length > 2 && (
+                    <li className="text-gray-500">+{category.features.length - 2} more...</li>
+                  )}
+                </ul>
+              </div>
+              
+              <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+                <button
+                  onClick={() => toggleActive('category', category.id)}
+                  className={`p-2 rounded ${category.isActive ? 'text-orange-600 hover:text-orange-800' : 'text-green-600 hover:text-green-800'}`}
+                >
+                  {category.isActive ? <PauseIcon className="w-5 h-5" /> : <PlayIcon className="w-5 h-5" />}
+                </button>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => openModal('category', category)}
+                    className="p-2 text-blue-600 hover:text-blue-800"
+                  >
+                    <PencilIcon className="w-5 h-5" />
+                  </button>
+                  <button className="p-2 text-red-600 hover:text-red-800">
+                    <TrashIcon className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
+  const renderVideoManagement = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-xl font-semibold text-gray-900">Hero Story Video</h3>
+          <p className="text-sm text-gray-600 mt-1">Manage the "Watch Our Story" video modal</p>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden max-w-2xl">
+        <div className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+          {heroVideo.videoUrl ? (
+            <video 
+              src={heroVideo.videoUrl} 
+              controls
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="text-center text-white">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-4">
+                <PlayIcon className="h-8 w-8 ml-1" />
+              </div>
+              <h4 className="text-2xl font-bold mb-2">{heroVideo.title}</h4>
+              <p className="text-lg opacity-80">{heroVideo.description}</p>
+            </div>
+          )}
+          
+          <div className="absolute top-3 right-3 flex space-x-2 z-10">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium ${heroVideo.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+              {heroVideo.isActive ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+        </div>
+        
+        <div className="p-6">
+          <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">English Title:</p>
+              <p className="text-sm text-gray-900 font-medium">{heroVideo.title}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">Amharic Title:</p>
+              <p className="text-sm text-gray-900 font-medium">{heroVideo.titleAm}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">English Description:</p>
+              <p className="text-sm text-gray-900">{heroVideo.description}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">Amharic Description:</p>
+              <p className="text-sm text-gray-900">{heroVideo.descriptionAm}</p>
+            </div>
+            {heroVideo.videoUrl && (
+              <div className="md:col-span-2">
+                <p className="text-xs font-medium text-gray-500 mb-1">Video URL:</p>
+                <p className="text-sm text-gray-900 truncate">{heroVideo.videoUrl}</p>
+              </div>
+            )}
+          </div>
+          
+          <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+            <button
+              onClick={() => toggleActive('video', heroVideo.id)}
+              className={`inline-flex items-center px-4 py-2 rounded-lg transition-colors ${heroVideo.isActive ? 'bg-orange-100 text-orange-700 hover:bg-orange-200' : 'bg-green-100 text-green-700 hover:bg-green-200'}`}
+            >
+              {heroVideo.isActive ? <PauseIcon className="w-5 h-5 mr-2" /> : <PlayIcon className="w-5 h-5 mr-2" />}
+              {heroVideo.isActive ? 'Deactivate' : 'Activate'}
+            </button>
+            <div className="flex space-x-2">
+              <button 
+                onClick={() => openPreview('video')}
+                className="inline-flex items-center px-4 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
+              >
+                <EyeIcon className="w-5 h-5 mr-2" />
+                Preview
+              </button>
+              <button
+                onClick={() => openModal('video', heroVideo)}
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <PencilIcon className="w-5 h-5 mr-2" />
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Note about backend integration */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div className="flex items-start">
+          <svg className="w-5 h-5 text-yellow-600 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          <div>
+            <h4 className="text-sm font-medium text-yellow-800 mb-1">Backend Integration Required</h4>
+            <p className="text-sm text-yellow-700">
+              Changes are currently saved locally in the admin panel. To make these changes visible on the main website, 
+              you need to connect this to your backend API. The data should be stored in your database and fetched by the main website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderMagazineManagement = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-xl font-semibold text-gray-900">Interactive Magazine Cover</h3>
+          <p className="text-sm text-gray-600 mt-1">Manage the 3D interactive magazine displayed on the hero section</p>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden max-w-2xl">
+        <div className="relative aspect-[3/4] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center p-8">
+          {magazineCover.coverImage ? (
+            <img 
+              src={magazineCover.coverImage} 
+              alt="Magazine cover" 
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="text-center text-white relative z-10">
+              <BookOpenIcon className="w-24 h-24 mx-auto mb-6 opacity-80" />
+              <h4 className="text-4xl font-bold mb-3">{magazineCover.title}</h4>
+              <p className="text-xl mb-2">{magazineCover.subtitle}</p>
+              <p className="text-lg opacity-90">{magazineCover.issue}</p>
+            </div>
+          )}
+          
+          <div className="absolute top-3 right-3 z-20">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium ${magazineCover.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+              {magazineCover.isActive ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+        </div>
+        
+        <div className="p-6">
+          <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">English Title:</p>
+              <p className="text-sm text-gray-900 font-medium">{magazineCover.title}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">Amharic Title:</p>
+              <p className="text-sm text-gray-900 font-medium">{magazineCover.titleAm}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">English Subtitle:</p>
+              <p className="text-sm text-gray-900">{magazineCover.subtitle}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">Amharic Subtitle:</p>
+              <p className="text-sm text-gray-900">{magazineCover.subtitleAm}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">Issue:</p>
+              <p className="text-sm text-gray-900">{magazineCover.issue}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-gray-500 mb-1">Publish Date:</p>
+              <p className="text-sm text-gray-900">{magazineCover.publishDate}</p>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+            <button
+              onClick={() => toggleActive('magazine', magazineCover.id)}
+              className={`inline-flex items-center px-4 py-2 rounded-lg transition-colors ${magazineCover.isActive ? 'bg-orange-100 text-orange-700 hover:bg-orange-200' : 'bg-green-100 text-green-700 hover:bg-green-200'}`}
+            >
+              {magazineCover.isActive ? <PauseIcon className="w-5 h-5 mr-2" /> : <PlayIcon className="w-5 h-5 mr-2" />}
+              {magazineCover.isActive ? 'Deactivate' : 'Activate'}
+            </button>
+            <div className="flex space-x-2">
+              <button 
+                onClick={() => openPreview('magazine')}
+                className="inline-flex items-center px-4 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
+              >
+                <EyeIcon className="w-5 h-5 mr-2" />
+                Preview
+              </button>
+              <button
+                onClick={() => openModal('magazine', magazineCover)}
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <PencilIcon className="w-5 h-5 mr-2" />
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderModal = () => {
+    if (!showModal) return null
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+      
+      if (modalType === 'video') {
+        handleSaveVideo(formData)
+      } else if (modalType === 'magazine') {
+        handleSaveMagazine(formData)
+      } else if (modalType === 'category') {
+        handleSaveCategory(formData)
+      }
+    }
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+          <div className="p-6 border-b border-gray-200">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-gray-900">
+                {selectedItem ? 'Edit' : 'Add'} {modalType === 'category' ? 'Category Card' : modalType === 'video' ? 'Hero Video' : 'Magazine Cover'}
+              </h3>
+              <button
+                onClick={closeModal}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            {modalType === 'category' && (
+              <>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">English Name</label>
+                    <input
+                      type="text"
+                      defaultValue={selectedItem?.nameEn || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Editorial"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Name</label>
+                    <input
+                      type="text"
+                      defaultValue={selectedItem?.nameAm || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="የአዘጋጁ ማስታወሻ"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">English Description</label>
+                    <input
+                      type="text"
+                      defaultValue={selectedItem?.descEn || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Editorial"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Description</label>
+                    <input
+                      type="text"
+                      defaultValue={selectedItem?.descAm || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="የአዘጋጁ ማስታወሻ"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Title (for modal)</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedItem?.amharicTitle || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="የአዘጋጁ ማስታወሻ - Editorial"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Description (for modal)</label>
+                  <textarea
+                    rows={4}
+                    defaultValue={selectedItem?.amharicDescription || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Full Amharic description for the modal popup..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Features (comma-separated)</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedItem?.features?.join(', ') || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Feature 1, Feature 2, Feature 3"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Icon (emoji)</label>
+                    <input
+                      type="text"
+                      defaultValue={selectedItem?.icon || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="✍️"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Link (href)</label>
+                    <input
+                      type="text"
+                      defaultValue={selectedItem?.href || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="/articles?category=editorial"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Order</label>
+                    <input
+                      type="number"
+                      defaultValue={selectedItem?.order || 1}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="1"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Color Classes</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedItem?.color || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="from-blue-500/10 to-blue-600/10 border-blue-200"
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    defaultChecked={selectedItem?.isActive !== false}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">Active</span>
+                </div>
+              </>
+            )}
+
+            {modalType === 'video' && (
+              <>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">English Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={selectedItem?.title || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Watch Our Story"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Title</label>
+                    <input
+                      type="text"
+                      name="titleAm"
+                      defaultValue={selectedItem?.titleAm || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="የእኛን ታሪክ ይመልከቱ"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">English Description</label>
+                    <input
+                      type="text"
+                      name="description"
+                      defaultValue={selectedItem?.description || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Discover Our Mission"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Description</label>
+                    <input
+                      type="text"
+                      name="descriptionAm"
+                      defaultValue={selectedItem?.descriptionAm || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="ተልእኳችንን ያውቁ"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Video URL</label>
+                  <input
+                    type="url"
+                    name="videoUrl"
+                    defaultValue={selectedItem?.videoUrl || ''}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="https://example.com/video.mp4 or YouTube/Vimeo URL"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Enter a direct video URL or embed URL from YouTube/Vimeo</p>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    defaultChecked={selectedItem?.isActive !== false}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    id="video-active"
+                  />
+                  <label htmlFor="video-active" className="ml-2 text-sm text-gray-700">Active</label>
+                </div>
+              </>
+            )}
+
+            {modalType === 'magazine' && (
+              <>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">English Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={selectedItem?.title || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="TELOS MAED"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Title</label>
+                    <input
+                      type="text"
+                      name="titleAm"
+                      defaultValue={selectedItem?.titleAm || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="ቴሎስ ማዕድ"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">English Subtitle</label>
+                    <input
+                      type="text"
+                      name="subtitle"
+                      defaultValue={selectedItem?.subtitle || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Where Faith Meets Intellect"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Amharic Subtitle</label>
+                    <input
+                      type="text"
+                      name="subtitleAm"
+                      defaultValue={selectedItem?.subtitleAm || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="እምነት እና ምሁራዊነት የሚገናኙበት"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Issue</label>
+                    <input
+                      type="text"
+                      name="issue"
+                      defaultValue={selectedItem?.issue || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Latest Issue"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
+                    <input
+                      type="date"
+                      name="publishDate"
+                      defaultValue={selectedItem?.publishDate || ''}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
+                  {magazineCover.coverImage && (
+                    <div className="mb-3">
+                      <img 
+                        src={magazineCover.coverImage} 
+                        alt="Current cover" 
+                        className="w-full h-64 object-cover rounded-lg"
+                      />
+                    </div>
+                  )}
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer">
+                    <PhotoIcon className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                    <p className="text-sm text-gray-600 mb-2">Click to upload cover image</p>
+                    <input 
+                      type="file" 
+                      onChange={handleThumbnailUpload}
+                      accept="image/*" 
+                      className="hidden" 
+                      id="cover-upload"
+                    />
+                    <label 
+                      htmlFor="cover-upload"
+                      className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 cursor-pointer transition-colors"
+                    >
+                      <ArrowUpTrayIcon className="w-5 h-5 mr-2" />
+                      Choose File
+                    </label>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    defaultChecked={selectedItem?.isActive !== false}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    id="magazine-active"
+                  />
+                  <label htmlFor="magazine-active" className="ml-2 text-sm text-gray-700">Active</label>
+                </div>
+              </>
+            )}
+
+            <div className="flex space-x-3 pt-4 border-t border-gray-200">
+              <button
+                type="submit"
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              >
+                {selectedItem ? 'Update' : 'Create'}
+              </button>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Hero Section Management</h2>
+        <p className="text-gray-600">Manage the hero section components: category cards, story video, and interactive magazine</p>
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="border-b border-gray-200">
+        <nav className="-mb-px flex space-x-8">
+          <button
+            onClick={() => setActiveTab('categories')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'categories'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <SparklesIcon className="w-5 h-5 inline mr-2" />
+            Category Cards (4)
+          </button>
+          <button
+            onClick={() => setActiveTab('video')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'video'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <VideoCameraIcon className="w-5 h-5 inline mr-2" />
+            Story Video
+          </button>
+          <button
+            onClick={() => setActiveTab('magazine')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'magazine'
+                ? 'border-blue-500 text-blue-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <BookOpenIcon className="w-5 h-5 inline mr-2" />
+            Magazine Cover
+          </button>
+        </nav>
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'categories' && renderCategoryManagement()}
+      {activeTab === 'video' && renderVideoManagement()}
+      {activeTab === 'magazine' && renderMagazineManagement()}
+
+      {/* Modal */}
+      {renderModal()}
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Preview: {previewType === 'video' ? 'Hero Story Video' : 'Magazine Cover'}
+                </h3>
+                <button
+                  onClick={closePreview}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <XMarkIcon className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6">
+              {previewType === 'video' && (
+                <div className="space-y-4">
+                  <div className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden flex items-center justify-center">
+                    {heroVideo.videoUrl ? (
+                      <video 
+                        src={heroVideo.videoUrl} 
+                        controls
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="relative z-10 text-center text-white">
+                        <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-4">
+                          <PlayIcon className="h-8 w-8 ml-1" />
+                        </div>
+                        <h4 className="text-3xl font-bold mb-2">{heroVideo.title}</h4>
+                        <p className="text-xl opacity-80 mb-2">{heroVideo.description}</p>
+                        <p className="text-lg opacity-70">{heroVideo.titleAm}</p>
+                        <p className="text-base opacity-60">{heroVideo.descriptionAm}</p>
+                      </div>
+                    )}
+                  </div>
+                  {heroVideo.videoUrl && (
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-sm font-medium text-gray-700 mb-1">Video URL:</p>
+                      <p className="text-sm text-gray-600 break-all">{heroVideo.videoUrl}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {previewType === 'magazine' && (
+                <div className="space-y-4">
+                  <div className="relative aspect-[3/4] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 rounded-xl overflow-hidden flex items-center justify-center p-8">
+                    {magazineCover.coverImage ? (
+                      <img 
+                        src={magazineCover.coverImage} 
+                        alt="Magazine cover" 
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : null}
+                    <div className="relative z-10 text-center text-white">
+                      <BookOpenIcon className="w-24 h-24 mx-auto mb-6 opacity-80" />
+                      <h4 className="text-4xl font-bold mb-3">{magazineCover.title}</h4>
+                      <p className="text-2xl mb-2">{magazineCover.titleAm}</p>
+                      <p className="text-xl mb-2">{magazineCover.subtitle}</p>
+                      <p className="text-lg opacity-90 mb-2">{magazineCover.subtitleAm}</p>
+                      <p className="text-lg opacity-80">{magazineCover.issue}</p>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <p className="text-sm font-medium text-gray-700 mb-1">Publish Date:</p>
+                    <p className="text-sm text-gray-600">{magazineCover.publishDate}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 border-t border-gray-200">
+              <button
+                onClick={closePreview}
+                className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Close Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

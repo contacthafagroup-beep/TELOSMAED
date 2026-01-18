@@ -1,0 +1,312 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("READER") // READER, CONTRIBUTOR, EDITOR, ADMIN
+  bio       String?
+  avatar    String?
+  location  String?
+  website   String?
+  social    String?  // Social media links as JSON string
+  verified  Boolean  @default(false)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  articles     Article[]
+  poems        Poem[]
+  comments     Comment[]
+  likes        Like[]
+  bookmarks    Bookmark[]
+  submissions  Submission[]
+  newsletters  NewsletterSubscription[]
+
+  @@map("users")
+}
+
+model Article {
+  id          String      @id @default(cuid())
+  title       String
+  titleAm     String?     // Amharic title
+  slug        String      @unique
+  excerpt     String?
+  excerptAm   String?     // Amharic excerpt
+  content     String
+  contentAm   String?     // Amharic content
+  category    String      // EDITORIAL, PERSONAL, LEADERSHIP, POETRY
+  tags        String      // Comma-separated tags
+  featured    Boolean     @default(false)
+  published   Boolean     @default(false)
+  publishedAt DateTime?
+  readTime    Int?        // in minutes
+  views       Int         @default(0)
+  likes       Int         @default(0)
+  shares      Int         @default(0)
+  seoTitle    String?
+  seoDescription String?
+  coverImage  String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    String
+  issue       Issue?      @relation(fields: [issueId], references: [id])
+  issueId     String?
+  comments    Comment[]
+  articleLikes Like[]
+  bookmarks   Bookmark[]
+
+  @@map("articles")
+}
+
+model Poem {
+  id          String   @id @default(cuid())
+  title       String
+  titleAm     String?  // Amharic title
+  slug        String   @unique
+  content     String
+  contentAm   String?  // Amharic content
+  type        String   @default("SPIRITUAL") // SPIRITUAL, WORSHIP, PRAISE, REFLECTION
+  featured    Boolean  @default(false)
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  views       Int      @default(0)
+  likes       Int      @default(0)
+  shares      Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  issue       Issue?   @relation(fields: [issueId], references: [id])
+  issueId     String?
+  comments    Comment[]
+  poemLikes   Like[]
+  bookmarks   Bookmark[]
+
+  @@map("poems")
+}
+
+model Issue {
+  id          String   @id @default(cuid())
+  title       String
+  titleAm     String?  // Amharic title
+  slug        String   @unique
+  description String?
+  descriptionAm String? // Amharic description
+  coverImage  String?
+  theme       String?  // Issue theme
+  month       Int      // 1-12
+  year        Int
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  featured    Boolean  @default(false)
+  downloadUrl String?  // PDF download link
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  articles    Article[]
+  poems       Poem[]
+
+  @@unique([month, year])
+  @@map("issues")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  article   Article? @relation(fields: [articleId], references: [id])
+  articleId String?
+  poem      Poem?    @relation(fields: [poemId], references: [id])
+  poemId    String?
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId  String?
+  replies   Comment[] @relation("CommentReplies")
+
+  @@map("comments")
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  article   Article? @relation(fields: [articleId], references: [id])
+  articleId String?
+  poem      Poem?    @relation(fields: [poemId], references: [id])
+  poemId    String?
+
+  @@unique([userId, articleId])
+  @@unique([userId, poemId])
+  @@map("likes")
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  article   Article? @relation(fields: [articleId], references: [id])
+  articleId String?
+  poem      Poem?    @relation(fields: [poemId], references: [id])
+  poemId    String?
+
+  @@unique([userId, articleId])
+  @@unique([userId, poemId])
+  @@map("bookmarks")
+}
+
+model Submission {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  type        String   // ARTICLE, POEM, TESTIMONY
+  category    String?
+  status      String   @default("PENDING") // PENDING, UNDER_REVIEW, APPROVED, REJECTED
+  feedback    String?
+  submittedAt DateTime @default(now())
+  reviewedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+
+  @@map("submissions")
+}
+
+model NewsletterSubscription {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  active      Boolean  @default(true)
+  preferences String?  // Subscription preferences as JSON string
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+
+  @@map("newsletter_subscriptions")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  type      String   @default("GENERAL") // GENERAL, SUBMISSION, PARTNERSHIP, SUPPORT
+  status    String   @default("NEW") // NEW, READ, REPLIED, CLOSED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_messages")
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  path      String
+  views     Int      @default(1)
+  date      DateTime @default(now())
+  userAgent String?
+  country   String?
+  referrer  String?
+
+  @@unique([path, date])
+  @@map("analytics")
+}
+
+model Settings {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  type  String @default("STRING") // STRING, NUMBER, BOOLEAN, JSON
+
+  @@map("settings")
+}
+
+model HeroCategory {
+  id                   Int      @id @default(autoincrement())
+  nameEn               String
+  nameAm               String
+  descEn               String
+  descAm               String
+  icon                 String
+  color                String
+  href                 String
+  amharicTitle         String
+  amharicDescription   String
+  features             String   // JSON array of strings
+  isActive             Boolean  @default(true)
+  order                Int
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@map("hero_categories")
+}
+
+model HeroVideo {
+  id             Int      @id @default(autoincrement())
+  title          String
+  titleAm        String
+  description    String
+  descriptionAm  String
+  videoUrl       String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("hero_videos")
+}
+
+model EditorialCategory {
+  id                Int      @id @default(autoincrement())
+  icon              String
+  nameAm            String
+  nameEn            String
+  color             String   // e.g., "from-blue-500 to-blue-600"
+  bgColor           String   // e.g., "from-blue-50 to-blue-100"
+  descriptionAm     String
+  descriptionEn     String
+  featuresAm        String   // JSON array of strings
+  featuresEn        String   // JSON array of strings
+  articles          Int      @default(0)
+  readers           String   @default("0")
+  rating            String   @default("0")
+  order             Int      @default(0)
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("editorial_categories")
+}
