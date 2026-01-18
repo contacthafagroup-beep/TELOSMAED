@@ -135,13 +135,9 @@ export function Header() {
   return (
     <>
       <motion.header 
-        style={{ y: headerY, opacity: headerOpacity }}
-        className={`sticky top-0 z-50 transition-all duration-500 ${
-          scrolled 
-            ? 'bg-light-word/95 dark:bg-dark-bg/95 backdrop-blur-xl shadow-2xl border-b border-primary-200/30 dark:border-primary-700/30' 
-            : 'bg-light-word/90 dark:bg-dark-bg/90 backdrop-blur-lg border-b border-gray-200/20 dark:border-dark-border/20'
-        }`} 
         style={{ 
+          y: headerY, 
+          opacity: headerOpacity,
           zIndex: 1000,
           background: scrolled 
             ? `linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%)` 
@@ -150,6 +146,11 @@ export function Header() {
             ? '0 20px 60px rgba(31, 60, 136, 0.1), 0 0 0 1px rgba(31, 60, 136, 0.05) inset'
             : '0 10px 30px rgba(0, 0, 0, 0.05)'
         }}
+        className={`sticky top-0 z-50 transition-all duration-500 ${
+          scrolled 
+            ? 'bg-light-word/95 dark:bg-dark-bg/95 backdrop-blur-xl shadow-2xl border-b border-primary-200/30 dark:border-primary-700/30' 
+            : 'bg-light-word/90 dark:bg-dark-bg/90 backdrop-blur-lg border-b border-gray-200/20 dark:border-dark-border/20'
+        }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
