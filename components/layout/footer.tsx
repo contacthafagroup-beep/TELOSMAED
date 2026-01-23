@@ -12,93 +12,10 @@ import {
   UsersIcon,
   GlobeAltIcon,
   ArrowRightIcon,
-  SparklesIcon,
-  StarIcon
+  SparklesIcon
 } from '@heroicons/react/24/outline'
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 
 export function Footer() {
-  const content = {
-    brand: {
-      description: 'An Evangelical Christian intellectual magazine focused on faith, leadership, youth culture, and creative worship. Where faith meets intellect.',
-      mission: {
-        title: 'Our Mission',
-        text: 'To equip, inspire, and connect young Christian leaders, thinkers, and creatives as they navigate faith in the modern world.'
-      },
-      contact: {
-        email: 'telosmaed@gmail.com',
-        phone: '+251924749060',
-        location: 'Global Community • 45+ Countries'
-      }
-    },
-    stats: [
-      { label: 'Active Readers', value: '15K+', icon: UsersIcon },
-      { label: 'Countries Reached', value: '45+', icon: GlobeAltIcon },
-      { label: 'Articles Published', value: '500+', icon: BookOpenIcon },
-      { label: 'Community Rating', value: '4.9★', icon: SparklesIcon },
-    ],
-    navigation: {
-      main: {
-        title: 'Navigation',
-        items: [
-          { name: 'Home', href: '/', description: 'Welcome to TELOS MAED' },
-          { name: 'Articles', href: '/articles', description: 'Thoughtful Christian content' },
-          { name: 'Poetry', href: '/poetry', description: 'Creative expressions of faith' },
-          { name: 'About', href: '/about', description: 'Our story and mission' },
-          { name: 'Submit', href: '/submit', description: 'Share your voice' },
-          { name: 'Contact', href: '/contact', description: 'Get in touch with us' },
-        ]
-      },
-      categories: {
-        title: 'Categories',
-        items: [
-          { name: 'Editorial Notes', href: '/articles?category=editorial', description: 'Editorial insights' },
-          { name: 'Personal Growth', href: '/articles?category=personal', description: 'Personal development' },
-          { name: 'Leadership', href: '/articles?category=leadership', description: 'Leadership wisdom' },
-          { name: 'Poetry', href: '/poetry', description: 'Poetry and creative writing' },
-        ]
-      },
-      resources: {
-        title: 'Resources',
-        items: [
-          { name: 'Study Guides', href: '/resources/study-guides', description: 'Biblical study materials' },
-          { name: 'Prayer Resources', href: '/resources/prayer', description: 'Spiritual growth tools' },
-          { name: 'Reading Plans', href: '/resources/reading-plans', description: 'Structured learning paths' },
-          { name: 'Community Guidelines', href: '/community/guidelines', description: 'How we engage together' },
-        ]
-      },
-      community: {
-        title: 'Community',
-        items: [
-          { name: 'Discussion Forums', href: '/community/forums', description: 'Join the conversation' },
-          { name: 'Events', href: '/community/events', description: 'Upcoming gatherings' },
-          { name: 'Prayer Requests', href: '/community/prayer', description: 'Share and pray together' },
-          { name: 'Testimonies', href: '/community/testimonies', description: 'Stories of faith' },
-        ]
-      }
-    },
-    social: {
-      title: 'Connect With Us',
-      subtitle: 'Join our community across social platforms'
-    },
-    newsletter: {
-      title: 'Stay Updated with Our Newsletter',
-      description: 'Get weekly insights, new articles, and community updates delivered to your inbox',
-      button: 'Subscribe Free'
-    },
-    legal: [
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cookie Policy', href: '/cookies' },
-      { name: 'Accessibility', href: '/accessibility' },
-    ],
-    copyright: {
-      text: 'All rights reserved.',
-      love: 'Made with love for the global Christian community'
-    },
-    description: 'TELOS MAED is a global Christian intellectual magazine committed to biblical truth, academic excellence, and cultural engagement. We serve young Christian leaders, thinkers, and creatives across 45+ countries with thoughtful content that bridges faith and reason.'
-  }
-
   const socialIcons = [
     {
       name: 'Facebook',
@@ -147,178 +64,166 @@ export function Footer() {
   ]
 
   return (
-    <footer className="relative overflow-hidden">
-      {/* Simple Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900"></div>
-      </div>
+    <footer className="bg-white border-t border-[#E3E4E6]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Footer Content - Mobile Compact, Desktop Original */}
+        <div className="py-6 sm:py-8 lg:py-12">
+          
+          {/* Header Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-6 sm:mb-8 lg:mb-12"
+          >
+            <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#203685] mb-3">
+              Live purposefully and lead effectively!
+            </h2>
+            <div className="w-16 h-1 bg-[#203685] mx-auto rounded-full"></div>
+          </motion.div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 text-white">
-        {/* Compact Brand & Stats Section */}
-        <div className="mb-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 items-center">
-            {/* Brand Section */}
-            <div className="space-y-3">
-              <Link href="/" className="inline-flex items-center space-x-2 group">
-                <Logo className="h-8 w-auto" />
+          {/* Responsive Grid Layout - Mobile: 2 cols, Desktop: Original */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 lg:mb-12"
+          >
+            
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1 lg:col-span-1">
+              <Link href="/" className="inline-flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-4 group">
+                <Logo className="h-8 sm:h-10 w-auto" />
                 <div>
-                  <span className="font-display text-xl font-black bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent group-hover:from-blue-400 group-hover:to-purple-500 transition-colors duration-150">
+                  <span className="font-display text-base sm:text-xl font-bold text-[#203685] group-hover:opacity-80 transition-opacity">
                     TELOS MAED
                   </span>
+                  <div className="text-xs text-gray-500 font-medium">
+                    CHRISTIAN MAGAZINE
+                  </div>
                 </div>
               </Link>
               
-              <p className="text-white/80 leading-relaxed max-w-md text-sm">
-                {content.brand.description}
-              </p>
-
               {/* Contact Info */}
-              <div className="space-y-1.5">
-                <div className="flex items-center text-white/70 text-xs">
-                  <EnvelopeIcon className="h-3 w-3 mr-2 text-blue-400" />
-                  <a href={`mailto:${content.brand.contact.email}`} className="hover:text-white transition-colors duration-150">
-                    {content.brand.contact.email}
+              <div className="space-y-1 sm:space-y-2">
+                <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                  <EnvelopeIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#203685]" />
+                  <a href="mailto:telosmaed@gmail.com" className="hover:text-[#203685] transition-colors">
+                    telosmaed@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center text-white/70 text-xs">
-                  <PhoneIcon className="h-3 w-3 mr-2 text-green-400" />
-                  <a href={`tel:${content.brand.contact.phone}`} className="hover:text-white transition-colors duration-150">
-                    {content.brand.contact.phone}
+                <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                  <PhoneIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#203685]" />
+                  <a href="tel:+251924749060" className="hover:text-[#203685] transition-colors">
+                    +251 924 749 060
                   </a>
-                </div>
-                <div className="flex items-center text-white/70 text-xs">
-                  <MapPinIcon className="h-3 w-3 mr-2 text-purple-400" />
-                  <span>{content.brand.contact.location}</span>
                 </div>
               </div>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {content.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20 text-center group hover:bg-white/20 transition-colors duration-150"
-                >
-                  <stat.icon className="h-5 w-5 text-yellow-400 mx-auto mb-1.5" />
-                  <div className="text-lg font-bold text-white mb-0.5">{stat.value}</div>
-                  <div className="text-xs text-white/60">{stat.label}</div>
-                </div>
-              ))}
+            {/* Quick Links */}
+            <div>
+              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-sm sm:text-base">Quick Links</h3>
+              <ul className="space-y-1 sm:space-y-2">
+                {[
+                  { name: 'Home', href: '/' },
+                  { name: 'Articles', href: '/articles' },
+                  { name: 'Poetry', href: '/poetry' },
+                  { name: 'About', href: '/about' },
+                  { name: 'Submit', href: '/submit' },
+                  { name: 'Contact', href: '/contact' },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-gray-600 hover:text-[#203685] transition-colors text-xs sm:text-sm flex items-center group"
+                    >
+                      <ArrowRightIcon className="h-2 w-2 sm:h-3 sm:w-3 mr-1 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        </div>
 
-        {/* Compact Navigation Grid */}
-        <div className="grid gap-4 md:grid-cols-2 mb-6">
-          {/* Main Navigation */}
-          <div>
-            <h3 className="text-xs font-bold text-white mb-3 flex items-center">
-              <BookOpenIcon className="h-3 w-3 mr-1.5 text-blue-400" />
-              {content.navigation.main.title}
-            </h3>
-            <ul className="space-y-1.5">
-              {content.navigation.main.items.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="group flex items-start space-x-1.5 text-white/70 hover:text-white transition-colors duration-150 text-xs"
-                  >
-                    <ArrowRightIcon className="h-2.5 w-2.5 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-                    <span className="font-medium">{item.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Categories */}
+            <div>
+              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-sm sm:text-base">Categories</h3>
+              <ul className="space-y-1 sm:space-y-2">
+                {[
+                  { name: 'የአዘጋጁ ማስታወሻ', href: '/articles?category=editorial' },
+                  { name: 'ሰውነት', href: '/articles?category=personal' },
+                  { name: 'የመሪ በትር', href: '/articles?category=leadership' },
+                  { name: 'ግጥም', href: '/poetry' },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-gray-600 hover:text-[#203685] transition-colors text-xs sm:text-sm flex items-center group font-serif"
+                    >
+                      <ArrowRightIcon className="h-2 w-2 sm:h-3 sm:w-3 mr-1 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
 
-          {/* Categories */}
-          <div>
-            <h3 className="text-xs font-bold text-white mb-3 flex items-center">
-              <SparklesIcon className="h-3 w-3 mr-1.5 text-purple-400" />
-              {content.navigation.categories.title}
-            </h3>
-            <ul className="space-y-1.5">
-              {content.navigation.categories.items.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="group flex items-start space-x-1.5 text-white/70 hover:text-white transition-colors duration-150 text-xs"
-                  >
-                    <ArrowRightIcon className="h-2.5 w-2.5 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-                    <span className="font-medium">{item.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Compact Social & Newsletter Section */}
-        <div className="mb-4">
-          {/* Social Media */}
-          <div className="text-center mb-4">
-            <h3 className="text-sm font-bold text-white mb-3">{content.social.title}</h3>
-            
-            <div className="flex justify-center space-x-2">
+          {/* Social Media Section - Desktop Style */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h3 className="font-semibold text-[#203685] mb-3 sm:mb-4 text-sm sm:text-base">Connect With Us</h3>
+            <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">
+              Join our community across social platforms and stay updated with the latest content.
+            </p>
+            <div className="flex justify-center space-x-2 sm:space-x-3">
               {socialIcons.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="group flex items-center justify-center w-8 h-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-white/70 hover:text-white hover:bg-white/20 transition-all duration-150"
+                  className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white border-2 border-[#E3E4E6] rounded-lg text-[#203685] hover:border-[#203685] hover:bg-[#203685] hover:text-white transition-all duration-300 group"
                 >
                   <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-4 w-4" aria-hidden="true" />
+                  <item.icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                 </a>
               ))}
             </div>
-          </div>
-
-          {/* Newsletter CTA */}
-          <div>
-            <div className="bg-gradient-to-r from-white/10 to-white/5 rounded-lg p-3 border border-white/20 text-center">
-              <h3 className="text-sm font-bold text-white mb-1.5">
-                {content.newsletter.title}
-              </h3>
-              <p className="text-white/70 mb-2 text-xs">
-                {content.newsletter.description}
-              </p>
-              <div>
-                <Link
-                  href="#newsletter"
-                  className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-bold rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-150 shadow-md"
-                >
-                  <EnvelopeIcon className="h-3 w-3 mr-1.5" />
-                  {content.newsletter.button}
-                  <ArrowRightIcon className="h-3 w-3 ml-1.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-white/20 pt-4">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0">
-            {/* Legal Links */}
-            <div className="flex flex-wrap gap-3 text-xs">
-              {content.legal.map((link) => (
+        {/* Bottom Bar */}
+        <div className="border-t border-[#E3E4E6] py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+            <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm">
+              {[
+                { name: 'Privacy Policy', href: '/privacy' },
+                { name: 'Terms of Service', href: '/terms' },
+                { name: 'Cookie Policy', href: '/cookies' },
+              ].map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-white/60 hover:text-white transition-colors duration-150"
+                  className="text-gray-500 hover:text-[#203685] transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
             </div>
-
-            {/* Copyright */}
-            <div className="flex items-center text-xs text-white/60">
-              <span>&copy; {new Date().getFullYear()} TELOS MAED. {content.copyright.text}</span>
+            <div className="flex items-center text-xs sm:text-sm text-gray-500">
+              <span>&copy; {new Date().getFullYear()} TELOS MAED. All rights reserved.</span>
             </div>
           </div>
         </div>
+
       </div>
     </footer>
   )

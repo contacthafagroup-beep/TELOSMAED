@@ -140,64 +140,62 @@ export function Header() {
           opacity: headerOpacity,
           zIndex: 1000,
           background: scrolled 
-            ? `linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%)` 
-            : `linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.95) 100%)`,
+            ? `rgba(255, 255, 255, 0.98)` 
+            : `rgba(255, 255, 255, 0.95)`,
           boxShadow: scrolled 
-            ? '0 20px 60px rgba(31, 60, 136, 0.1), 0 0 0 1px rgba(31, 60, 136, 0.05) inset'
-            : '0 10px 30px rgba(0, 0, 0, 0.05)'
+            ? '0 4px 20px rgba(32, 54, 133, 0.1), 0 0 0 1px rgba(227, 228, 230, 0.5)'
+            : '0 2px 10px rgba(32, 54, 133, 0.05)'
         }}
         className={`sticky top-0 z-50 transition-all duration-500 ${
           scrolled 
-            ? 'bg-light-word/95 dark:bg-dark-bg/95 backdrop-blur-xl shadow-2xl border-b border-primary-200/30 dark:border-primary-700/30' 
-            : 'bg-light-word/90 dark:bg-dark-bg/90 backdrop-blur-lg border-b border-gray-200/20 dark:border-dark-border/20'
+            ? 'backdrop-blur-xl border-b border-[#E3E4E6]' 
+            : 'backdrop-blur-lg border-b border-[#E3E4E6]/50'
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* SPECTACULAR Background Effects */}
+        {/* Brand Color Background Effects */}
         <motion.div 
-          className="absolute inset-0 opacity-20 pointer-events-none"
+          className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(31, 60, 136, 0.15) 0%, transparent 50%)`
+            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(32, 54, 133, 0.1) 0%, transparent 50%)`
           }}
           animate={{
-            opacity: isHovered ? 0.3 : 0.1
+            opacity: isHovered ? 0.15 : 0.05
           }}
           transition={{ duration: 0.3 }}
         />
         
-        {/* Animated Light Ray */}
+        {/* Subtle Brand Accent */}
         <motion.div
-          className="absolute inset-0 opacity-10 pointer-events-none"
+          className="absolute inset-0 opacity-5 pointer-events-none"
           style={{
-            background: `linear-gradient(90deg, transparent 0%, rgba(244, 196, 48, 0.3) ${mousePosition.x}%, transparent 100%)`
+            background: `linear-gradient(90deg, transparent 0%, rgba(32, 54, 133, 0.1) ${mousePosition.x}%, transparent 100%)`
           }}
           animate={{
-            opacity: isHovered ? 0.2 : 0.05
+            opacity: isHovered ? 0.1 : 0.03
           }}
         />
         
-        {/* Floating Particles */}
+        {/* Minimal Floating Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+          {[...Array(6)].map((_, i) => (
             <motion.div
               key={`nav-particle-${i}`}
-              className="absolute w-1 h-1 rounded-full"
+              className="absolute w-1 h-1 rounded-full bg-[#203685]/20"
               style={{
-                background: `linear-gradient(45deg, ${i % 3 === 0 ? '#1F3C88' : i % 3 === 1 ? '#F4C430' : '#2F56B0'}, transparent)`,
-                left: `${10 + i * 12}%`,
-                top: `${20 + (i % 2) * 60}%`,
+                left: `${15 + i * 15}%`,
+                top: `${30 + (i % 2) * 40}%`,
               }}
               animate={{
-                y: [0, -10, 0],
-                x: [0, Math.sin(i) * 5, 0],
-                opacity: [0.2, 0.8, 0.2],
-                scale: [0.5, 1.2, 0.5]
+                y: [0, -8, 0],
+                opacity: [0.1, 0.3, 0.1],
+                scale: [0.5, 1, 0.5]
               }}
               transition={{
                 duration: 4 + i * 0.5,
                 repeat: Infinity,
-                delay: i * 0.3,
+                delay: i * 0.5,
                 ease: "easeInOut"
               }}
             />
@@ -228,31 +226,24 @@ export function Header() {
                   }}
                   transition={{ duration: 0.5 }}
                 >
-                  <Logo className="h-8 w-auto relative z-10" />
+                  <Logo className="h-10 sm:h-12 w-auto relative z-10" />
                 </motion.div>
                 
                 <div className="flex flex-col relative z-10">
                   <motion.span 
-                    className="font-display text-lg xl:text-xl font-semibold relative"
-                    style={{
-                      background: 'linear-gradient(135deg, #1F3C88 0%, #F4C430 50%, #2F56B0 100%)',
-                      backgroundSize: '200% 200%',
-                      WebkitBackgroundClip: 'text',
-                      backgroundClip: 'text',
-                      color: 'transparent',
-                      WebkitTextFillColor: 'transparent'
+                    className="font-display text-xl sm:text-2xl font-semibold text-[#203685]"
+                    whileHover={{ 
+                      opacity: 0.8,
+                      scale: 1.02
                     }}
-                    animate={{
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                    }}
-                    transition={{ duration: 6, repeat: Infinity }}
+                    transition={{ duration: 0.3 }}
                   >
                     TELOS MAED
                   </motion.span>
                   <motion.span 
-                    className="text-xs text-wisdom dark:text-dark-secondary font-medium tracking-wide xl:tracking-wider"
+                    className="text-xs sm:text-sm text-gray-600 font-medium tracking-wide"
                     whileHover={{ 
-                      color: '#1F3C88',
+                      color: '#203685',
                       scale: 1.05
                     }}
                   >
@@ -305,10 +296,10 @@ export function Header() {
                         href={item.href}
                         className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 overflow-hidden group whitespace-nowrap ${
                           pathname === item.href
-                            ? 'text-light-word bg-gradient-to-r from-primary-600 to-secondary-600 shadow-lg'
+                            ? 'text-white bg-[#203685] shadow-lg'
                             : item.highlight
-                            ? 'text-light-word bg-gradient-to-r from-glory-500 to-glory-600 hover:from-glory-600 hover:to-glory-700 shadow-lg hover:shadow-xl'
-                            : 'text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 dark:hover:from-primary-900/20 dark:hover:to-secondary-900/20'
+                            ? 'text-white bg-[#203685] hover:bg-[#203685]/90 shadow-lg hover:shadow-xl'
+                            : 'text-gray-700 hover:text-[#203685] hover:bg-gray-50 border border-transparent hover:border-[#E3E4E6]'
                         }`}
                       >
                         {/* Animated Background */}
@@ -343,8 +334,8 @@ export function Header() {
                         }}
                         className={`flex items-center space-x-1 px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 group relative overflow-hidden whitespace-nowrap ${
                           pathname.startsWith(item.href)
-                            ? 'text-primary-600 dark:text-dark-primary bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 shadow-lg'
-                            : 'text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 dark:hover:from-primary-900/20 dark:hover:to-secondary-900/20'
+                            ? 'text-[#203685] bg-gray-50 border border-[#E3E4E6] shadow-sm'
+                            : 'text-gray-700 hover:text-[#203685] hover:bg-gray-50 border border-transparent hover:border-[#E3E4E6]'
                         }`}
                         whileHover={{ scale: 1.02, y: -1 }}
                         whileTap={{ scale: 0.98 }}
@@ -489,7 +480,7 @@ export function Header() {
               {/* Enhanced Search Button */}
               <motion.button
                 onClick={() => setSearchOpen(true)}
-                className="p-2 xl:p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden"
+                className="p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
                 aria-label="Search"
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
@@ -530,7 +521,7 @@ export function Header() {
               {/* Enhanced Notifications Button */}
               <motion.button
                 onClick={() => setNotificationsOpen(true)}
-                className="p-2 xl:p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden"
+                className="p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
                 aria-label="Notifications"
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
@@ -585,10 +576,10 @@ export function Header() {
                 <UserMenu />
               </motion.div>
               
-              {/* SPECTACULAR Mobile Menu Button */}
+              {/* Mobile Menu Button */}
               <motion.button
                 type="button"
-                className="lg:hidden p-2 xl:p-3 text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden"
+                className="lg:hidden p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
@@ -629,7 +620,7 @@ export function Header() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className="lg:hidden border-t border-gray-200 dark:border-dark-border overflow-hidden"
+                className="lg:hidden border-t border-[#E3E4E6] overflow-hidden"
               >
                 <div className="py-3 space-y-1 w-full overflow-hidden">
                   {navigation.map((item) => (
@@ -639,10 +630,10 @@ export function Header() {
                           href={item.href}
                           className={`block px-3 py-2 text-sm font-medium rounded-lg mx-2 transition-all duration-200 truncate ${
                             pathname === item.href
-                              ? 'text-primary-600 dark:text-dark-primary bg-primary-50 dark:bg-primary-900/20'
+                              ? 'text-[#203685] bg-gray-50 border border-[#E3E4E6]'
                               : item.highlight
-                              ? 'text-light-word bg-primary-600'
-                              : 'text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary hover:bg-scripture dark:hover:bg-dark-card'
+                              ? 'text-white bg-[#203685]'
+                              : 'text-gray-700 hover:text-[#203685] hover:bg-gray-50'
                           }`}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -650,7 +641,7 @@ export function Header() {
                         </Link>
                       ) : (
                         <div className="w-full">
-                          <div className="px-3 py-1.5 text-xs font-semibold text-primary-600 dark:text-dark-primary uppercase tracking-wider mx-2">
+                          <div className="px-3 py-1.5 text-xs font-semibold text-[#203685] uppercase tracking-wider mx-2">
                             {item.name}
                           </div>
                           {item.dropdownItems?.map((dropdownItem) => (
@@ -659,8 +650,8 @@ export function Header() {
                               href={dropdownItem.href}
                               className={`flex items-start space-x-2 px-4 py-2 text-xs rounded-lg mx-2 transition-all duration-200 ${
                                 pathname === dropdownItem.href
-                                  ? 'text-primary-600 dark:text-dark-primary bg-primary-50 dark:bg-primary-900/20'
-                                  : 'text-wisdom dark:text-dark-secondary hover:text-primary-600 dark:hover:text-dark-primary hover:bg-scripture dark:hover:bg-dark-card'
+                                  ? 'text-[#203685] bg-gray-50 border border-[#E3E4E6]'
+                                  : 'text-gray-700 hover:text-[#203685] hover:bg-gray-50'
                               }`}
                               onClick={() => setMobileMenuOpen(false)}
                             >
