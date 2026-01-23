@@ -78,22 +78,11 @@ export function Hero() {
           
           {/* Content */}
           <div className="text-center">
-            {/* Premium Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 text-blue-700 text-sm font-medium rounded-full mb-4 sm:mb-6 lg:mb-8 shadow-sm"
-            >
-              <SparklesIcon className="h-4 w-4 mr-2" />
-              Premium Christian Magazine
-            </motion.div>
-
-            {/* Enhanced Main Title */}
+            {/* Enhanced Main Title - Moved Up */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
               className="mb-4 sm:mb-6 lg:mb-8"
             >
               <motion.h1 
@@ -115,9 +104,9 @@ export function Hero() {
                 className="text-lg sm:text-xl lg:text-2xl font-serif text-amber-600 font-medium"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
               >
-                Where Faith Meets Intellect
+                Live purposefully and lead effectively!
               </motion.p>
             </motion.div>
 
@@ -125,7 +114,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               className="max-w-2xl mx-auto mb-6 sm:mb-8 lg:mb-12"
             >
               <p className="text-lg text-slate-600 leading-relaxed mb-3">
@@ -143,7 +132,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 lg:mb-12"
             >
               {/* Read Latest Issue Button */}
@@ -192,7 +181,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
           className="mt-4 sm:mt-6 lg:mt-12"
         >
           <div className="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 rounded-lg sm:rounded-xl lg:rounded-2xl p-2 sm:p-4 lg:p-6 xl:p-8 shadow-2xl border border-indigo-300/20 max-w-5xl mx-auto overflow-hidden">
