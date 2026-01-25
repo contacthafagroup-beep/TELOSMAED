@@ -109,13 +109,13 @@ export function Footer() {
               
               {/* Contact Info */}
               <div className="space-y-1 sm:space-y-2">
-                <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                <div className="flex items-center text-gray-600 text-sm sm:text-sm">
                   <EnvelopeIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#203685]" />
                   <a href="mailto:telosmaed@gmail.com" className="hover:text-[#203685] transition-colors">
                     telosmaed@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                <div className="flex items-center text-gray-600 text-sm sm:text-sm">
                   <PhoneIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#203685]" />
                   <a href="tel:+251924749060" className="hover:text-[#203685] transition-colors">
                     +251 924 749 060
@@ -126,7 +126,7 @@ export function Footer() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-sm sm:text-base">Quick Links</h3>
+              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-base sm:text-base">Quick Links</h3>
               <ul className="space-y-1 sm:space-y-2">
                 {[
                   { name: 'Home', href: '/' },
@@ -139,7 +139,7 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-gray-600 hover:text-[#203685] transition-colors text-xs sm:text-sm flex items-center group"
+                      className="text-gray-600 hover:text-[#203685] transition-colors text-sm sm:text-sm flex items-center group"
                     >
                       <ArrowRightIcon className="h-2 w-2 sm:h-3 sm:w-3 mr-1 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {item.name}
@@ -151,7 +151,7 @@ export function Footer() {
 
             {/* Categories */}
             <div>
-              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-sm sm:text-base">Categories</h3>
+              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-base sm:text-base">Categories</h3>
               <ul className="space-y-1 sm:space-y-2">
                 {[
                   { name: 'የአዘጋጁ ማስታወሻ', href: '/articles?category=editorial' },
@@ -162,7 +162,7 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-gray-600 hover:text-[#203685] transition-colors text-xs sm:text-sm flex items-center group font-serif"
+                      className="text-gray-600 hover:text-[#203685] transition-colors text-sm sm:text-sm flex items-center group font-serif"
                     >
                       <ArrowRightIcon className="h-2 w-2 sm:h-3 sm:w-3 mr-1 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {item.name}
@@ -181,8 +181,8 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h3 className="font-semibold text-[#203685] mb-3 sm:mb-4 text-sm sm:text-base">Connect With Us</h3>
-            <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">
+            <h3 className="font-semibold text-[#203685] mb-3 sm:mb-4 text-base sm:text-base">Connect With Us</h3>
+            <p className="text-gray-600 text-sm sm:text-sm mb-3 sm:mb-4">
               Join our community across social platforms and stay updated with the latest content.
             </p>
             <div className="flex justify-center space-x-2 sm:space-x-3">
@@ -203,7 +203,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-[#E3E4E6] py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-            <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm">
+            <div className="flex flex-wrap gap-3 sm:gap-4 text-sm sm:text-sm">
               {[
                 { name: 'Privacy Policy', href: '/privacy' },
                 { name: 'Terms of Service', href: '/terms' },
@@ -218,7 +218,7 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-            <div className="flex items-center text-xs sm:text-sm text-gray-500">
+            <div className="flex items-center text-sm sm:text-sm text-gray-500">
               <span>&copy; {new Date().getFullYear()} TELOS MAED. All rights reserved.</span>
             </div>
           </div>
