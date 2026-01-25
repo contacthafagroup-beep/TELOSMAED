@@ -30,7 +30,7 @@ export function Mission() {
           </h2>
           <div className="w-16 h-1 bg-[#203685] mx-auto rounded-full mb-4"></div>
           <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-            Empowering young Christians to live purposefully and lead effectively through faith-centered content and community.
+            Empowering young Christians to live purposefully lead effectively through faith-centered content and community.
           </p>
         </motion.div>
 

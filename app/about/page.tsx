@@ -21,7 +21,7 @@ export default function AboutPage() {
             TELOS MAED
           </h1>
           <p className="text-xl text-[#E3E4E6]">
-            Live Purposefully and Lead Effectively!
+            Live Purposefully Lead Effectively!
           </p>
         </div>
       </section>

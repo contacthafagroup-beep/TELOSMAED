@@ -79,7 +79,7 @@ export function Footer() {
             className="text-center mb-6 sm:mb-8 lg:mb-12"
           >
             <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#203685] mb-3">
-              Live purposefully and lead effectively!
+              Live purposefully lead effectively!
             </h2>
             <div className="w-16 h-1 bg-[#203685] mx-auto rounded-full"></div>
           </motion.div>

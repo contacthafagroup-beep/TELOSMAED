@@ -106,7 +106,7 @@ export function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
               >
-                Live purposefully and lead effectively!
+                Live purposefully lead effectively!
               </motion.p>
             </motion.div>
 
