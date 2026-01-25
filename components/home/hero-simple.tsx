@@ -43,7 +43,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-start justify-center bg-gray-50 pt-0">
       {/* Hero Image Container with Margins and Border Radius */}
-      <div className="relative mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 w-full max-w-7xl h-screen sm:h-[55vh] lg:h-[85vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
+      <div className="relative mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 w-full max-w-7xl h-[85vh] sm:h-[55vh] lg:h-[85vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{

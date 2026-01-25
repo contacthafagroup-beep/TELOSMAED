@@ -33,7 +33,8 @@ import {
   ChatBubbleLeftRightIcon,
   UserGroupIcon,
   SparklesIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightOnRectangleIcon,
+  Bars3Icon
 } from '@heroicons/react/24/outline'
 import { 
   useAdminStats, 
@@ -50,6 +51,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('dashboard')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedLanguage, setSelectedLanguage] = useState('en')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleLogout = () => {
     clearAuthToken()
@@ -137,14 +139,14 @@ export default function AdminDashboard() {
     return (
     <div className="space-y-8">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total Articles</p>
-              <p className="text-3xl font-bold text-gray-900">{stats?.totalArticles || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{stats?.totalArticles || 0}</p>
             </div>
-            <DocumentTextIcon className="w-12 h-12 text-blue-500" />
+            <DocumentTextIcon className="w-8 h-8 sm:w-12 sm:h-12 text-blue-500" />
           </div>
           <div className="mt-4 flex items-center text-sm">
             <ArrowUpIcon className="w-4 h-4 text-green-500 mr-1" />
@@ -152,13 +154,13 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total Users</p>
-              <p className="text-3xl font-bold text-gray-900">{stats?.totalUsers?.toLocaleString() || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{stats?.totalUsers?.toLocaleString() || 0}</p>
             </div>
-            <UsersIcon className="w-12 h-12 text-green-500" />
+            <UsersIcon className="w-8 h-8 sm:w-12 sm:h-12 text-green-500" />
           </div>
           <div className="mt-4 flex items-center text-sm">
             <ArrowUpIcon className="w-4 h-4 text-green-500 mr-1" />
@@ -166,13 +168,13 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Monthly Views</p>
-              <p className="text-3xl font-bold text-gray-900">{stats?.monthlyViews?.toLocaleString() || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{stats?.monthlyViews?.toLocaleString() || 0}</p>
             </div>
-            <ChartBarIcon className="w-12 h-12 text-purple-500" />
+            <ChartBarIcon className="w-8 h-8 sm:w-12 sm:h-12 text-purple-500" />
           </div>
           <div className="mt-4 flex items-center text-sm">
             <ArrowUpIcon className="w-4 h-4 text-green-500 mr-1" />
@@ -180,13 +182,13 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
-              <p className="text-3xl font-bold text-gray-900">{stats?.pendingReviews || 0}</p>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900">{stats?.pendingReviews || 0}</p>
             </div>
-            <ClockIcon className="w-12 h-12 text-orange-500" />
+            <ClockIcon className="w-8 h-8 sm:w-12 sm:h-12 text-orange-500" />
           </div>
           <div className="mt-4 flex items-center text-sm">
             {stats?.pendingReviews && stats.pendingReviews > 0 ? (
@@ -205,12 +207,12 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         <div className="bg-white rounded-xl shadow-lg border border-gray-100">
-          <div className="p-6 border-b border-gray-200">
+          <div className="p-4 sm:p-6 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900">Recent Articles</h3>
           </div>
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {articlesLoading ? (
               <div className="space-y-4">
                 {[...Array(4)].map((_, i) => (
@@ -248,11 +250,11 @@ export default function AdminDashboard() {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg border border-gray-100">
-          <div className="p-6 border-b border-gray-200">
+          <div className="p-4 sm:p-6 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-900">Quick Actions</h3>
           </div>
-          <div className="p-6">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="p-4 sm:p-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <button className="flex flex-col items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200">
                 <PlusIcon className="w-8 h-8 text-blue-600 mb-2" />
                 <span className="text-sm font-medium text-blue-900">New Article</span>
@@ -305,40 +307,40 @@ export default function AdminDashboard() {
       </div>
 
       {/* User Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center">
-            <UserGroupIcon className="w-8 h-8 text-blue-500 mr-3" />
+            <UserGroupIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mr-3" />
             <div>
               <p className="text-sm font-medium text-gray-600">Total Users</p>
-              <p className="text-2xl font-bold text-gray-900">{stats?.totalUsers?.toLocaleString() || 0}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats?.totalUsers?.toLocaleString() || 0}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center">
-            <EnvelopeIcon className="w-8 h-8 text-green-500 mr-3" />
+            <EnvelopeIcon className="w-6 h-6 sm:w-8 sm:h-8 text-green-500 mr-3" />
             <div>
               <p className="text-sm font-medium text-gray-600">Subscribers</p>
-              <p className="text-2xl font-bold text-gray-900">{stats?.subscribers?.toLocaleString() || 0}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{stats?.subscribers?.toLocaleString() || 0}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center">
-            <PencilIcon className="w-8 h-8 text-purple-500 mr-3" />
+            <PencilIcon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500 mr-3" />
             <div>
               <p className="text-sm font-medium text-gray-600">Contributors</p>
-              <p className="text-2xl font-bold text-gray-900">{formattedUsers.filter((u: any) => u.role === 'contributor').length}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{formattedUsers.filter((u: any) => u.role === 'contributor').length}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-gray-100">
           <div className="flex items-center">
-            <CogIcon className="w-8 h-8 text-orange-500 mr-3" />
+            <CogIcon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-500 mr-3" />
             <div>
               <p className="text-sm font-medium text-gray-600">Admins</p>
-              <p className="text-2xl font-bold text-gray-900">{formattedUsers.filter((u: any) => u.role === 'admin').length}</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">{formattedUsers.filter((u: any) => u.role === 'admin').length}</p>
             </div>
           </div>
         </div>
@@ -346,7 +348,61 @@ export default function AdminDashboard() {
 
       {/* Users Table */}
       <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
+        {/* Mobile Cards View */}
+        <div className="block sm:hidden">
+          <div className="p-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900">Users</h3>
+          </div>
+          {formattedUsers.length > 0 ? (
+            <div className="divide-y divide-gray-200">
+              {formattedUsers.map((user: any) => (
+                <div key={user.id} className="p-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium flex-shrink-0">
+                      {user.name.split(' ').map((n: string) => n[0]).join('')}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-medium text-gray-900 truncate">{user.name}</h4>
+                        <div className="flex space-x-1">
+                          <button className="text-blue-600 hover:text-blue-900">
+                            <EyeIcon className="w-4 h-4" />
+                          </button>
+                          <button className="text-green-600 hover:text-green-900">
+                            <PencilIcon className="w-4 h-4" />
+                          </button>
+                          <button className="text-red-600 hover:text-red-900">
+                            <TrashIcon className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex space-x-2">
+                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {user.role}
+                          </span>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user.status)}`}>
+                            {user.status}
+                          </span>
+                        </div>
+                        <span className="text-xs text-gray-500">{user.joined}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="p-8 text-center text-gray-500">
+              <UsersIcon className="h-12 w-12 mx-auto mb-2 text-gray-400" />
+              <p>No users found</p>
+            </div>
+          )}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
@@ -771,19 +827,25 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">TELOS MAED Admin</h1>
+              <button
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 mr-2"
+              >
+                <Bars3Icon className="w-6 h-6" />
+              </button>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">TELOS MAED Admin</h1>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <button className="p-2 text-gray-400 hover:text-gray-600">
-                <BellIcon className="w-6 h-6" />
+                <BellIcon className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                className="flex items-center space-x-2 px-2 sm:px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors duration-200"
                 title="Logout"
               >
-                <ArrowRightOnRectangleIcon className="w-5 h-5" />
-                <span className="text-sm font-medium">Logout</span>
+                <ArrowRightOnRectangleIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-sm font-medium hidden sm:inline">Logout</span>
               </button>
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium">
                 A
@@ -793,23 +855,36 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex relative">
+        {/* Mobile Sidebar Overlay */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Sidebar */}
-        <nav className="w-64 bg-white shadow-sm min-h-screen">
+        <nav className={`${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white shadow-sm min-h-screen transition-transform duration-300 ease-in-out lg:transition-none`}>
           <div className="p-4">
             <div className="space-y-2">
               {navigationItems.map((item: any) => (
                 <button
                   key={item.id}
-                  onClick={() => setActiveTab(item.id)}
+                  onClick={() => {
+                    setActiveTab(item.id)
+                    setSidebarOpen(false) // Close sidebar on mobile after selection
+                  }}
                   className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors duration-200 ${
                     activeTab === item.id
                       ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-600'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`}
                 >
-                  <item.icon className="w-5 h-5 mr-3" />
-                  {item.label}
+                  <item.icon className="w-5 h-5 mr-3 flex-shrink-0" />
+                  <span className="truncate">{item.label}</span>
                 </button>
               ))}
             </div>
@@ -817,7 +892,7 @@ export default function AdminDashboard() {
         </nav>
 
         {/* Main Content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 lg:ml-0">
           {renderContent()}
         </main>
       </div>
