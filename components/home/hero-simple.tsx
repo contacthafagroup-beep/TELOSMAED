@@ -43,7 +43,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-start justify-center bg-gray-50 pt-0">
       {/* Hero Image Container with Margins and Border Radius */}
-      <div className="relative mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 w-full max-w-7xl h-[45vh] sm:h-[55vh] lg:h-[85vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
+      <div className="relative mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 w-full max-w-7xl h-screen sm:h-[55vh] lg:h-[85vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -79,19 +79,19 @@ export function Hero() {
         </div>
       </div>
       
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 sm:py-8 lg:py-16">
+      <div className="absolute inset-0 flex items-center justify-center z-10 pb-0 sm:pb-0 lg:pb-0">
+        <div className="max-w-4xl mx-auto px-4 py-4 sm:py-8 lg:py-16 text-center w-full">
           {/* Centered Content */}
-          <div className="text-center">
+          <div className="flex flex-col justify-end h-full min-h-[60vh] sm:min-h-[50vh] lg:min-h-[75vh]">
             {/* Enhanced Main Title - Moved Up */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-4 sm:mb-6 lg:mb-8"
+              className="mb-2 sm:mb-6 lg:mb-8"
             >
               <motion.h1 
-                className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-7xl text-white mb-3 sm:mb-4 lg:mb-6 drop-shadow-lg"
+                className="font-display font-bold text-xl sm:text-4xl lg:text-5xl xl:text-7xl text-white mb-1 sm:mb-4 lg:mb-6 drop-shadow-lg"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -99,14 +99,14 @@ export function Hero() {
               </motion.h1>
               
               <motion.div 
-                className="w-20 sm:w-24 lg:w-32 h-1 bg-white mx-auto mb-3 sm:mb-4 lg:mb-6 rounded-full"
+                className="w-12 sm:w-24 lg:w-32 h-1 bg-white mx-auto mb-1 sm:mb-4 lg:mb-6 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: 128 }}
                 transition={{ duration: 1, delay: 0.8 }}
               />
               
               <motion.p 
-                className="text-lg sm:text-xl lg:text-2xl font-serif text-white font-medium drop-shadow-md"
+                className="text-sm sm:text-xl lg:text-2xl font-serif text-white font-medium drop-shadow-md"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
@@ -115,15 +115,15 @@ export function Hero() {
               </motion.p>
             </motion.div>
 
-            {/* Amharic Bible Verse Description - Desktop Only */}
+            {/* Amharic Bible Verse Description - All Devices */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-12 hidden lg:block"
+              className="max-w-3xl mx-4 sm:mx-6 lg:mx-auto mb-2 sm:mb-8 lg:mb-12 px-3 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-6 bg-black/20 rounded-lg sm:rounded-xl backdrop-blur-sm"
             >
               <motion.p 
-                className="text-lg sm:text-xl text-white leading-relaxed font-serif italic drop-shadow-md"
+                className="text-xs sm:text-xl text-white leading-tight font-serif italic drop-shadow-md text-center"
                 dir="rtl"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -131,7 +131,7 @@ export function Hero() {
                 "ከቅዱሳን ሁሉ ጋር ስፋቱና ርዝመቱ ከፍታውም ጥልቅነቱም ምን ያህል መሆኑን ለማስተዋል፥ ከመታወቅም የሚያልፈውን የክርስቶስን ፍቅር ለማወቅ ትበረቱ ዘንድ፥ እስከ እግዚአብሔርም ፍጹም ሙላት ደርሳችሁ ትሞሉ ዘንድ።"
               </motion.p>
               <motion.p 
-                className="text-base sm:text-lg font-medium text-white mt-2 sm:mt-3 drop-shadow-sm"
+                className="text-xs sm:text-lg font-medium text-white mt-1 sm:mt-3 drop-shadow-sm text-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -145,7 +145,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 lg:mb-12"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4 sm:mb-8 lg:mb-12"
             >
               {/* Read Latest Issue Button */}
               <motion.div
@@ -154,14 +154,14 @@ export function Hero() {
               >
                 <Link
                   href="/articles"
-                  className="inline-flex items-center gap-4 px-10 py-5 bg-[#203685] text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl hover:bg-[#203685]/90 transition-all duration-300 group"
+                  className="inline-flex items-center gap-2 sm:gap-4 px-6 sm:px-10 py-3 sm:py-5 bg-[#203685] text-white font-semibold sm:font-bold text-sm sm:text-lg rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-xl sm:hover:shadow-2xl hover:bg-[#203685]/90 transition-all duration-300 group"
                 >
-                  <BookOpenIcon className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                  <BookOpenIcon className="h-4 w-4 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform" />
                   <div className="text-left">
-                    <div className="text-lg">Read Latest Articles</div>
-                    <div className="text-sm opacity-90 font-normal">Discover Deep Truths</div>
+                    <div className="text-sm sm:text-lg">Read Latest Articles</div>
+                    <div className="text-xs sm:text-sm opacity-90 font-normal hidden sm:block">Discover Deep Truths</div>
                   </div>
-                  <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRightIcon className="h-3 w-3 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </motion.div>
 
@@ -173,14 +173,14 @@ export function Hero() {
                 >
                   <button 
                     onClick={() => setIsVideoModalOpen(true)}
-                    className="inline-flex items-center gap-4 px-8 py-5 bg-white border-2 border-[#E3E4E6] text-gray-700 font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:border-[#203685] hover:text-[#203685] group"
+                    className="inline-flex items-center gap-2 sm:gap-4 px-6 sm:px-8 py-3 sm:py-5 bg-white border border-[#E3E4E6] sm:border-2 text-gray-700 font-medium sm:font-semibold text-sm sm:text-lg rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl transition-all duration-300 hover:border-[#203685] hover:text-[#203685] group"
                   >
-                    <div className="flex items-center justify-center w-12 h-12 bg-gray-50 border border-[#E3E4E6] rounded-full group-hover:bg-[#203685]/5 group-hover:border-[#203685]/20 transition-all">
-                      <PlayIcon className="h-6 w-6 text-[#203685] ml-0.5" />
+                    <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 bg-gray-50 border border-[#E3E4E6] rounded-full group-hover:bg-[#203685]/5 group-hover:border-[#203685]/20 transition-all">
+                      <PlayIcon className="h-4 w-4 sm:h-6 sm:w-6 text-[#203685] ml-0.5" />
                     </div>
                     <div className="text-left">
-                      <div className="text-lg">{videoData.title}</div>
-                      <div className="text-sm text-slate-500 font-normal">{videoData.description}</div>
+                      <div className="text-sm sm:text-lg">{videoData.title}</div>
+                      <div className="text-xs sm:text-sm text-slate-500 font-normal hidden sm:block">{videoData.description}</div>
                     </div>
                   </button>
                 </motion.div>
