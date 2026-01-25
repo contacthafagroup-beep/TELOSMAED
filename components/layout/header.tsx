@@ -201,7 +201,7 @@ export function Header() {
             />
           ))}
         </div>
-        <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-hidden" aria-label="Top">
+        <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
           <div className="flex h-16 items-center justify-between">
             {/* ENHANCED Logo with Spectacular Effects - Fixed Mobile Overflow */}
             <motion.div 
@@ -370,7 +370,14 @@ export function Header() {
                         {activeDropdown === item.name && item.dropdownItems && (
                           <div
                             data-dropdown-content
-                            className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+                            className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-[#203685] rounded-lg shadow-2xl z-[100]"
+                            style={{ 
+                              zIndex: 100,
+                              position: 'absolute',
+                              top: '100%',
+                              left: '0',
+                              marginTop: '8px'
+                            }}
                           >
                             <div className="py-2">
                               {item.dropdownItems.map((dropdownItem) => (
@@ -378,7 +385,7 @@ export function Header() {
                                   key={dropdownItem.name}
                                   href={dropdownItem.href}
                                   onClick={() => setActiveDropdown(null)}
-                                  className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
+                                  className="flex items-center space-x-3 px-4 py-3 hover:bg-[#E3E4E6] transition-colors"
                                 >
                                   <dropdownItem.icon className="h-5 w-5 text-[#203685]" />
                                   <div>
