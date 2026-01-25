@@ -203,13 +203,13 @@ export function Header() {
         </div>
         <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-hidden" aria-label="Top">
           <div className="flex h-16 items-center justify-between">
-            {/* ENHANCED Logo with Spectacular Effects */}
+            {/* ENHANCED Logo with Spectacular Effects - Fixed Mobile Overflow */}
             <motion.div 
-              className="flex items-center"
+              className="flex items-center flex-shrink-0 min-w-0"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <Link href="/" className="flex items-center space-x-2 xl:space-x-3 group relative">
+              <Link href="/" className="flex items-center space-x-2 xl:space-x-3 group relative min-w-0">
                 {/* Logo Glow Effect */}
                 <motion.div
                   className="absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -225,13 +225,14 @@ export function Header() {
                     scale: 1.1
                   }}
                   transition={{ duration: 0.5 }}
+                  className="flex-shrink-0"
                 >
-                  <Logo className="h-10 sm:h-12 w-auto relative z-10" />
+                  <Logo className="h-8 sm:h-10 lg:h-12 w-auto relative z-10" />
                 </motion.div>
                 
-                <div className="flex flex-col relative z-10">
+                <div className="flex flex-col relative z-10 min-w-0 overflow-hidden">
                   <motion.span 
-                    className="font-display text-xl sm:text-2xl font-semibold text-[#203685]"
+                    className="font-display text-lg sm:text-xl lg:text-2xl font-semibold text-[#203685] truncate"
                     whileHover={{ 
                       opacity: 0.8,
                       scale: 1.02
@@ -241,7 +242,7 @@ export function Header() {
                     TELOS MAED
                   </motion.span>
                   <motion.span 
-                    className="text-xs sm:text-sm text-gray-600 font-medium tracking-wide"
+                    className="text-xs sm:text-sm text-gray-600 font-medium tracking-wide truncate hidden sm:block"
                     whileHover={{ 
                       color: '#203685',
                       scale: 1.05
@@ -255,7 +256,7 @@ export function Header() {
                 {[...Array(4)].map((_, i) => (
                   <motion.div
                     key={`logo-sparkle-${i}`}
-                    className="absolute text-xs opacity-0 group-hover:opacity-100 pointer-events-none"
+                    className="absolute text-xs opacity-0 group-hover:opacity-100 pointer-events-none hidden lg:block"
                     style={{
                       left: `${-10 + i * 15}px`,
                       top: `${-5 + (i % 2) * 10}px`,
