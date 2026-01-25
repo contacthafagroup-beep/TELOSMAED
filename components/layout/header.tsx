@@ -287,6 +287,7 @@ export function Header() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  style={{ position: 'relative' }}
                 >
                   {item.simple ? (
                     <motion.div
@@ -330,7 +331,9 @@ export function Header() {
                       <motion.button
                         data-dropdown-button
                         onClick={(e) => {
+                          e.preventDefault()
                           e.stopPropagation()
+                          console.log('Dropdown clicked:', item.name, 'Current active:', activeDropdown)
                           setActiveDropdown(activeDropdown === item.name ? null : item.name)
                         }}
                         className={`flex items-center space-x-1 px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 group relative overflow-hidden whitespace-nowrap ${
@@ -362,112 +365,36 @@ export function Header() {
                         </motion.div>
                       </motion.button>
 
-                      {/* SPECTACULAR Enhanced Dropdown Menu - No Scrollbars */}
+                      {/* Simple Dropdown Menu */}
                       <AnimatePresence>
                         {activeDropdown === item.name && item.dropdownItems && (
-                          <motion.div
+                          <div
                             data-dropdown-content
-                            initial={{ opacity: 0, y: -20, scale: 0.9, rotateX: -15 }}
-                            animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                            exit={{ opacity: 0, y: -20, scale: 0.9, rotateX: -15 }}
-                            transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
-                            className="absolute top-full left-0 mt-3 w-80 rounded-2xl shadow-2xl border z-50"
-                            style={{ 
-                              zIndex: 9999,
-                              background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.95) 100%)',
-                              backdropFilter: 'blur(20px)',
-                              border: '1px solid rgba(31, 60, 136, 0.1)',
-                              boxShadow: '0 25px 80px rgba(31, 60, 136, 0.15), 0 0 0 1px rgba(255,255,255,0.2) inset',
-                              overflow: 'visible'
-                            }}
+                            className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
                           >
-                            {/* Dropdown Background Effects */}
-                            <motion.div
-                              className="absolute inset-0 opacity-30 rounded-2xl"
-                              style={{
-                                background: `radial-gradient(circle at 50% 0%, rgba(31, 60, 136, 0.1) 0%, transparent 50%)`
-                              }}
-                            />
-                            
-                            <div className="relative p-3" style={{ overflow: 'visible' }}>
-                              {item.dropdownItems.map((dropdownItem, dropIndex) => (
-                                <motion.div
+                            <div className="py-2">
+                              {item.dropdownItems.map((dropdownItem) => (
+                                <Link
                                   key={dropdownItem.name}
-                                  initial={{ opacity: 0, x: -20 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ duration: 0.3, delay: dropIndex * 0.1 }}
+                                  href={dropdownItem.href}
+                                  onClick={() => setActiveDropdown(null)}
+                                  className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
                                 >
-                                  <Link
-                                    href={dropdownItem.href}
-                                    onClick={() => setActiveDropdown(null)}
-                                    className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 dark:hover:from-primary-900/20 dark:hover:to-secondary-900/20 transition-all duration-300 group relative"
-                                    style={{ overflow: 'visible' }}
-                                  >
-                                    {/* Hover Background Effect */}
-                                    <motion.div
-                                      className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-xl"
-                                      style={{
-                                        background: 'linear-gradient(135deg, rgba(31, 60, 136, 0.05), rgba(244, 196, 48, 0.05))',
-                                      }}
-                                      initial={{ scale: 0.8, rotate: 180 }}
-                                      whileHover={{ scale: 1, rotate: 0 }}
-                                      transition={{ duration: 0.3 }}
-                                    />
-                                    
-                                    <motion.div 
-                                      className="flex-shrink-0 relative"
-                                      whileHover={{ 
-                                        scale: 1.2,
-                                        rotate: [0, -10, 10, 0]
-                                      }}
-                                      transition={{ duration: 0.5 }}
-                                    >
-                                      <dropdownItem.icon className="h-6 w-6 text-primary-600 dark:text-dark-primary relative z-10" />
-                                      
-                                      {/* Icon Glow Effect */}
-                                      <motion.div
-                                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100"
-                                        style={{
-                                          background: 'radial-gradient(circle, rgba(31, 60, 136, 0.2) 0%, transparent 70%)',
-                                          filter: 'blur(4px)'
-                                        }}
-                                        animate={{
-                                          scale: [1, 1.5, 1],
-                                          opacity: [0, 0.5, 0]
-                                        }}
-                                        transition={{ duration: 2, repeat: Infinity }}
-                                      />
-                                    </motion.div>
-                                    
-                                    <div className="flex-1 min-w-0 relative z-10">
-                                      <motion.p 
-                                        className={`text-sm font-medium text-truth dark:text-dark-text group-hover:text-primary-600 dark:group-hover:text-dark-primary transition-colors duration-300 ${
-                                          dropdownItem.amharic ? 'font-serif text-base' : ''
-                                        }`}
-                                        whileHover={{ x: 2 }}
-                                      >
-                                        {dropdownItem.name}
-                                      </motion.p>
-                                      <motion.p 
-                                        className="text-xs text-wisdom dark:text-dark-secondary mt-1 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300"
-                                        whileHover={{ x: 2 }}
-                                      >
-                                        {dropdownItem.description}
-                                      </motion.p>
+                                  <dropdownItem.icon className="h-5 w-5 text-[#203685]" />
+                                  <div>
+                                    <div className={`font-medium text-gray-900 ${
+                                      dropdownItem.amharic ? 'font-serif text-base' : 'text-sm'
+                                    }`}>
+                                      {dropdownItem.name}
                                     </div>
-                                    
-                                    {/* Floating Arrow */}
-                                    <motion.div
-                                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                      whileHover={{ x: 3, scale: 1.1 }}
-                                    >
-                                      <ChevronDownIcon className="h-4 w-4 text-primary-600 dark:text-dark-primary rotate-[-90deg]" />
-                                    </motion.div>
-                                  </Link>
-                                </motion.div>
+                                    <div className="text-xs text-gray-500">
+                                      {dropdownItem.description}
+                                    </div>
+                                  </div>
+                                </Link>
                               ))}
                             </div>
-                          </motion.div>
+                          </div>
                         )}
                       </AnimatePresence>
                     </>
