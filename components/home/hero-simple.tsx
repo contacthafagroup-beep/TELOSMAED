@@ -41,10 +41,17 @@ export function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center">
-      {/* Brand Color Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-white" />
+    <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-start justify-center bg-gray-50 pt-0">
+      {/* Hero Image Container with Margins and Border Radius */}
+      <div className="relative mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 w-full max-w-7xl h-[45vh] sm:h-[55vh] lg:h-[85vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/images/hero-cover.png')",
+          }}
+        />
+        {/* Overlay for better text readability - Removed for clarity */}
+        {/* <div className="absolute inset-0 bg-white/10 lg:bg-white/5" /> */}
         
         {/* Subtle brand color accents */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -72,11 +79,9 @@ export function Hero() {
         </div>
       </div>
       
-      <div className="relative mx-auto max-w-7xl px-4 py-4 sm:py-8 lg:py-16 sm:px-6 lg:px-8 z-10">
-        {/* Centered Content */}
-        <div className="max-w-4xl mx-auto">
-          
-          {/* Content */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="max-w-4xl mx-auto px-4 py-4 sm:py-8 lg:py-16">
+          {/* Centered Content */}
           <div className="text-center">
             {/* Enhanced Main Title - Moved Up */}
             <motion.div
@@ -86,7 +91,7 @@ export function Hero() {
               className="mb-4 sm:mb-6 lg:mb-8"
             >
               <motion.h1 
-                className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-7xl text-[#203685] mb-3 sm:mb-4 lg:mb-6"
+                className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-7xl text-white mb-3 sm:mb-4 lg:mb-6 drop-shadow-lg"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -94,14 +99,14 @@ export function Hero() {
               </motion.h1>
               
               <motion.div 
-                className="w-20 sm:w-24 lg:w-32 h-1 bg-[#203685] mx-auto mb-3 sm:mb-4 lg:mb-6 rounded-full"
+                className="w-20 sm:w-24 lg:w-32 h-1 bg-white mx-auto mb-3 sm:mb-4 lg:mb-6 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: 128 }}
                 transition={{ duration: 1, delay: 0.8 }}
               />
               
               <motion.p 
-                className="text-lg sm:text-xl lg:text-2xl font-serif text-[#203685] font-medium"
+                className="text-lg sm:text-xl lg:text-2xl font-serif text-white font-medium drop-shadow-md"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
@@ -110,15 +115,15 @@ export function Hero() {
               </motion.p>
             </motion.div>
 
-            {/* Amharic Bible Verse Description */}
+            {/* Amharic Bible Verse Description - Desktop Only */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-12"
+              className="max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-12 hidden lg:block"
             >
               <motion.p 
-                className="text-lg sm:text-xl text-gray-600 leading-relaxed font-serif italic"
+                className="text-lg sm:text-xl text-white leading-relaxed font-serif italic drop-shadow-md"
                 dir="rtl"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -126,7 +131,7 @@ export function Hero() {
                 "ከቅዱሳን ሁሉ ጋር ስፋቱና ርዝመቱ ከፍታውም ጥልቅነቱም ምን ያህል መሆኑን ለማስተዋል፥ ከመታወቅም የሚያልፈውን የክርስቶስን ፍቅር ለማወቅ ትበረቱ ዘንድ፥ እስከ እግዚአብሔርም ፍጹም ሙላት ደርሳችሁ ትሞሉ ዘንድ።"
               </motion.p>
               <motion.p 
-                className="text-base sm:text-lg font-medium text-[#203685] mt-2 sm:mt-3"
+                className="text-base sm:text-lg font-medium text-white mt-2 sm:mt-3 drop-shadow-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
