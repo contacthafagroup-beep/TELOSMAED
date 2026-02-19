@@ -21,7 +21,7 @@ import { Logo } from '@/components/ui/logo'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { SearchModal } from '@/components/ui/search-modal'
 import { NotificationCenter } from '@/components/ui/notification-center'
-import { UserMenu } from '@/components/ui/user-menu'
+import UserMenu from '@/components/layout/UserMenu'
 
 // Enhanced navigation structure with dropdowns and descriptions
 const navigation = [
