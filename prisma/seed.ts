@@ -1,10 +1,14 @@
 import { PrismaClient } from '@prisma/client'
 import { generateSlug } from '../lib/slug'
+import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
 async function main() {
   console.log('🌱 Starting database seed...')
+
+  // Hash default password for seed users
+  const hashedPassword = await bcrypt.hash('TelosMaed2024!', 10)
 
   // Create sample users
   const users = await Promise.all([
@@ -16,6 +20,7 @@ async function main() {
         name: 'TELOS MAED Admin',
         role: 'ADMIN',
         bio: 'Administrator of TELOS MAED Christian Magazine',
+        password: hashedPassword,
         verified: true,
       },
     }),
@@ -27,6 +32,7 @@ async function main() {
         name: 'Daniel Tesfaye',
         role: 'EDITOR',
         bio: 'Senior Editor at TELOS MAED, passionate about Christian leadership and youth development.',
+        password: hashedPassword,
         verified: true,
       },
     }),
@@ -38,6 +44,7 @@ async function main() {
         name: 'Sara Mengistu',
         role: 'CONTRIBUTOR',
         bio: 'Writer and speaker focusing on personal growth and spiritual development.',
+        password: hashedPassword,
         verified: true,
       },
     }),
