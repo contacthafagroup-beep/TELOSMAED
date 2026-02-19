@@ -32,13 +32,8 @@ export default function LoginPage() {
         throw new Error(data.error || 'Login failed')
       }
 
-      // Redirect based on role
-      if (data.user.role === 'ADMIN') {
-        router.push('/admin')
-      } else {
-        router.push('/')
-      }
-      router.refresh()
+      // Force a full page reload to ensure cookies are set and state is refreshed
+      window.location.href = data.user.role === 'ADMIN' ? '/admin' : '/'
     } catch (err: any) {
       setError(err.message)
     } finally {

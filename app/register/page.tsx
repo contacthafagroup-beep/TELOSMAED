@@ -69,16 +69,15 @@ export default function RegisterPage() {
         // Registration succeeded but login failed - redirect to login page
         setSuccess('Account created! Redirecting to login...')
         setTimeout(() => {
-          router.push('/login?registered=true')
+          window.location.href = '/login?registered=true'
         }, 2000)
         return
       }
 
-      // Successfully registered and logged in
+      // Successfully registered and logged in - force full page reload
       setSuccess('Account created! Redirecting...')
       setTimeout(() => {
-        router.push('/')
-        router.refresh()
+        window.location.href = '/'
       }, 1500)
     } catch (err: any) {
       setError(err.message)
