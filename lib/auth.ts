@@ -1,4 +1,30 @@
-// Simple authentication utilities
+import jwt from 'jsonwebtoken'
+
+const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'your-secret-key-change-in-production'
+
+interface TokenPayload {
+  userId: string
+  email: string
+  name: string
+  role: string
+}
+
+// Generate JWT token
+export function generateToken(payload: TokenPayload): string {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' })
+}
+
+// Verify JWT token
+export async function verifyToken(token: string): Promise<TokenPayload> {
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as TokenPayload
+    return decoded
+  } catch (error) {
+    throw new Error('Invalid token')
+  }
+}
+
+// Simple authentication utilities (legacy - for backward compatibility)
 export const ADMIN_CREDENTIALS = {
   username: 'admin',
   password: 'telosmaed@2025'
