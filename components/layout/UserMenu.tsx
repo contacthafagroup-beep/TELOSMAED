@@ -36,10 +36,18 @@ export default function UserMenu() {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch('/api/auth/me')
+      const res = await fetch('/api/auth/me', {
+        credentials: 'include', // Important: include cookies
+      })
+      
+      console.log('Auth check response:', res.status)
+      
       if (res.ok) {
         const data = await res.json()
+        console.log('User data:', data)
         setUser(data.user)
+      } else {
+        console.log('Not authenticated:', await res.text())
       }
     } catch (error) {
       console.error('Failed to fetch user:', error)
