@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import bcrypt from 'bcryptjs'
+import { sendWelcomeEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -65,6 +66,11 @@ export async function POST(request: NextRequest) {
         createdAt: true,
       }
     })
+
+    // Send welcome email (don't wait for it to complete)
+    sendWelcomeEmail(email, name).catch(err => 
+      console.error('Failed to send welcome email:', err)
+    )
 
     return NextResponse.json({
       success: true,

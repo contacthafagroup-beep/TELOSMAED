@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import { welcomeEmailTemplate, newArticleNotificationTemplate, weeklyDigestTemplate } from './email-templates'
 
 // Email configuration
 const transporter = nodemailer.createTransport({
@@ -55,32 +56,124 @@ export async function sendPasswordResetEmail(email: string, token: string) {
 
 // Send welcome email
 export async function sendWelcomeEmail(email: string, name: string) {
+  const template = welcomeEmailTemplate(name)
+  
   const mailOptions = {
     from: process.env.SMTP_FROM || 'noreply@telosmaed.com',
     to: email,
-    subject: 'Welcome to TELOS MAED',
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Welcome to TELOS MAED, ${name}!</h2>
-        <p>Thank you for joining our Christian magazine platform.</p>
-        <p>You can now:</p>
-        <ul>
-          <li>Read inspiring articles and poetry</li>
-          <li>Submit your own content</li>
-          <li>Engage with our community</li>
-        </ul>
-        <a href="${process.env.SITE_URL}" style="display: inline-block; padding: 10px 20px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0;">Visit TELOS MAED</a>
-        <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
-        <p style="color: #666; font-size: 12px;">TELOS MAED - Christian Magazine Platform</p>
-      </div>
-    `,
+    subject: template.subject,
+    html: template.html,
+    text: template.text,
   }
 
   try {
     await transporter.sendMail(mailOptions)
     return { success: true }
   } catch (error) {
-    console.error('Error sending email:', error)
+    console.error('Error sending welcome email:', error)
+    return { success: false, error }
+  }
+}
+
+// Send new article notification
+export async function sendNewArticleNotification(
+  email: string,
+  userName: string,
+  articleTitle: string,
+  articleExcerpt: string,
+  articleSlug: string,
+  authorName: string
+) {
+  const template = newArticleNotificationTemplate(
+    userName,
+    articleTitle,
+    articleExcerpt,
+    articleSlug,
+    authorName
+  )
+  
+  const mailOptions = {
+    from: process.env.SMTP_FROM || 'noreply@telosmaed.com',
+    to: email,
+    subject: template.subject,
+    html: template.html,
+    text: template.text,
+  }
+
+  try {
+    await transporter.sendMail(mailOptions)
+    return { success: true }
+  } catch (error) {
+    console.error('Error sending article notification:', error)
+    return { success: false, error }
+  }
+}
+
+// Send weekly digest
+export async function sendWeeklyDigest(
+  email: string,
+  userName: string,
+  articles: Array<{ title: string; excerpt: string; slug: string; author: string }>
+) {
+  const template = weeklyDigestTemplate(userName, articles)
+  
+  const mailOptions = {
+    from: process.env.SMTP_FROM || 'noreply@telosmaed.com',
+    to: email,
+    subject: template.subject,
+    html: template.html,
+    text: template.text,
+  }
+
+  try {
+    await transporter.sendMail(mailOptions)
+    return { success: true }
+  } catch (error) {
+    console.error('Error sending weekly digest:', error)
+    return { success: false, error }
+  }
+}
+
+// Bulk send new article notifications to all subscribers
+export async function notifySubscribersOfNewArticle(
+  articleTitle: string,
+  articleExcerpt: string,
+  articleSlug: string,
+  authorName: string
+) {
+  try {
+    const { db } = await import('./db')
+    
+    // Get all active newsletter subscribers
+    const subscribers = await db.newsletterSubscription.findMany({
+      where: { active: true },
+      select: { email: true, name: true }
+    })
+
+    const results = await Promise.allSettled(
+      subscribers.map(subscriber =>
+        sendNewArticleNotification(
+          subscriber.email,
+          subscriber.name || 'Reader',
+          articleTitle,
+          articleExcerpt,
+          articleSlug,
+          authorName
+        )
+      )
+    )
+
+    const successful = results.filter(r => r.status === 'fulfilled').length
+    const failed = results.filter(r => r.status === 'rejected').length
+
+    return {
+      success: true,
+      sent: successful,
+      failed,
+      total: subscribers.length
+    }
+  } catch (error) {
+    console.error('Error notifying subscribers:', error)
     return { success: false, error }
   }
 } 
