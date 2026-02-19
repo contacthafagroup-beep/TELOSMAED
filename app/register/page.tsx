@@ -13,6 +13,7 @@ export default function RegisterPage() {
     confirmPassword: '',
   })
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,7 +34,8 @@ export default function RegisterPage() {
     setLoading(true)
 
     try {
-      const res = await fetch('/api/auth/register', {
+      // Register the user
+      const registerRes = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -43,18 +45,41 @@ export default function RegisterPage() {
         }),
       })
 
-      const data = await res.json()
+      const registerData = await registerRes.json()
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Registration failed')
+      if (!registerRes.ok) {
+        throw new Error(registerData.error || 'Registration failed')
       }
 
-      // Redirect to home after successful registration
-      router.push('/')
-      router.refresh()
+      // Auto-login after successful registration
+      const loginRes = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const loginData = await loginRes.json()
+
+      if (!loginRes.ok) {
+        // Registration succeeded but login failed - redirect to login page
+        setSuccess('Account created! Redirecting to login...')
+        setTimeout(() => {
+          router.push('/login?registered=true')
+        }, 2000)
+        return
+      }
+
+      // Successfully registered and logged in
+      setSuccess('Account created! Redirecting...')
+      setTimeout(() => {
+        router.push('/')
+        router.refresh()
+      }, 1500)
     } catch (err: any) {
       setError(err.message)
-    } finally {
       setLoading(false)
     }
   }
@@ -71,6 +96,12 @@ export default function RegisterPage() {
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
+              {success}
             </div>
           )}
 
