@@ -14,6 +14,7 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  password  String   // Hashed password
   role      String   @default("READER") // READER, CONTRIBUTOR, EDITOR, ADMIN
   bio       String?
   avatar    String?
@@ -22,6 +23,14 @@ model User {
   social    String?  // Social media links as JSON string
   verified  Boolean  @default(false)
   active    Boolean  @default(true)
+  
+  // Password reset fields
+  resetToken        String?
+  resetTokenExpiry  DateTime?
+  
+  // Email verification
+  verificationToken String?
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
