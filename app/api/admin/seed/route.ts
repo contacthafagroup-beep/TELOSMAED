@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
+import bcrypt from 'bcryptjs'
 
 export async function POST() {
   try {
@@ -9,6 +10,9 @@ export async function POST() {
       return NextResponse.json({ message: 'Database already seeded', count: existingArticles })
     }
 
+    // Hash default password for seed users
+    const hashedPassword = await bcrypt.hash('TelosMaed2024!', 10)
+
     // Create sample users
     const user1 = await db.user.create({
       data: {
@@ -16,6 +20,7 @@ export async function POST() {
         name: 'Samuel Tadesse',
         role: 'EDITOR',
         bio: 'Chief Editor of TELOS MAED',
+        password: hashedPassword,
         verified: true,
       }
     })
@@ -26,6 +31,7 @@ export async function POST() {
         name: 'Ruth Alemayehu',
         role: 'CONTRIBUTOR',
         bio: 'Contributing Writer',
+        password: hashedPassword,
         verified: true,
       }
     })
