@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     // Send notifications to all subscribers
     const result = await notifySubscribersOfNewArticle(
       article.title,
-      article.excerpt,
+      article.excerpt || '',
       article.slug,
       article.author.name
     )
