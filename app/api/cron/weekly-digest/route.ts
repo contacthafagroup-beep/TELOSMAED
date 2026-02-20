@@ -54,9 +54,9 @@ export async function GET(request: NextRequest) {
     // Format articles for email
     const formattedArticles = articles.map(article => ({
       title: article.title,
-      excerpt: article.excerpt,
+      excerpt: article.excerpt || '',
       slug: article.slug,
-      author: article.author.name
+      author: article.author.name || 'TELOS MAED'
     }))
 
     // Send digest to all subscribers
