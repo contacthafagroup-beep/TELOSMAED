@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       article.title,
       article.excerpt || '',
       article.slug,
-      article.author.name
+      article.author.name || 'TELOS MAED'
     )
 
     return NextResponse.json({
