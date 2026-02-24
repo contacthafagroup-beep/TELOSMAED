@@ -66,16 +66,16 @@ export default function UserMenu() {
 
   if (!user) {
     return (
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <Link
           href="/login"
-          className="text-slate-700 hover:text-slate-900 font-medium transition"
+          className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-all duration-200"
         >
           Sign In
         </Link>
         <Link
           href="/register"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
+          className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
         >
           Sign Up
         </Link>
@@ -84,10 +84,10 @@ export default function UserMenu() {
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center">
       <button
         onClick={handleLogout}
-        className="text-slate-700 hover:text-red-600 font-medium transition"
+        className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
       >
         Sign Out
       </button>
