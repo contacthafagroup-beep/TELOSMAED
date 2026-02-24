@@ -85,9 +85,6 @@ export default function UserMenu() {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-slate-600">
-        Welcome, {user.name}
-      </span>
       <button
         onClick={handleLogout}
         className="text-slate-700 hover:text-red-600 font-medium transition"
