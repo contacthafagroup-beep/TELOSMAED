@@ -1,25 +1,55 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { verifyToken } from '@/lib/auth'
+import { db } from '@/lib/db'
 
 async function getAdminStats() {
   try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get('auth_token')?.value
-    
-    if (!token) return null
+    // Fetch all stats in parallel
+    const [
+      totalArticles,
+      totalUsers,
+      totalPoems,
+      totalSubscribers,
+      publishedArticles,
+      activeUsers,
+      recentArticles,
+      usersByRole
+    ] = await Promise.all([
+      db.article.count(),
+      db.user.count(),
+      db.poem.count(),
+      db.newsletterSubscription.count({ where: { active: true } }),
+      db.article.count({ where: { published: true } }),
+      db.user.count({ where: { active: true } }),
+      db.article.findMany({
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+        include: {
+          author: {
+            select: { name: true, email: true }
+          }
+        }
+      }),
+      db.user.groupBy({
+        by: ['role'],
+        _count: { role: true }
+      })
+    ])
 
-    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/admin/stats`, {
-      headers: {
-        'Cookie': `auth_token=${token}`
-      },
-      cache: 'no-store'
-    })
-
-    if (!res.ok) return null
-    
-    const data = await res.json()
-    return data.stats
+    return {
+      totalArticles,
+      totalUsers,
+      totalPoems,
+      totalSubscribers,
+      publishedArticles,
+      activeUsers,
+      recentArticles,
+      usersByRole: usersByRole.reduce((acc, item) => {
+        acc[item.role] = item._count.role
+        return acc
+      }, {} as Record<string, number>)
+    }
   } catch (error) {
     console.error('Failed to fetch admin stats:', error)
     return null
@@ -117,7 +147,7 @@ export default async function AdminDashboard() {
                 </div>
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
               </div>
@@ -162,7 +192,7 @@ export default async function AdminDashboard() {
             <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200">
               <h2 className="text-lg font-semibold text-slate-900 mb-4">Recent Articles</h2>
               <div className="space-y-4">
-                {stats?.recentArticles?.length > 0 ? (
+                {stats?.recentArticles && stats.recentArticles.length > 0 ? (
                   stats.recentArticles.map((article: any) => (
                     <div key={article.id} className="flex items-start space-x-3">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
@@ -184,7 +214,7 @@ export default async function AdminDashboard() {
           </div>
 
           {/* User Role Distribution */}
-          {stats?.usersByRole && (
+          {stats?.usersByRole && Object.keys(stats.usersByRole).length > 0 && (
             <div className="mt-6 bg-white rounded-xl shadow-sm p-6 border border-slate-200">
               <h2 className="text-lg font-semibold text-slate-900 mb-4">User Distribution</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
