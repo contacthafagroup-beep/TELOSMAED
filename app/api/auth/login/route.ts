@@ -82,8 +82,8 @@ export async function POST(request: NextRequest) {
     // Set httpOnly cookie for security
     response.cookies.set('auth_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true, // Always use secure in production
+      sameSite: 'none', // Allow cross-site cookies
       maxAge: 60 * 60 * 24 * 7, // 7 days
       path: '/',
     })
