@@ -358,6 +358,10 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
+                        onClick={(e) => {
+                          console.log('Navigation clicked:', item.name, 'href:', item.href)
+                          // Don't prevent default - let Next.js Link handle it
+                        }}
                         className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 overflow-hidden group whitespace-nowrap ${
                           pathname === item.href
                             ? 'text-white bg-[#203685] shadow-lg'
