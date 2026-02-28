@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { verifyToken } from '@/lib/auth'
-import { UserManagement } from '@/components/admin/user-management'
+import { RealUserManagement } from '@/components/admin/real-user-management'
 
 export default async function AdminUsersPage() {
   const cookieStore = await cookies()
@@ -26,7 +26,7 @@ export default async function AdminUsersPage() {
             <p className="mt-2 text-slate-600">Manage users, roles, and permissions</p>
           </div>
 
-          <UserManagement />
+          <RealUserManagement />
         </div>
       </div>
     )

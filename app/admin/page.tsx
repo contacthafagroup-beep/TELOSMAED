@@ -2,6 +2,30 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { verifyToken } from '@/lib/auth'
 
+async function getAdminStats() {
+  try {
+    const cookieStore = await cookies()
+    const token = cookieStore.get('auth_token')?.value
+    
+    if (!token) return null
+
+    const res = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/admin/stats`, {
+      headers: {
+        'Cookie': `auth_token=${token}`
+      },
+      cache: 'no-store'
+    })
+
+    if (!res.ok) return null
+    
+    const data = await res.json()
+    return data.stats
+  } catch (error) {
+    console.error('Failed to fetch admin stats:', error)
+    return null
+  }
+}
+
 export default async function AdminDashboard() {
   const cookieStore = await cookies()
   const token = cookieStore.get('auth_token')?.value
@@ -18,6 +42,8 @@ export default async function AdminDashboard() {
       redirect('/')
     }
 
+    const stats = await getAdminStats()
+
     return (
       <div className="min-h-screen bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -31,7 +57,12 @@ export default async function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-600">Total Articles</p>
-                  <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
+                  <p className="text-3xl font-bold text-slate-900 mt-2">
+                    {stats?.totalArticles || 0}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {stats?.publishedArticles || 0} published
+                  </p>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +76,12 @@ export default async function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-600">Total Users</p>
-                  <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
+                  <p className="text-3xl font-bold text-slate-900 mt-2">
+                    {stats?.totalUsers || 0}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {stats?.activeUsers || 0} active
+                  </p>
                 </div>
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +95,9 @@ export default async function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-600">Total Poems</p>
-                  <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
+                  <p className="text-3xl font-bold text-slate-900 mt-2">
+                    {stats?.totalPoems || 0}
+                  </p>
                 </div>
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,11 +111,13 @@ export default async function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-slate-600">Subscribers</p>
-                  <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
+                  <p className="text-3xl font-bold text-slate-900 mt-2">
+                    {stats?.totalSubscribers || 0}
+                  </p>
                 </div>
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
               </div>
@@ -120,16 +160,48 @@ export default async function AdminDashboard() {
             </div>
 
             <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200">
-              <h2 className="text-lg font-semibold text-slate-900 mb-4">Recent Activity</h2>
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">Recent Articles</h2>
               <div className="space-y-4">
-                <p className="text-sm text-slate-600">No recent activity</p>
+                {stats?.recentArticles?.length > 0 ? (
+                  stats.recentArticles.map((article: any) => (
+                    <div key={article.id} className="flex items-start space-x-3">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-900 truncate">
+                          {article.title}
+                        </p>
+                        <p className="text-xs text-slate-500">
+                          by {article.author.name} • {new Date(article.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-slate-600">No recent articles</p>
+                )}
               </div>
             </div>
           </div>
+
+          {/* User Role Distribution */}
+          {stats?.usersByRole && (
+            <div className="mt-6 bg-white rounded-xl shadow-sm p-6 border border-slate-200">
+              <h2 className="text-lg font-semibold text-slate-900 mb-4">User Distribution</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {Object.entries(stats.usersByRole).map(([role, count]) => (
+                  <div key={role} className="text-center">
+                    <p className="text-2xl font-bold text-slate-900">{count as number}</p>
+                    <p className="text-sm text-slate-600 capitalize">{role.toLowerCase()}s</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     )
   } catch (error) {
+    console.error('Admin auth error:', error)
     redirect('/login')
   }
 }
