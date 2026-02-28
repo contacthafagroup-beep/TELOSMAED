@@ -13,7 +13,8 @@ export default async function AdminDashboard() {
   try {
     const payload = await verifyToken(token)
     
-    if (payload.role !== 'ADMIN') {
+    // Check for both uppercase and lowercase admin role
+    if (payload.role.toUpperCase() !== 'ADMIN') {
       redirect('/')
     }
 

@@ -105,6 +105,14 @@ export function Header() {
     ? [...baseNavigation.slice(0, -1), { name: 'Admin', href: '/admin', simple: true }, baseNavigation[baseNavigation.length - 1]]
     : baseNavigation
 
+  // Debug: Log navigation when user changes
+  useEffect(() => {
+    if (user) {
+      console.log('User role:', user.role, 'Is Admin:', user.role?.toUpperCase() === 'ADMIN')
+      console.log('Navigation items:', navigation.map(n => ({ name: n.name, href: n.href })))
+    }
+  }, [user, navigation])
+
   // Fetch user for role-based navigation
   useEffect(() => {
     const fetchUser = async () => {
