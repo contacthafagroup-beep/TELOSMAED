@@ -4,7 +4,7 @@ import { verifyToken } from '@/lib/auth'
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies()
-  const token = cookieStore.get('auth-token')?.value
+  const token = cookieStore.get('auth_token')?.value
 
   if (!token) {
     redirect('/login')
