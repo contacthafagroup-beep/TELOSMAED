@@ -19,13 +19,9 @@ export default function RegisterPage() {
   const [oauthLoading, setOauthLoading] = useState<string | null>(null)
 
   const handleOAuthSignIn = async (provider: string) => {
-    try {
-      setOauthLoading(provider)
-      await signIn(provider, { callbackUrl: '/' })
-    } catch (error) {
-      setError('OAuth sign in failed')
-      setOauthLoading(null)
-    }
+    setOauthLoading(provider)
+    // Use window.location for OAuth to avoid routing issues
+    window.location.href = `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent('/')}`
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
