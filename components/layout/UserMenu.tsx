@@ -43,8 +43,11 @@ export default function UserMenu() {
         const data = await res.json()
         setUser(data.user)
         localStorage.setItem('user', JSON.stringify(data.user))
+        // Trigger storage event for Header to update
+        window.dispatchEvent(new Event('storage'))
       } else {
         setUser(null)
+        localStorage.removeItem('user')
       }
     } catch (error) {
       console.error('Failed to fetch user:', error)
@@ -53,6 +56,21 @@ export default function UserMenu() {
       setLoading(false)
     }
   }
+
+  // Listen for user updates from Header component
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      } else {
+        setUser(null)
+      }
+    }
+    
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   const handleLogout = async () => {
     try {

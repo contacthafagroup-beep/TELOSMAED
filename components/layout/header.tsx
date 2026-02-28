@@ -24,7 +24,7 @@ import { NotificationCenter } from '@/components/ui/notification-center'
 import UserMenu from '@/components/layout/UserMenu'
 
 // Enhanced navigation structure with dropdowns and descriptions
-const navigation = [
+const baseNavigation = [
   { 
     name: 'Home', 
     href: '/',
@@ -78,6 +78,14 @@ const navigation = [
   }
 ]
 
+interface User {
+  id: string
+  name: string
+  email: string
+  role: string
+  avatar?: string
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -86,10 +94,56 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
   const { scrollY } = useScroll()
   const headerY = useTransform(scrollY, [0, 100], [0, -5])
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.98])
+
+  // Build navigation based on user role
+  const navigation = user?.role === 'admin' 
+    ? [...baseNavigation.slice(0, -1), { name: 'Admin', href: '/admin', simple: true }, baseNavigation[baseNavigation.length - 1]]
+    : baseNavigation
+
+  // Fetch user for role-based navigation
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const storedUser = localStorage.getItem('user')
+        if (storedUser) {
+          setUser(JSON.parse(storedUser))
+          return
+        }
+
+        const res = await fetch('/api/auth/me', {
+          credentials: 'include',
+          cache: 'no-store',
+        })
+        
+        if (res.ok) {
+          const data = await res.json()
+          setUser(data.user)
+          localStorage.setItem('user', JSON.stringify(data.user))
+        }
+      } catch (error) {
+        console.error('Failed to fetch user:', error)
+      }
+    }
+    fetchUser()
+
+    // Listen for user updates
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      } else {
+        setUser(null)
+      }
+    }
+    
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [pathname])
 
   // Mouse tracking for interactive effects
   useEffect(() => {
