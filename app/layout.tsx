@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter, Crimson_Text, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/providers/theme-provider'
-import SessionProvider from '@/components/providers/SessionProvider'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { ReadingProgress } from '@/components/ui/reading-progress'
@@ -58,19 +57,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${crimsonText.variable} ${playfairDisplay.variable} font-sans antialiased`}>
-        <SessionProvider>
-          <ThemeProvider>
-            <ReadingProgress />
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-1">
-                {children}
-              </main>
-              <Footer />
-            </div>
-            <QuickActions />
-          </ThemeProvider>
-        </SessionProvider>
+        <ThemeProvider>
+          <ReadingProgress />
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <QuickActions />
+        </ThemeProvider>
       </body>
     </html>
   )
