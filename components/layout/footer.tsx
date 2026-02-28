@@ -65,10 +65,10 @@ export function Footer() {
 
   return (
     <footer className="bg-white border-t border-[#E3E4E6]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container-responsive">
         
         {/* Main Footer Content - Mobile Compact, Desktop Original */}
-        <div className="py-6 sm:py-8 lg:py-12">
+        <div className="padding-responsive-lg">
           
           {/* Header Section */}
           <motion.div
@@ -76,12 +76,12 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-6 sm:mb-8 lg:mb-12"
+            className="text-center spacing-responsive-md mb-8 sm:mb-12"
           >
-            <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#203685] mb-3">
+            <h2 className="text-responsive-xl font-bold text-[#203685] mb-3">
               Live purposefully lead effectively!
             </h2>
-            <div className="w-16 h-1 bg-[#203685] mx-auto rounded-full"></div>
+            <div className="w-12 sm:w-16 h-1 bg-[#203685] mx-auto rounded-full"></div>
           </motion.div>
 
           {/* Responsive Grid Layout - Mobile: 2 cols, Desktop: Original */}
@@ -95,28 +95,28 @@ export function Footer() {
             
             {/* Brand */}
             <div className="col-span-2 md:col-span-1 lg:col-span-1">
-              <Link href="/" className="inline-flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-4 group">
-                <Logo className="h-8 sm:h-10 w-auto" />
+              <Link href="/" className="inline-flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 group">
+                <Logo className="h-7 w-auto sm:h-8 md:h-10" />
                 <div>
-                  <span className="font-display text-base sm:text-xl font-bold text-[#203685] group-hover:opacity-80 transition-opacity">
+                  <span className="font-display text-sm sm:text-base md:text-xl font-bold text-[#203685] group-hover:opacity-80 transition-opacity">
                     TELOS MAED
                   </span>
-                  <div className="text-xs text-gray-500 font-medium">
+                  <div className="text-[10px] sm:text-xs text-gray-500 font-medium">
                     CHRISTIAN MAGAZINE
                   </div>
                 </div>
               </Link>
               
               {/* Contact Info */}
-              <div className="space-y-1 sm:space-y-2">
-                <div className="flex items-center text-gray-600 text-sm sm:text-sm">
-                  <EnvelopeIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#203685]" />
-                  <a href="mailto:telosmaed@gmail.com" className="hover:text-[#203685] transition-colors">
+              <div className="spacing-responsive-sm">
+                <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                  <EnvelopeIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 text-[#203685] flex-shrink-0" />
+                  <a href="mailto:telosmaed@gmail.com" className="hover:text-[#203685] transition-colors truncate">
                     telosmaed@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center text-gray-600 text-sm sm:text-sm">
-                  <PhoneIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#203685]" />
+                <div className="flex items-center text-gray-600 text-xs sm:text-sm">
+                  <PhoneIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2 text-[#203685] flex-shrink-0" />
                   <a href="tel:+251924749060" className="hover:text-[#203685] transition-colors">
                     +251 924 749 060
                   </a>
@@ -126,8 +126,8 @@ export function Footer() {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-base sm:text-base">Quick Links</h3>
-              <ul className="space-y-1 sm:space-y-2">
+              <h3 className="text-responsive-sm font-semibold text-[#203685] mb-3 sm:mb-4">Quick Links</h3>
+              <ul className="spacing-responsive-sm">
                 {[
                   { name: 'Home', href: '/' },
                   { name: 'Articles', href: '/articles' },
@@ -139,9 +139,9 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-gray-600 hover:text-[#203685] transition-colors text-sm sm:text-sm flex items-center group"
+                      className="text-gray-600 hover:text-[#203685] transition-colors text-xs sm:text-sm flex items-center group min-h-[44px] sm:min-h-0"
                     >
-                      <ArrowRightIcon className="h-2 w-2 sm:h-3 sm:w-3 mr-1 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ArrowRightIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-1.5 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {item.name}
                     </Link>
                   </li>
@@ -151,8 +151,8 @@ export function Footer() {
 
             {/* Categories */}
             <div>
-              <h3 className="font-semibold text-[#203685] mb-2 sm:mb-4 text-base sm:text-base">Categories</h3>
-              <ul className="space-y-1 sm:space-y-2">
+              <h3 className="text-responsive-sm font-semibold text-[#203685] mb-3 sm:mb-4">Categories</h3>
+              <ul className="spacing-responsive-sm">
                 {[
                   { name: 'የአዘጋጁ ማስታወሻ', href: '/articles?category=editorial' },
                   { name: 'ሰውነት', href: '/articles?category=personal' },
@@ -162,9 +162,9 @@ export function Footer() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="text-gray-600 hover:text-[#203685] transition-colors text-sm sm:text-sm flex items-center group font-serif"
+                      className="text-gray-600 hover:text-[#203685] transition-colors text-xs sm:text-sm flex items-center group font-serif min-h-[44px] sm:min-h-0"
                     >
-                      <ArrowRightIcon className="h-2 w-2 sm:h-3 sm:w-3 mr-1 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ArrowRightIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-1.5 sm:mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {item.name}
                     </Link>
                   </li>
@@ -181,19 +181,19 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h3 className="font-semibold text-[#203685] mb-3 sm:mb-4 text-base sm:text-base">Connect With Us</h3>
-            <p className="text-gray-600 text-sm sm:text-sm mb-3 sm:mb-4">
+            <h3 className="text-responsive-sm font-semibold text-[#203685] mb-3 sm:mb-4">Connect With Us</h3>
+            <p className="text-responsive-xs text-gray-600 mb-3 sm:mb-4 px-4">
               Join our community across social platforms and stay updated with the latest content.
             </p>
-            <div className="flex justify-center space-x-2 sm:space-x-3">
+            <div className="flex justify-center gap-2 sm:gap-3 flex-wrap">
               {socialIcons.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white border-2 border-[#E3E4E6] rounded-lg text-[#203685] hover:border-[#203685] hover:bg-[#203685] hover:text-white transition-all duration-300 group"
+                  className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-white border-2 border-[#E3E4E6] rounded-lg text-[#203685] hover:border-[#203685] hover:bg-[#203685] hover:text-white transition-all duration-300 group min-w-[44px] min-h-[44px]"
                 >
                   <span className="sr-only">{item.name}</span>
-                  <item.icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                  <item.icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -202,8 +202,8 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#E3E4E6] py-3 sm:py-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-            <div className="flex flex-wrap gap-3 sm:gap-4 text-sm sm:text-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm justify-center sm:justify-start">
               {[
                 { name: 'Privacy Policy', href: '/privacy' },
                 { name: 'Terms of Service', href: '/terms' },
@@ -212,13 +212,13 @@ export function Footer() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-500 hover:text-[#203685] transition-colors"
+                  className="text-gray-500 hover:text-[#203685] transition-colors min-h-[44px] sm:min-h-0 flex items-center"
                 >
                   {link.name}
                 </Link>
               ))}
             </div>
-            <div className="flex items-center text-sm sm:text-sm text-gray-500">
+            <div className="flex items-center justify-center sm:justify-end text-xs sm:text-sm text-gray-500">
               <span>&copy; {new Date().getFullYear()} TELOS MAED. All rights reserved.</span>
             </div>
           </div>

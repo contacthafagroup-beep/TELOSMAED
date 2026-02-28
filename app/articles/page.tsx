@@ -17,18 +17,18 @@ export default function ArticlesPage() {
         description="Explore our collection of faith-based articles covering leadership, personal growth, and spiritual insights."
       />
       
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-4 lg:gap-8">
+      <div className="container-responsive padding-responsive-lg">
+        <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
-            <Suspense fallback={<div>Loading filters...</div>}>
+            <Suspense fallback={<div className="text-responsive-sm">Loading filters...</div>}>
               <ArticlesFilters />
             </Suspense>
           </div>
           
           {/* Articles Grid */}
-          <div className="mt-8 lg:mt-0 lg:col-span-3">
-            <Suspense fallback={<div>Loading articles...</div>}>
+          <div className="lg:col-span-3">
+            <Suspense fallback={<div className="text-responsive-sm">Loading articles...</div>}>
               <ArticlesGrid />
             </Suspense>
           </div>
