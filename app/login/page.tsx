@@ -35,7 +35,7 @@ export default function LoginPage() {
 
       const data = await res.json()
       
-      console.log('Login response:', data) // Debug log
+      console.log('Login response:', data)
 
       if (!res.ok) {
         setLoading(false)
@@ -44,10 +44,17 @@ export default function LoginPage() {
       }
 
       // Successfully logged in - redirect immediately
-      console.log('Redirecting to:', data.user.role === 'ADMIN' ? '/admin' : '/') // Debug log
-      window.location.replace(data.user.role === 'ADMIN' ? '/admin' : '/')
+      const redirectUrl = data.user.role === 'ADMIN' ? '/admin' : '/'
+      console.log('Redirecting to:', redirectUrl)
+      
+      // Try multiple redirect methods
+      try {
+        window.location.replace(redirectUrl)
+      } catch (e) {
+        window.location.href = redirectUrl
+      }
     } catch (err: any) {
-      console.error('Login error:', err) // Debug log
+      console.error('Login error:', err)
       setError(err.message)
       setLoading(false)
     }
