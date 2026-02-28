@@ -25,14 +25,24 @@ export default function UserMenu() {
 
   const fetchUser = async () => {
     try {
+      // Check localStorage first
+      const storedUser = localStorage.getItem('user')
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+        setLoading(false)
+        return
+      }
+
+      // Fallback to API
       const res = await fetch('/api/auth/me', {
         credentials: 'include',
-        cache: 'no-store', // Don't cache this request
+        cache: 'no-store',
       })
       
       if (res.ok) {
         const data = await res.json()
         setUser(data.user)
+        localStorage.setItem('user', JSON.stringify(data.user))
       } else {
         setUser(null)
       }
@@ -50,8 +60,10 @@ export default function UserMenu() {
         method: 'POST',
         credentials: 'include',
       })
+      // Clear localStorage
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('user')
       setUser(null)
-      // Force full page reload to clear all state
       window.location.href = '/'
     } catch (error) {
       console.error('Logout failed:', error)

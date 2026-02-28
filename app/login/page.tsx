@@ -43,16 +43,15 @@ export default function LoginPage() {
         return
       }
 
-      // Successfully logged in - redirect immediately
+      // Store token in localStorage
+      localStorage.setItem('auth_token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+
+      // Successfully logged in - redirect
       const redirectUrl = data.user.role === 'ADMIN' ? '/admin' : '/'
       console.log('Redirecting to:', redirectUrl)
       
-      // Try multiple redirect methods
-      try {
-        window.location.replace(redirectUrl)
-      } catch (e) {
-        window.location.href = redirectUrl
-      }
+      window.location.href = redirectUrl
     } catch (err: any) {
       console.error('Login error:', err)
       setError(err.message)
