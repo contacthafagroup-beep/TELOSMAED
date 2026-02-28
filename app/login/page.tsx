@@ -64,7 +64,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* OAuth Buttons */}
+          {/* Temporarily disabled OAuth - coming soon
           <div className="space-y-3">
             <button
               type="button"
@@ -110,6 +110,7 @@ export default function LoginPage() {
               <span className="px-2 bg-white text-slate-500">Or continue with email</span>
             </div>
           </div>
+          */}
 
           <div className="space-y-4">
             <div>
