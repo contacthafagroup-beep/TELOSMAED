@@ -11,18 +11,24 @@ export default async function AdminLayout({
   const cookieStore = await cookies()
   const token = cookieStore.get('auth_token')?.value
 
+  console.log('[Admin Layout] Token exists:', !!token)
+
   if (!token) {
+    console.log('[Admin Layout] No token, redirecting to login')
     redirect('/login')
   }
 
   try {
     const payload = await verifyToken(token)
+    console.log('[Admin Layout] Token verified, role:', payload.role, 'isAdmin:', payload.role.toUpperCase() === 'ADMIN')
     
     // Check for both uppercase and lowercase admin role
     if (payload.role.toUpperCase() !== 'ADMIN') {
+      console.log('[Admin Layout] Not admin, redirecting to home')
       redirect('/')
     }
 
+    console.log('[Admin Layout] Access granted')
     return (
       <div className="min-h-screen bg-slate-50">
         <div className="bg-white border-b border-slate-200">
@@ -72,7 +78,7 @@ export default async function AdminLayout({
       </div>
     )
   } catch (error) {
-    console.error('Admin auth error:', error)
+    console.error('[Admin Layout] Auth error:', error)
     redirect('/login')
   }
 }
