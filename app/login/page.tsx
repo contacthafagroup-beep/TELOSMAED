@@ -35,18 +35,20 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
+      
+      console.log('Login response:', data) // Debug log
 
       if (!res.ok) {
-        throw new Error(data.error || 'Login failed')
+        setLoading(false)
+        setError(data.error || 'Login failed')
+        return
       }
 
-      // Successfully logged in - redirect
-      if (data.user.role === 'ADMIN') {
-        window.location.href = '/admin'
-      } else {
-        window.location.href = '/'
-      }
+      // Successfully logged in - redirect immediately
+      console.log('Redirecting to:', data.user.role === 'ADMIN' ? '/admin' : '/') // Debug log
+      window.location.replace(data.user.role === 'ADMIN' ? '/admin' : '/')
     } catch (err: any) {
+      console.error('Login error:', err) // Debug log
       setError(err.message)
       setLoading(false)
     }

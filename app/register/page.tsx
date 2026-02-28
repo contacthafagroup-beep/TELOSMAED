@@ -55,16 +55,20 @@ export default function RegisterPage() {
       })
 
       const registerData = await registerRes.json()
+      
+      console.log('Register response:', registerData) // Debug log
 
       if (!registerRes.ok) {
-        throw new Error(registerData.error || 'Registration failed')
+        setLoading(false)
+        setError(registerData.error || 'Registration failed')
+        return
       }
 
       // Auto-login after successful registration
       const loginRes = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Important: include cookies
+        credentials: 'include',
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
@@ -72,22 +76,26 @@ export default function RegisterPage() {
       })
 
       const loginData = await loginRes.json()
+      
+      console.log('Auto-login response:', loginData) // Debug log
 
       if (!loginRes.ok) {
         // Registration succeeded but login failed - redirect to login page
         setSuccess('Account created! Redirecting to login...')
         setTimeout(() => {
-          window.location.href = '/login?registered=true'
+          window.location.replace('/login?registered=true')
         }, 1500)
         return
       }
 
       // Successfully registered and logged in - redirect immediately
       setSuccess('Account created! Redirecting...')
+      console.log('Redirecting to home') // Debug log
       setTimeout(() => {
-        window.location.href = '/'
+        window.location.replace('/')
       }, 1000)
     } catch (err: any) {
+      console.error('Registration error:', err) // Debug log
       setError(err.message)
       setLoading(false)
     }
