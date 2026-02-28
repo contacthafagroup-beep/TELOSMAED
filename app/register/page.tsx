@@ -78,15 +78,15 @@ export default function RegisterPage() {
         setSuccess('Account created! Redirecting to login...')
         setTimeout(() => {
           window.location.href = '/login?registered=true'
-        }, 2000)
+        }, 1500)
         return
       }
 
-      // Successfully registered and logged in - force full page reload
+      // Successfully registered and logged in - redirect immediately
       setSuccess('Account created! Redirecting...')
       setTimeout(() => {
         window.location.href = '/'
-      }, 1500)
+      }, 1000)
     } catch (err: any) {
       setError(err.message)
       setLoading(false)

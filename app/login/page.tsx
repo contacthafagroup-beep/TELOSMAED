@@ -30,7 +30,7 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Important: include cookies
+        credentials: 'include',
         body: JSON.stringify(formData),
       })
 
@@ -40,11 +40,14 @@ export default function LoginPage() {
         throw new Error(data.error || 'Login failed')
       }
 
-      // Force a full page reload to ensure cookies are set and state is refreshed
-      window.location.href = data.user.role === 'ADMIN' ? '/admin' : '/'
+      // Successfully logged in - redirect
+      if (data.user.role === 'ADMIN') {
+        window.location.href = '/admin'
+      } else {
+        window.location.href = '/'
+      }
     } catch (err: any) {
       setError(err.message)
-    } finally {
       setLoading(false)
     }
   }
