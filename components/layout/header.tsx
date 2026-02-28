@@ -255,15 +255,15 @@ export function Header() {
             />
           ))}
         </div>
-        <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-          <div className="flex h-16 items-center justify-between">
+        <nav className="relative mx-auto max-w-7xl px-2 sm:px-4 lg:px-8" aria-label="Top">
+          <div className="flex h-14 sm:h-16 items-center justify-between gap-1 sm:gap-2">
             {/* ENHANCED Logo with Spectacular Effects - Fixed Mobile Overflow */}
             <motion.div 
-              className="flex items-center flex-shrink-0 min-w-0"
+              className="flex items-center flex-shrink-0 min-w-0 max-w-[45%] sm:max-w-none"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <Link href="/" className="flex items-center space-x-2 xl:space-x-3 group relative min-w-0">
+              <Link href="/" className="flex items-center gap-1.5 sm:gap-2 xl:gap-3 group relative min-w-0">
                 {/* Logo Glow Effect */}
                 <motion.div
                   className="absolute -inset-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -281,12 +281,12 @@ export function Header() {
                   transition={{ duration: 0.5 }}
                   className="flex-shrink-0"
                 >
-                  <Logo className="h-8 sm:h-10 lg:h-12 w-auto relative z-10" />
+                  <Logo className="h-7 sm:h-9 lg:h-12 w-auto relative z-10" />
                 </motion.div>
                 
                 <div className="flex flex-col relative z-10 min-w-0 overflow-hidden">
                   <motion.span 
-                    className="font-display text-lg sm:text-xl lg:text-2xl font-semibold text-[#203685] truncate"
+                    className="font-display text-sm sm:text-lg lg:text-2xl font-semibold text-[#203685] truncate leading-tight"
                     whileHover={{ 
                       opacity: 0.8,
                       scale: 1.02
@@ -296,7 +296,7 @@ export function Header() {
                     TELOS MAED
                   </motion.span>
                   <motion.span 
-                    className="text-xs sm:text-sm text-gray-600 font-medium tracking-wide truncate hidden sm:block"
+                    className="text-[10px] sm:text-xs lg:text-sm text-gray-600 font-medium tracking-wide truncate hidden sm:block leading-tight"
                     whileHover={{ 
                       color: '#203685',
                       scale: 1.05
@@ -464,79 +464,44 @@ export function Header() {
               ))}
             </div>
 
-            {/* SPECTACULAR Right Side Actions - Compact */}
-            <div className="flex items-center space-x-1 xl:space-x-2">
-              {/* Enhanced Search Button */}
+            {/* SPECTACULAR Right Side Actions - Compact Mobile */}
+            <div className="flex items-center gap-0.5 sm:gap-1 xl:gap-2 flex-shrink-0">
+              {/* Enhanced Search Button - Hidden on smallest mobile */}
               <motion.button
                 onClick={() => setSearchOpen(true)}
-                className="p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
+                className="hidden xs:block p-1.5 sm:p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
                 aria-label="Search"
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Button Background Effect */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-xl"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(31, 60, 136, 0.1), rgba(244, 196, 48, 0.1))',
-                  }}
-                  initial={{ scale: 0, rotate: 180 }}
-                  whileHover={{ scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.5 }}
                   className="relative z-10"
                 >
-                  <MagnifyingGlassIcon className="h-5 w-5" />
+                  <MagnifyingGlassIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </motion.div>
-                
-                {/* Search Ripple Effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(31, 60, 136, 0.2) 0%, transparent 70%)',
-                  }}
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0, 0.3, 0]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
               </motion.button>
 
-              {/* Enhanced Notifications Button */}
+              {/* Enhanced Notifications Button - Hidden on smallest mobile */}
               <motion.button
                 onClick={() => setNotificationsOpen(true)}
-                className="p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
+                className="hidden xs:block p-1.5 sm:p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
                 aria-label="Notifications"
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Button Background Effect */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-xl"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(31, 60, 136, 0.1), rgba(244, 196, 48, 0.1))',
-                  }}
-                  initial={{ scale: 0, rotate: 180 }}
-                  whileHover={{ scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
                 <motion.div
                   whileHover={{ rotate: [0, -15, 15, 0] }}
                   transition={{ duration: 0.6 }}
                   className="relative z-10"
                 >
-                  <BellIcon className="h-5 w-5" />
+                  <BellIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </motion.div>
                 
                 {/* Animated Notification Badge */}
                 <motion.span 
-                  className="absolute -top-1 -right-1 h-3 w-3 bg-gradient-to-r from-glory-500 to-glory-600 rounded-full shadow-lg"
+                  className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 h-2 w-2 sm:h-3 sm:w-3 bg-gradient-to-r from-glory-500 to-glory-600 rounded-full shadow-lg"
                   animate={{
                     scale: [1, 1.3, 1],
                     boxShadow: [
@@ -549,8 +514,9 @@ export function Header() {
                 />
               </motion.button>
 
-              {/* Enhanced Theme Toggle */}
+              {/* Enhanced Theme Toggle - Hidden on mobile */}
               <motion.div
+                className="hidden sm:block"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -568,23 +534,12 @@ export function Header() {
               {/* Mobile Menu Button */}
               <motion.button
                 type="button"
-                className="lg:hidden p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6]"
+                className="lg:hidden p-1.5 sm:p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6] flex-shrink-0"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="sr-only">Open main menu</span>
-                
-                {/* Button Background Effect */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 rounded-xl"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(31, 60, 136, 0.1), rgba(244, 196, 48, 0.1))',
-                  }}
-                  initial={{ scale: 0, rotate: 180 }}
-                  whileHover={{ scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
                 
                 <motion.div
                   animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
@@ -592,9 +547,9 @@ export function Header() {
                   className="relative z-10"
                 >
                   {mobileMenuOpen ? (
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                   )}
                 </motion.div>
               </motion.button>
