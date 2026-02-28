@@ -18,7 +18,8 @@ export default async function AdminLayout({
   try {
     const payload = await verifyToken(token)
     
-    if (payload.role !== 'ADMIN') {
+    // Check for both uppercase and lowercase admin role
+    if (payload.role.toUpperCase() !== 'ADMIN') {
       redirect('/')
     }
 
@@ -71,6 +72,7 @@ export default async function AdminLayout({
       </div>
     )
   } catch (error) {
+    console.error('Admin auth error:', error)
     redirect('/login')
   }
 }

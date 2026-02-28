@@ -101,7 +101,7 @@ export function Header() {
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.98])
 
   // Build navigation based on user role
-  const navigation = user?.role === 'admin' 
+  const navigation = user?.role?.toUpperCase() === 'ADMIN' 
     ? [...baseNavigation.slice(0, -1), { name: 'Admin', href: '/admin', simple: true }, baseNavigation[baseNavigation.length - 1]]
     : baseNavigation
 
