@@ -105,14 +105,6 @@ export function Header() {
     ? [...baseNavigation.slice(0, -1), { name: 'Admin', href: '/admin', simple: true }, baseNavigation[baseNavigation.length - 1]]
     : baseNavigation
 
-  // Debug: Log navigation when user changes
-  useEffect(() => {
-    if (user) {
-      console.log('User role:', user.role, 'Is Admin:', user.role?.toUpperCase() === 'ADMIN')
-      console.log('Navigation items:', navigation.map(n => ({ name: n.name, href: n.href })))
-    }
-  }, [user, navigation])
-
   // Fetch user for role-based navigation
   useEffect(() => {
     const fetchUser = async () => {
@@ -358,10 +350,6 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
-                        onClick={(e) => {
-                          console.log('Navigation clicked:', item.name, 'href:', item.href)
-                          // Don't prevent default - let Next.js Link handle it
-                        }}
                         className={`relative px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg xl:rounded-xl text-xs xl:text-sm font-medium transition-all duration-300 overflow-hidden group whitespace-nowrap ${
                           pathname === item.href
                             ? 'text-white bg-[#203685] shadow-lg'

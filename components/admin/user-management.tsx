@@ -412,3 +412,5 @@ export default function UserManagement() {
     </div>
   )
 }
+
+export { UserManagement }
