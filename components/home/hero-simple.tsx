@@ -88,10 +88,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-2 sm:mb-6 lg:mb-8"
+              className="mb-3 sm:mb-6 lg:mb-8"
             >
               <motion.h1 
-                className="font-display font-bold text-xl sm:text-4xl lg:text-5xl xl:text-7xl text-white mb-1 sm:mb-4 lg:mb-6 drop-shadow-lg"
+                className="font-display font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-2 sm:mb-4 lg:mb-6 drop-shadow-lg leading-tight"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -99,14 +99,14 @@ export function Hero() {
               </motion.h1>
               
               <motion.div 
-                className="w-12 sm:w-24 lg:w-32 h-1 bg-white mx-auto mb-1 sm:mb-4 lg:mb-6 rounded-full"
+                className="w-16 sm:w-24 lg:w-32 h-1 bg-white mx-auto mb-2 sm:mb-4 lg:mb-6 rounded-full"
                 initial={{ width: 0 }}
-                animate={{ width: 128 }}
+                animate={{ width: "auto" }}
                 transition={{ duration: 1, delay: 0.8 }}
               />
               
               <motion.p 
-                className="text-sm sm:text-xl lg:text-2xl font-serif text-white font-medium drop-shadow-md"
+                className="text-base sm:text-xl lg:text-2xl font-serif text-white font-medium drop-shadow-md px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
@@ -120,10 +120,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="max-w-3xl mx-4 sm:mx-6 lg:mx-auto mb-2 sm:mb-8 lg:mb-12 px-3 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-6 bg-black/20 rounded-lg sm:rounded-xl backdrop-blur-sm"
+              className="max-w-3xl mx-4 sm:mx-6 lg:mx-auto mb-4 sm:mb-8 lg:mb-12 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 bg-black/20 rounded-lg sm:rounded-xl backdrop-blur-sm"
             >
               <motion.p 
-                className="text-xs sm:text-xl text-white leading-tight font-serif italic drop-shadow-md text-center"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-relaxed font-serif italic drop-shadow-md text-center"
                 dir="rtl"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -131,7 +131,7 @@ export function Hero() {
                 "ከቅዱሳን ሁሉ ጋር ስፋቱና ርዝመቱ ከፍታውም ጥልቅነቱም ምን ያህል መሆኑን ለማስተዋል፥ ከመታወቅም የሚያልፈውን የክርስቶስን ፍቅር ለማወቅ ትበረቱ ዘንድ፥ እስከ እግዚአብሔርም ፍጹም ሙላት ደርሳችሁ ትሞሉ ዘንድ።"
               </motion.p>
               <motion.p 
-                className="text-xs sm:text-lg font-medium text-white mt-1 sm:mt-3 drop-shadow-sm text-center"
+                className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-white mt-2 sm:mt-3 drop-shadow-sm text-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -145,23 +145,24 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4 sm:mb-8 lg:mb-12"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 lg:mb-12 px-4"
             >
               {/* Read Latest Issue Button */}
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   href="/articles"
-                  className="inline-flex items-center gap-2 sm:gap-4 px-6 sm:px-10 py-3 sm:py-5 bg-[#203685] text-white font-semibold sm:font-bold text-sm sm:text-lg rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-xl sm:hover:shadow-2xl hover:bg-[#203685]/90 transition-all duration-300 group"
+                  className="inline-flex items-center justify-center gap-2 sm:gap-3 lg:gap-4 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 bg-[#203685] text-white font-semibold sm:font-bold text-sm sm:text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-xl sm:hover:shadow-2xl hover:bg-[#203685]/90 transition-all duration-300 group w-full sm:w-auto"
                 >
-                  <BookOpenIcon className="h-4 w-4 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform" />
-                  <div className="text-left">
-                    <div className="text-sm sm:text-lg">Read Latest Articles</div>
-                    <div className="text-xs sm:text-sm opacity-90 font-normal hidden sm:block">Discover Deep Truths</div>
+                  <BookOpenIcon className="h-5 w-5 sm:h-5 sm:w-5 lg:h-6 lg:w-6 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <div className="text-left flex-1 sm:flex-initial">
+                    <div className="text-sm sm:text-base lg:text-lg whitespace-nowrap">Read Latest Articles</div>
+                    <div className="text-xs sm:text-sm opacity-90 font-normal hidden lg:block">Discover Deep Truths</div>
                   </div>
-                  <ArrowRightIcon className="h-3 w-3 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRightIcon className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                 </Link>
               </motion.div>
 
@@ -170,17 +171,18 @@ export function Hero() {
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  className="w-full sm:w-auto"
                 >
                   <button 
                     onClick={() => setIsVideoModalOpen(true)}
-                    className="inline-flex items-center gap-2 sm:gap-4 px-6 sm:px-8 py-3 sm:py-5 bg-white border border-[#E3E4E6] sm:border-2 text-gray-700 font-medium sm:font-semibold text-sm sm:text-lg rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl transition-all duration-300 hover:border-[#203685] hover:text-[#203685] group"
+                    className="inline-flex items-center justify-center gap-2 sm:gap-3 lg:gap-4 px-6 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5 bg-white border border-[#E3E4E6] sm:border-2 text-gray-700 font-medium sm:font-semibold text-sm sm:text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl transition-all duration-300 hover:border-[#203685] hover:text-[#203685] group w-full sm:w-auto"
                   >
-                    <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12 bg-gray-50 border border-[#E3E4E6] rounded-full group-hover:bg-[#203685]/5 group-hover:border-[#203685]/20 transition-all">
-                      <PlayIcon className="h-4 w-4 sm:h-6 sm:w-6 text-[#203685] ml-0.5" />
+                    <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gray-50 border border-[#E3E4E6] rounded-full group-hover:bg-[#203685]/5 group-hover:border-[#203685]/20 transition-all flex-shrink-0">
+                      <PlayIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-[#203685] ml-0.5" />
                     </div>
-                    <div className="text-left">
-                      <div className="text-sm sm:text-lg">{videoData.title}</div>
-                      <div className="text-xs sm:text-sm text-slate-500 font-normal hidden sm:block">{videoData.description}</div>
+                    <div className="text-left flex-1 sm:flex-initial min-w-0">
+                      <div className="text-sm sm:text-base lg:text-lg truncate">{videoData.title}</div>
+                      <div className="text-xs sm:text-sm text-slate-500 font-normal hidden lg:block truncate">{videoData.description}</div>
                     </div>
                   </button>
                 </motion.div>
