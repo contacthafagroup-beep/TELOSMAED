@@ -13,8 +13,8 @@ export default async function AdminTest() {
     cookieCount: allCookies.length,
     cookies: allCookies.map(c => c.name),
     verified: false,
-    role: null,
-    error: null
+    role: null as string | null,
+    error: null as string | null
   }
 
   if (token) {
