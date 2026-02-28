@@ -2,12 +2,10 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import FacebookProvider from 'next-auth/providers/facebook'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { db } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 
 const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -79,22 +77,27 @@ const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile }) {
       // For OAuth providers, ensure user has required fields
       if (account?.provider === 'google' || account?.provider === 'facebook') {
-        const existingUser = await db.user.findUnique({
-          where: { email: user.email! }
-        })
-
-        if (!existingUser) {
-          // Create new user with OAuth
-          await db.user.create({
-            data: {
-              email: user.email!,
-              name: user.name || 'User',
-              role: 'READER',
-              verified: true,
-              active: true,
-              password: '', // OAuth users don't need password
-            }
+        try {
+          const existingUser = await db.user.findUnique({
+            where: { email: user.email! }
           })
+
+          if (!existingUser) {
+            // Create new user with OAuth
+            await db.user.create({
+              data: {
+                email: user.email!,
+                name: user.name || 'User',
+                role: 'READER',
+                verified: true,
+                active: true,
+                password: '', // OAuth users don't need password
+              }
+            })
+          }
+        } catch (error) {
+          console.error('Error creating OAuth user:', error)
+          return false
         }
       }
       return true
