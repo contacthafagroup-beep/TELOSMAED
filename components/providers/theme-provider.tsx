@@ -24,12 +24,12 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'system',
+  defaultTheme = 'light',
   storageKey = 'telos-maed-theme',
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
-    () => (typeof window !== 'undefined' && localStorage.getItem(storageKey)) as Theme || defaultTheme
+    () => (typeof window !== 'undefined' && localStorage.getItem(storageKey) as Theme) || defaultTheme
   )
 
   useEffect(() => {
