@@ -534,22 +534,20 @@ export function Header() {
               {/* Mobile Menu Button */}
               <motion.button
                 type="button"
-                className="lg:hidden p-1.5 sm:p-2 xl:p-3 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg xl:rounded-xl transition-all duration-300 group relative overflow-hidden border border-transparent hover:border-[#E3E4E6] flex-shrink-0"
+                className="lg:hidden p-2 sm:p-2.5 text-gray-600 hover:text-[#203685] hover:bg-gray-50 rounded-lg transition-all duration-300 border border-gray-200 hover:border-[#203685] flex-shrink-0 min-w-[40px] min-h-[40px] flex items-center justify-center"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                whileHover={{ scale: 1.05, y: -1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="sr-only">Open main menu</span>
-                
                 <motion.div
                   animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
-                  className="relative z-10"
                 >
                   {mobileMenuOpen ? (
-                    <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+                    <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                   )}
                 </motion.div>
               </motion.button>

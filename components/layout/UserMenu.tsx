@@ -96,18 +96,26 @@ export default function UserMenu() {
 
   if (!user) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
+        {/* Desktop: show both buttons */}
         <Link
           href="/login"
-          className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-all duration-200"
+          className="hidden sm:block px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-all duration-200 whitespace-nowrap"
         >
           Sign In
         </Link>
         <Link
           href="/register"
-          className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+          className="hidden sm:block px-3 py-1.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 whitespace-nowrap"
         >
           Sign Up
+        </Link>
+        {/* Mobile: single compact button */}
+        <Link
+          href="/login"
+          className="sm:hidden px-3 py-1.5 text-xs font-medium text-white bg-[#203685] rounded-lg transition-all duration-200 whitespace-nowrap min-h-[36px] flex items-center"
+        >
+          Sign In
         </Link>
       </div>
     )
