@@ -60,7 +60,7 @@ export function BookPromo() {
                 <div className="absolute inset-0 bg-[#203685]/10 blur-2xl rounded-full scale-90" />
                 <Image
                   src="/images/book-promo.png"
-                  alt="የማስቀሉ መልዕክት - ብርሃኑ ተስፋዬ"
+                  alt="የመስቀሉ መልዕክት - ብርሃኑ ተስፋዬ"
                   width={600}
                   height={340}
                   className="relative w-full h-auto rounded-xl shadow-xl"
@@ -82,7 +82,7 @@ export function BookPromo() {
 
               {/* Title */}
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#203685] mb-2 leading-tight font-serif">
-                የማስቀሉ መልዕክት
+                የመስቀሉ መልዕክት
               </h3>
 
               {/* Author */}
@@ -95,7 +95,7 @@ export function BookPromo() {
 
               {/* Description */}
               <p className="text-responsive-sm text-gray-600 leading-relaxed mb-6 max-w-md mx-auto lg:mx-0">
-                ሃሳዕና መካነ አየሱስ ማ/ምዕመናን — ሙሉ ትምህርት ለሁሉም ክርስቲያን
+                ሆሳዕና መካነ አየሱስ ማ/ምዕመናን — ሙሉ ትምህርት ለሁሉም ክርስቲያን
               </p>
 
               {/* CTA */}
