@@ -2,25 +2,14 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { CalendarIcon, ShoppingBagIcon, BellIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { PhoneIcon, BookOpenIcon } from '@heroicons/react/24/outline'
 
 export function BookPromo() {
-  const [notified, setNotified] = useState(false)
-  const [email, setEmail] = useState('')
-  const [showForm, setShowForm] = useState(false)
-
-  const handleNotify = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setNotified(true)
-    setShowForm(false)
-  }
-
   return (
     <section className="padding-responsive-lg bg-white border-y border-[#E3E4E6]">
       <div className="container-responsive">
 
-        {/* Section Header — same style as Mission */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -29,18 +18,18 @@ export function BookPromo() {
           className="text-center mb-8 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#203685]/10 rounded-full mb-3">
-            <span className="w-2 h-2 bg-[#203685] rounded-full animate-pulse" />
+            <BookOpenIcon className="h-4 w-4 text-[#203685]" />
             <span className="text-[#203685] text-xs sm:text-sm font-semibold tracking-wide">
-              የመጽሐፍ ምርቃ — New Book
+              አዲስ መጽሐፍ — Now Available
             </span>
           </div>
           <h2 className="text-responsive-2xl font-bold text-[#203685] mb-3">
-            Coming Soon
+            Get Your Copy Today
           </h2>
           <div className="w-12 sm:w-16 h-1 bg-[#203685] mx-auto rounded-full" />
         </motion.div>
 
-        {/* Main Card — same style as TELOS explanation card in Mission */}
+        {/* Main Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +37,7 @@ export function BookPromo() {
           viewport={{ once: true }}
           className="bg-gradient-to-br from-[#203685]/5 to-[#203685]/10 rounded-xl sm:rounded-2xl border border-[#E3E4E6] overflow-hidden"
         >
-          <div className="flex flex-col lg:flex-row items-center gap-0">
+          <div className="flex flex-col lg:flex-row items-center">
 
             {/* Book Image */}
             <div className="w-full lg:w-1/2 bg-[#203685]/5 flex items-center justify-center p-6 sm:p-10">
@@ -72,11 +61,11 @@ export function BookPromo() {
             {/* Book Info */}
             <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-12 text-center lg:text-left">
 
-              {/* Publication date badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-[#E3E4E6] rounded-lg mb-4 shadow-sm">
-                <CalendarIcon className="h-4 w-4 text-[#203685] flex-shrink-0" />
-                <span className="text-[#203685] text-xs sm:text-sm font-semibold">
-                  መጋቢት 27 · April 5, 2026
+              {/* Available badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-lg mb-4">
+                <span className="w-2 h-2 bg-green-500 rounded-full" />
+                <span className="text-green-700 text-xs sm:text-sm font-semibold">
+                  Available Now
                 </span>
               </div>
 
@@ -98,58 +87,25 @@ export function BookPromo() {
                 ሆሳዕና መካነ አየሱስ ማ/ምዕመናን — ሙሉ ትምህርት ለሁሉም ክርስቲያን
               </p>
 
-              {/* CTA */}
-              {!notified ? (
-                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                  {!showForm ? (
-                    <>
-                      <motion.button
-                        onClick={() => setShowForm(true)}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#203685] text-white font-bold rounded-lg hover:bg-[#203685]/90 transition-all duration-200 text-sm sm:text-base min-h-[48px] shadow-md"
-                      >
-                        <ShoppingBagIcon className="h-5 w-5" />
-                        Pre-Order Now
-                      </motion.button>
-                      <motion.button
-                        onClick={() => setShowForm(true)}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-[#203685] font-semibold rounded-lg border border-[#203685] hover:bg-[#203685]/5 transition-all duration-200 text-sm sm:text-base min-h-[48px]"
-                      >
-                        <BellIcon className="h-5 w-5" />
-                        Notify Me
-                      </motion.button>
-                    </>
-                  ) : (
-                    <form onSubmit={handleNotify} className="flex flex-col sm:flex-row gap-2 w-full max-w-md mx-auto lg:mx-0">
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        className="flex-1 px-4 py-3 rounded-lg bg-white border border-[#E3E4E6] text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#203685] text-sm min-h-[48px]"
-                      />
-                      <button
-                        type="submit"
-                        className="px-5 py-3 bg-[#203685] text-white font-bold rounded-lg hover:bg-[#203685]/90 transition-all duration-200 text-sm min-h-[48px] whitespace-nowrap"
-                      >
-                        Notify Me
-                      </button>
-                    </form>
-                  )}
-                </div>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="inline-flex items-center gap-2 px-5 py-3 bg-[#203685]/10 border border-[#203685]/20 rounded-lg text-[#203685] font-semibold text-sm"
+              {/* Call to get book */}
+              <div className="flex flex-col gap-3 items-center lg:items-start">
+                <p className="text-sm text-gray-500">
+                  መጽሐፉን ለማግኘት ይደውሉ
+                </p>
+                <motion.a
+                  href="tel:+251910769060"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#203685] text-white font-bold rounded-xl shadow-md hover:bg-[#203685]/90 transition-all duration-200 text-base sm:text-lg min-h-[56px] w-full sm:w-auto"
                 >
-                  ✓ You'll be notified on launch day!
-                </motion.div>
-              )}
+                  <PhoneIcon className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                  <span>0910 769 060</span>
+                </motion.a>
+                <p className="text-xs text-gray-400">
+                  Tap to call directly
+                </p>
+              </div>
+
             </div>
           </div>
         </motion.div>
