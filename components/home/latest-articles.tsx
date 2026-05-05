@@ -63,7 +63,7 @@ export function LatestArticles() {
       <section className="padding-responsive-lg bg-white">
         <div className="container-responsive text-center py-16">
           <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-          <p className="text-gray-500">ምንም ጽሑፍ አልተገኘም።</p>
+          <p className="text-gray-500">No articles available yet.</p>
         </div>
       </section>
     )
@@ -85,14 +85,14 @@ export function LatestArticles() {
           className="flex items-center justify-between mb-8 sm:mb-10"
         >
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#203685]">አዳዲስ ጽሑፎች</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#203685]">Latest Articles</h2>
             <div className="w-10 h-0.5 bg-[#203685] mt-2 rounded-full" />
           </div>
           <Link
             href="/articles"
             className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-[#203685] hover:gap-2.5 transition-all duration-200"
           >
-            ሁሉንም ይመልከቱ
+            View All
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </motion.div>
@@ -150,7 +150,7 @@ export function LatestArticles() {
                     <span className="text-sm font-medium text-gray-700">{featured.author.name}</span>
                   </div>
                   <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#203685] group-hover:gap-2 transition-all duration-200">
-                    ያንብቡ <ArrowRightIcon className="h-4 w-4" />
+                    Read <ArrowRightIcon className="h-4 w-4" />
                   </span>
                 </div>
               </div>
@@ -207,7 +207,7 @@ export function LatestArticles() {
                           </div>
                           <span className="text-xs text-gray-500 truncate max-w-[100px]">{article.author.name}</span>
                         </div>
-                        <span className="text-xs font-semibold text-[#203685]">ያንብቡ →</span>
+                        <span className="text-xs font-semibold text-[#203685]">Read →</span>
                       </div>
                     </div>
                   </div>
@@ -223,7 +223,7 @@ export function LatestArticles() {
             href="/articles"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#203685] text-white text-sm font-semibold rounded-lg hover:bg-[#203685]/90 transition-colors min-h-[44px]"
           >
-            ሁሉንም ጽሑፎች ይመልከቱ
+            View All Articles
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </div>

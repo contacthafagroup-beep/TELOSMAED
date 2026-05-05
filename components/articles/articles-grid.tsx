@@ -76,9 +76,9 @@ export function ArticlesGrid() {
     return (
       <div className="text-center py-16">
         <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-        <p className="text-gray-500 mb-4">ጽሑፎቹን መጫን አልተቻለም።</p>
+        <p className="text-gray-500 mb-4">Unable to load articles.</p>
         <button onClick={() => window.location.reload()} className="px-4 py-2 bg-[#203685] text-white text-sm rounded-lg">
-          እንደገና ሞክር
+          Try Again
         </button>
       </div>
     )
@@ -88,7 +88,7 @@ export function ArticlesGrid() {
     return (
       <div className="text-center py-16">
         <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-        <p className="text-gray-500">ምንም ጽሑፍ አልተገኘም።</p>
+        <p className="text-gray-500">No articles found.</p>
       </div>
     )
   }
@@ -97,14 +97,14 @@ export function ArticlesGrid() {
     return (
       <div className="text-center py-16">
         <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-        <p className="text-gray-500">ከዚህ ምድብ ምንም ጽሑፍ አልተገኘም።</p>
+        <p className="text-gray-500">No articles found in this category.</p>
       </div>
     )
   }
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-400">{filteredArticles.length} ጽሑፎች</p>
+      <p className="text-sm text-gray-400">{filteredArticles.length} articles</p>
 
       <div className="space-y-4">
         {filteredArticles.map((article, index) => (

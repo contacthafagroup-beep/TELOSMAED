@@ -107,11 +107,11 @@ export default function ArticlePage() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="text-center max-w-sm">
           <p className="text-5xl mb-4">📄</p>
-          <h1 className="text-xl font-bold text-gray-900 mb-2">ጽሑፉ አልተገኘም</h1>
-          <p className="text-gray-500 mb-6 text-sm">የሚፈልጉት ጽሑፍ አልተገኘም ወይም ተወግዷል።</p>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">Article Not Found</h1>
+          <p className="text-gray-500 mb-6 text-sm">The article you are looking for does not exist or has been removed.</p>
           <Link href="/articles" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#203685] text-white text-sm font-medium rounded-lg hover:bg-[#203685]/90 transition-colors">
             <ArrowLeftIcon className="h-4 w-4" />
-            ወደ ጽሑፎች ተመለስ
+            Back to Articles
           </Link>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function ArticlePage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-12 flex items-center justify-between">
           <Link href="/articles" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#203685] transition-colors">
             <ArrowLeftIcon className="h-4 w-4" />
-            ጽሑፎች
+            Articles
           </Link>
           <div className="flex items-center gap-1">
             <button
@@ -174,7 +174,7 @@ export default function ArticlePage() {
 
         {/* Title */}
         <h1
-          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4"
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4 text-right"
           dir="rtl"
         >
           {title}
@@ -182,7 +182,7 @@ export default function ArticlePage() {
 
         {/* Excerpt */}
         {excerpt && (
-          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-l-4 border-[#203685] pl-4" dir="rtl">
+          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-r-4 border-[#203685] pr-4 text-right" dir="rtl">
             {excerpt}
           </p>
         )}
@@ -229,7 +229,7 @@ export default function ArticlePage() {
       {/* Article body */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
         <div
-          className="text-gray-800 leading-[1.95] text-base sm:text-lg whitespace-pre-wrap"
+          className="text-gray-800 leading-[1.95] text-base sm:text-lg whitespace-pre-wrap text-right"
           dir="rtl"
           style={{ fontFamily: "'Noto Serif Ethiopic', 'Nyala', serif", fontSize: '18px' }}
         >
@@ -259,20 +259,20 @@ export default function ArticlePage() {
             }`}
           >
             {liked ? <HeartIconSolid className="h-4 w-4" /> : <HeartIcon className="h-4 w-4" />}
-            {liked ? 'ወደድኩት' : 'ወደድኩት'} ({likesCount})
+            {liked ? 'Liked' : 'Like'} ({likesCount})
           </button>
           <button
             onClick={handleShare}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors min-h-[44px]"
           >
             <ShareIcon className="h-4 w-4" />
-            አጋራ
+            Share
           </button>
         </div>
 
         {/* Author card */}
         <div className="mt-10 p-5 sm:p-6 rounded-xl bg-[#203685]/5 border border-[#203685]/10">
-          <p className="text-xs font-semibold text-[#203685] uppercase tracking-wider mb-3">ስለ ጸሐፊው</p>
+          <p className="text-xs font-semibold text-[#203685] uppercase tracking-wider mb-3">About the Author</p>
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#203685] to-[#2F56B0] flex items-center justify-center text-white font-bold flex-shrink-0">
               {article.author.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
@@ -280,7 +280,7 @@ export default function ArticlePage() {
             <div>
               <p className="font-semibold text-gray-900 mb-1">{article.author.name}</p>
               <p className="text-sm text-gray-500 leading-relaxed">
-                {article.author.bio || 'ስለ እምነት፣ አመራር እና መንፈሳዊ እድገት ሃሳቦቻቸውን የሚያካፍሉ የ TELOS MAED አስተዋጽዖ አበርካች።'}
+                {article.author.bio || 'A contributor to TELOS MAED, sharing insights on faith, leadership, and spiritual growth.'}
               </p>
             </div>
           </div>
@@ -293,7 +293,7 @@ export default function ArticlePage() {
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#203685] text-white text-sm font-semibold rounded-lg hover:bg-[#203685]/90 transition-colors min-h-[48px]"
           >
             <ArrowLeftIcon className="h-4 w-4" />
-            ወደ ሁሉም ጽሑፎች
+            Back to All Articles
           </Link>
         </div>
       </div>
