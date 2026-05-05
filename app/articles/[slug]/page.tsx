@@ -174,15 +174,15 @@ export default function ArticlePage() {
 
         {/* Title */}
         <h1
-          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4 text-right"
-          dir="rtl"
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4"
+          style={{ direction: 'rtl', textAlign: 'right' }}
         >
           {title}
         </h1>
 
         {/* Excerpt */}
         {excerpt && (
-          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-r-4 border-[#203685] pr-4 text-right" dir="rtl">
+          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-r-4 border-[#203685] pr-4" style={{ direction: 'rtl', textAlign: 'right' }}>
             {excerpt}
           </p>
         )}
@@ -229,9 +229,14 @@ export default function ArticlePage() {
       {/* Article body */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
         <div
-          className="text-gray-800 leading-[1.95] text-base sm:text-lg whitespace-pre-wrap text-right"
-          dir="rtl"
-          style={{ fontFamily: "'Noto Serif Ethiopic', 'Nyala', serif", fontSize: '18px' }}
+          className="text-gray-800 leading-[1.95] text-base sm:text-lg whitespace-pre-wrap"
+          style={{ 
+            fontFamily: "'Noto Serif Ethiopic', 'Nyala', serif", 
+            fontSize: '18px',
+            direction: 'rtl',
+            textAlign: 'right',
+            unicodeBidi: 'embed'
+          }}
         >
           {content}
         </div>
