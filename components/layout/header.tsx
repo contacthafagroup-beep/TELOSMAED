@@ -37,21 +37,21 @@ const baseNavigation = [
     dropdownItems: [
       {
         name: 'የአዘጋጁ ማስታወሻ',
-        href: '/articles?category=editorial',
+        href: '/articles?category=EDITORIAL',
         description: 'Editorial reflections',
         icon: PencilSquareIcon,
         amharic: true
       },
       {
         name: 'ሰውነት',
-        href: '/articles?category=personal',
+        href: '/articles?category=PERSONAL',
         description: 'Personal growth & character',
         icon: UserCircleIcon,
         amharic: true
       },
       {
         name: 'የመሪ በትር',
-        href: '/articles?category=leadership',
+        href: '/articles?category=LEADERSHIP',
         description: 'Leadership & vision',
         icon: UserGroupIcon,
         amharic: true

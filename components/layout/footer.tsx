@@ -154,9 +154,9 @@ export function Footer() {
               <h3 className="text-responsive-sm font-semibold text-[#203685] mb-3 sm:mb-4">Categories</h3>
               <ul className="spacing-responsive-sm">
                 {[
-                  { name: 'የአዘጋጁ ማስታወሻ', href: '/articles?category=editorial' },
-                  { name: 'ሰውነት', href: '/articles?category=personal' },
-                  { name: 'የመሪ በትር', href: '/articles?category=leadership' },
+                  { name: 'የአዘጋጁ ማስታወሻ', href: '/articles?category=EDITORIAL' },
+                  { name: 'ሰውነት', href: '/articles?category=PERSONAL' },
+                  { name: 'የመሪ በትር', href: '/articles?category=LEADERSHIP' },
                   { name: 'ግጥም', href: '/poetry' },
                 ].map((item) => (
                   <li key={item.name}>
