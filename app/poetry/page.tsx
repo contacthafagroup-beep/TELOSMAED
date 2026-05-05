@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 async function getPoems() {
   try {
-    const poems = await db.poem.findMany({
+    return await db.poem.findMany({
       where: { published: true },
       include: {
         author: {
@@ -22,7 +22,6 @@ async function getPoems() {
       },
       orderBy: { publishedAt: 'desc' },
     })
-    return poems
   } catch (error) {
     console.error('Failed to fetch poems:', error)
     return []
@@ -40,7 +39,7 @@ export default async function PoetryPage() {
         description="Discover spiritual poetry and worship writing that inspires and uplifts the soul."
       />
       <div className="container-responsive padding-responsive-lg">
-        <PoetryGridClient poems={poems} />
+        <PoetryGridClient poems={poems as any} />
       </div>
     </div>
   )
