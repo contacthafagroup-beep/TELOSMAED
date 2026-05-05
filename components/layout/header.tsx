@@ -65,6 +65,8 @@ const baseNavigation = [
       }
     ]
   },
+  { 
+    name: 'About', 
     href: '/about',
     simple: true
   },
