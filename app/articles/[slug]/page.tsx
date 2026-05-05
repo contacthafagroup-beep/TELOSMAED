@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -11,18 +11,36 @@ import {
   BookmarkIcon,
   HeartIcon,
   EyeIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  ChatBubbleLeftIcon,
 } from '@heroicons/react/24/outline'
 import {
   HeartIcon as HeartIconSolid,
-  BookmarkIcon as BookmarkIconSolid
+  BookmarkIcon as BookmarkIconSolid,
 } from '@heroicons/react/24/solid'
+
+const getCategoryLabel = (category: string) => {
+  const labels: Record<string, string> = {
+    'EDITORIAL': 'የአዘጋጁ ማስታወሻ',
+    'PERSONAL': 'ሰውነት',
+    'LEADERSHIP': 'የመሪ በትር',
+  }
+  return labels[category] || category
+}
+
+const getCategoryColor = (category: string) => {
+  const colors: Record<string, string> = {
+    'EDITORIAL': 'bg-blue-50 text-blue-700 border-blue-200',
+    'PERSONAL': 'bg-green-50 text-green-700 border-green-200',
+    'LEADERSHIP': 'bg-purple-50 text-purple-700 border-purple-200',
+  }
+  return colors[category] || 'bg-gray-50 text-gray-700 border-gray-200'
+}
 
 export default function ArticlePage() {
   const params = useParams()
-  const router = useRouter()
   const slug = params.slug as string
-  
+
   const [article, setArticle] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -35,208 +53,171 @@ export default function ArticlePage() {
       try {
         setLoading(true)
         const res = await fetch(`/api/articles/${slug}`)
-        
         if (!res.ok) {
-          if (res.status === 404) {
-            setError('Article not found')
-          } else {
-            setError('Failed to load article')
-          }
+          setError(res.status === 404 ? 'Article not found' : 'Failed to load article')
           return
         }
-        
         const data = await res.json()
         setArticle(data)
         setLikesCount(data.likes || 0)
-      } catch (err) {
-        console.error('Error fetching article:', err)
+      } catch {
         setError('Failed to load article')
       } finally {
         setLoading(false)
       }
     }
-
-    if (slug) {
-      fetchArticle()
-    }
+    if (slug) fetchArticle()
   }, [slug])
 
   const handleLike = async () => {
-    if (!article) return
-    
+    if (!article || liked) return
     try {
-      const res = await fetch(`/api/articles/${slug}/like`, {
-        method: 'POST',
-      })
-      
+      const res = await fetch(`/api/articles/${slug}/like`, { method: 'POST' })
       if (res.ok) {
         const data = await res.json()
         setLikesCount(data.likes)
         setLiked(true)
       }
-    } catch (err) {
-      console.error('Error liking article:', err)
-    }
-  }
-
-  const handleSave = () => {
-    setSaved(!saved)
-    // TODO: Implement bookmark API
+    } catch {}
   }
 
   const handleShare = async () => {
     if (navigator.share && article) {
       try {
         await navigator.share({
-          title: article.title || article.titleAm,
-          text: article.excerpt || article.excerptAm,
+          title: article.titleAm || article.title,
           url: window.location.href,
         })
-      } catch (err) {
-        console.error('Error sharing:', err)
-      }
+      } catch {}
     } else {
-      // Fallback: Copy to clipboard
-      navigator.clipboard.writeText(window.location.href)
-      alert('Link copied to clipboard!')
+      await navigator.clipboard.writeText(window.location.href)
     }
-  }
-
-  const categoryColors = {
-    'EDITORIAL': 'bg-blue-100 text-blue-800',
-    'PERSONAL': 'bg-green-100 text-green-800',
-    'LEADERSHIP': 'bg-purple-100 text-purple-800',
-    'POETRY': 'bg-rose-100 text-rose-800'
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Loading article...</p>
-        </div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#203685] border-t-transparent" />
       </div>
     )
   }
 
   if (error || !article) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <div className="text-6xl mb-4">📄</div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            Article Not Found
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            {error || 'The article you are looking for does not exist or has been removed.'}
-          </p>
-          <Link
-            href="/articles"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <ArrowLeftIcon className="h-5 w-5 mr-2" />
-            Back to Articles
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="text-center max-w-sm">
+          <p className="text-5xl mb-4">📄</p>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">ጽሑፉ አልተገኘም</h1>
+          <p className="text-gray-500 mb-6 text-sm">የሚፈልጉት ጽሑፍ አልተገኘም ወይም ተወግዷል።</p>
+          <Link href="/articles" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#203685] text-white text-sm font-medium rounded-lg hover:bg-[#203685]/90 transition-colors">
+            <ArrowLeftIcon className="h-4 w-4" />
+            ወደ ጽሑፎች ተመለስ
           </Link>
         </div>
       </div>
     )
   }
 
+  const title = article.titleAm || article.title
+  const content = article.contentAm || article.content
+  const excerpt = article.excerptAm || article.excerpt
+
   return (
-    <article className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Back Button */}
-      <div className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link
-            href="/articles"
-            className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-          >
-            <ArrowLeftIcon className="h-4 w-4 mr-2" />
-            Back to Articles
+    <article className="min-h-screen bg-white">
+
+      {/* Top bar */}
+      <div className="border-b border-[#E3E4E6] bg-white sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-12 flex items-center justify-between">
+          <Link href="/articles" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#203685] transition-colors">
+            <ArrowLeftIcon className="h-4 w-4" />
+            ጽሑፎች
           </Link>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handleShare}
+              className="p-2 text-gray-400 hover:text-[#203685] transition-colors rounded-lg hover:bg-gray-50 min-w-[40px] min-h-[40px] flex items-center justify-center"
+              aria-label="Share"
+            >
+              <ShareIcon className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setSaved(!saved)}
+              className="p-2 text-gray-400 hover:text-[#203685] transition-colors rounded-lg hover:bg-gray-50 min-w-[40px] min-h-[40px] flex items-center justify-center"
+              aria-label="Save"
+            >
+              {saved ? <BookmarkIconSolid className="h-4 w-4 text-[#203685]" /> : <BookmarkIcon className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Article Header */}
-      <header className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Category & Date */}
-          <div className="flex items-center space-x-4 mb-6">
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${categoryColors[article.category as keyof typeof categoryColors]}`}>
-              {article.category}
-            </span>
-            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-              <CalendarIcon className="h-4 w-4 mr-1" />
-              {new Date(article.publishedAt || article.createdAt).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
-              })}
+      {/* Article header */}
+      <header className="max-w-3xl mx-auto px-4 sm:px-6 pt-10 pb-8">
+        {/* Category + meta */}
+        <div className="flex flex-wrap items-center gap-3 mb-5">
+          <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border ${getCategoryColor(article.category)}`}>
+            {getCategoryLabel(article.category)}
+          </span>
+          <div className="flex items-center gap-1 text-xs text-gray-400">
+            <CalendarIcon className="h-3.5 w-3.5" />
+            {new Date(article.publishedAt || article.createdAt).toLocaleDateString('en-US', {
+              month: 'long', day: 'numeric', year: 'numeric'
+            })}
+          </div>
+          {article.readTime && (
+            <div className="flex items-center gap-1 text-xs text-gray-400">
+              <ClockIcon className="h-3.5 w-3.5" />
+              {article.readTime} min
             </div>
-            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-              <ClockIcon className="h-4 w-4 mr-1" />
-              {article.readTime || 5} min read
+          )}
+        </div>
+
+        {/* Title */}
+        <h1
+          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4"
+          dir="rtl"
+        >
+          {title}
+        </h1>
+
+        {/* Excerpt */}
+        {excerpt && (
+          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-l-4 border-[#203685] pl-4" dir="rtl">
+            {excerpt}
+          </p>
+        )}
+
+        {/* Author row */}
+        <div className="flex items-center justify-between pt-5 border-t border-[#E3E4E6]">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#203685] to-[#2F56B0] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+              {article.author.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-gray-900">{article.author.name}</p>
+              <p className="text-xs text-gray-400">{article.author.bio || 'TELOS MAED Contributor'}</p>
             </div>
           </div>
-
-          {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight">
-            {article.title}
-          </h1>
-
-          {/* Amharic Title */}
-          {article.titleAm && (
-            <h2 className="text-3xl font-bold text-gray-600 dark:text-gray-400 mb-6">
-              {article.titleAm}
-            </h2>
-          )}
-
-          {/* Excerpt */}
-          {article.excerpt && (
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
-              {article.excerpt}
-            </p>
-          )}
-
-          {/* Author Info */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                {article.author.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-                  {article.author.name}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {article.author.bio || 'TELOS MAED Contributor'}
-                </p>
-              </div>
+          <div className="flex items-center gap-3 text-xs text-gray-400">
+            <div className="flex items-center gap-1">
+              <EyeIcon className="h-3.5 w-3.5" />
+              {article.views.toLocaleString()}
             </div>
-
-            {/* Stats */}
-            <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center">
-                <EyeIcon className="h-4 w-4 mr-1" />
-                {article.views.toLocaleString()}
-              </div>
-              <div className="flex items-center">
-                <HeartIcon className="h-4 w-4 mr-1" />
-                {article.likes}
-              </div>
+            <div className="flex items-center gap-1">
+              <ChatBubbleLeftIcon className="h-3.5 w-3.5" />
+              {article._count?.comments || 0}
             </div>
           </div>
         </div>
       </header>
 
-      {/* Cover Image */}
+      {/* Cover image */}
       {article.coverImage && (
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="aspect-[16/9] relative rounded-2xl overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-10">
+          <div className="aspect-[16/9] relative rounded-2xl overflow-hidden shadow-sm">
             <Image
               src={article.coverImage}
-              alt={article.title}
+              alt={title}
               fill
               className="object-cover"
               priority
@@ -245,165 +226,74 @@ export default function ArticlePage() {
         </div>
       )}
 
-      {/* Article Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Content Section */}
-        <div className="mb-12">
-          {/* Determine article language mode */}
-          {(() => {
-            const hasEnglishContent = article.content && article.title
-            const hasAmharicContent = article.contentAm && article.titleAm
-            
-            // Check if content is identical (meaning it's single-language stored in both fields)
-            const contentIsIdentical = article.content === article.contentAm
-            const titleIsIdentical = article.title === article.titleAm
-            
-            // If content is identical, it's a single-language article
-            const isBilingual = hasEnglishContent && hasAmharicContent && !contentIsIdentical && !titleIsIdentical
-            const isAmharicOnly = hasAmharicContent && (contentIsIdentical || !hasEnglishContent)
-            const isEnglishOnly = hasEnglishContent && !hasAmharicContent
-
-            if (isBilingual) {
-              // Show both with labels
-              return (
-                <>
-                  {/* English Content */}
-                  <div className="mb-12">
-                    <div className="mb-4 pb-2 border-b border-gray-300 dark:border-gray-600">
-                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
-                        English
-                      </span>
-                    </div>
-                    <div className="prose prose-lg dark:prose-invert max-w-none">
-                      <div className="whitespace-pre-wrap leading-relaxed text-gray-800 dark:text-gray-200">
-                        {article.content}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Amharic Content */}
-                  <div className="mb-12 border-t-2 border-gray-300 dark:border-gray-600 pt-12">
-                    <div className="mb-4 pb-2 border-b border-gray-300 dark:border-gray-600">
-                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
-                        አማርኛ (Amharic)
-                      </span>
-                    </div>
-                    <div className="prose prose-lg dark:prose-invert max-w-none">
-                      <div className="whitespace-pre-wrap leading-relaxed text-gray-800 dark:text-gray-200">
-                        {article.contentAm}
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )
-            } else if (isAmharicOnly) {
-              // Show only Amharic content (left-to-right)
-              return (
-                <div className="prose prose-lg dark:prose-invert max-w-none">
-                  <div className="whitespace-pre-wrap leading-relaxed text-gray-800 dark:text-gray-200">
-                    {article.contentAm || article.content}
-                  </div>
-                </div>
-              )
-            } else {
-              // Show only English content
-              return (
-                <div className="prose prose-lg dark:prose-invert max-w-none">
-                  <div className="whitespace-pre-wrap leading-relaxed text-gray-800 dark:text-gray-200">
-                    {article.content}
-                  </div>
-                </div>
-              )
-            }
-          })()}
+      {/* Article body */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
+        <div
+          className="text-gray-800 leading-[1.95] text-base sm:text-lg whitespace-pre-wrap"
+          dir="rtl"
+          style={{ fontFamily: "'Noto Serif Ethiopic', 'Nyala', serif", fontSize: '18px' }}
+        >
+          {content}
         </div>
 
         {/* Tags */}
-        {article.tags && (
-          <div className="flex flex-wrap gap-2 mb-12 pb-12 border-b border-gray-200 dark:border-gray-700">
-            {article.tags.split(',').map((tag: string, index: number) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-full"
-              >
+        {article.tags && article.tags.trim() && (
+          <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-[#E3E4E6]">
+            {article.tags.split(',').filter(Boolean).map((tag: string, i: number) => (
+              <span key={i} className="px-3 py-1 bg-gray-50 text-gray-600 text-xs rounded-full border border-gray-200">
                 #{tag.trim()}
               </span>
             ))}
           </div>
         )}
 
-        {/* Share & Actions */}
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center space-x-4">
-            <button 
-              onClick={handleLike}
-              disabled={liked}
-              className={`inline-flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${
-                liked 
-                  ? 'bg-red-500 text-white shadow-lg scale-105' 
-                  : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 hover:scale-105'
-              }`}
-            >
-              {liked ? (
-                <HeartIconSolid className="h-5 w-5 mr-2 animate-pulse" />
-              ) : (
-                <HeartIcon className="h-5 w-5 mr-2" />
-              )}
-              {liked ? 'Liked' : 'Like'} ({likesCount})
-            </button>
-            <button 
-              onClick={handleSave}
-              className={`inline-flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${
-                saved
-                  ? 'bg-yellow-500 text-white shadow-lg scale-105'
-                  : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 hover:scale-105'
-              }`}
-            >
-              {saved ? (
-                <BookmarkIconSolid className="h-5 w-5 mr-2" />
-              ) : (
-                <BookmarkIcon className="h-5 w-5 mr-2" />
-              )}
-              {saved ? 'Saved' : 'Save'}
-            </button>
-            <button 
-              onClick={handleShare}
-              className="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:scale-105 transition-all duration-200"
-            >
-              <ShareIcon className="h-5 w-5 mr-2" />
-              Share
-            </button>
-          </div>
+        {/* Like / Share actions */}
+        <div className="flex items-center gap-3 mt-8 pt-6 border-t border-[#E3E4E6]">
+          <button
+            onClick={handleLike}
+            disabled={liked}
+            className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 min-h-[44px] ${
+              liked
+                ? 'bg-red-500 text-white'
+                : 'bg-red-50 text-red-600 hover:bg-red-100'
+            }`}
+          >
+            {liked ? <HeartIconSolid className="h-4 w-4" /> : <HeartIcon className="h-4 w-4" />}
+            {liked ? 'ወደድኩት' : 'ወደድኩት'} ({likesCount})
+          </button>
+          <button
+            onClick={handleShare}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors min-h-[44px]"
+          >
+            <ShareIcon className="h-4 w-4" />
+            አጋራ
+          </button>
         </div>
 
-        {/* Author Bio */}
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 mb-12">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            About the Author
-          </h3>
-          <div className="flex items-start space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+        {/* Author card */}
+        <div className="mt-10 p-5 sm:p-6 rounded-xl bg-[#203685]/5 border border-[#203685]/10">
+          <p className="text-xs font-semibold text-[#203685] uppercase tracking-wider mb-3">ስለ ጸሐፊው</p>
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#203685] to-[#2F56B0] flex items-center justify-center text-white font-bold flex-shrink-0">
               {article.author.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)}
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                {article.author.name}
-              </h4>
-              <p className="text-gray-600 dark:text-gray-400">
-                {article.author.bio || 'A contributor to TELOS MAED, sharing insights on faith, leadership, and spiritual growth.'}
+              <p className="font-semibold text-gray-900 mb-1">{article.author.name}</p>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {article.author.bio || 'ስለ እምነት፣ አመራር እና መንፈሳዊ እድገት ሃሳቦቻቸውን የሚያካፍሉ የ TELOS MAED አስተዋጽዖ አበርካች።'}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Back to Articles */}
-        <div className="text-center">
+        {/* Back link */}
+        <div className="mt-8 text-center">
           <Link
             href="/articles"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#203685] text-white text-sm font-semibold rounded-lg hover:bg-[#203685]/90 transition-colors min-h-[48px]"
           >
-            <ArrowLeftIcon className="h-5 w-5 mr-2" />
-            Back to All Articles
+            <ArrowLeftIcon className="h-4 w-4" />
+            ወደ ሁሉም ጽሑፎች
           </Link>
         </div>
       </div>
