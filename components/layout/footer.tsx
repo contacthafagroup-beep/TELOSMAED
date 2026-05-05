@@ -157,7 +157,7 @@ export function Footer() {
                   { name: 'የአዘጋጁ ማስታወሻ', href: '/articles?category=EDITORIAL' },
                   { name: 'ሰውነት', href: '/articles?category=PERSONAL' },
                   { name: 'የመሪ በትር', href: '/articles?category=LEADERSHIP' },
-                  { name: 'ግጥም', href: '/poetry' },
+                  { name: 'ግጥም', href: '/articles?category=POETRY' },
                 ].map((item) => (
                   <li key={item.name}>
                     <Link

@@ -91,6 +91,13 @@ export const CATEGORIES: CategoryInfo[] = [
     english: 'Leadership',
     description: 'Leadership & vision',
     color: 'purple'
+  },
+  {
+    key: 'POETRY',
+    amharic: 'ግጥም',
+    english: 'Poetry',
+    description: 'Spiritual poetry & worship writing',
+    color: 'rose'
   }
 ]
 

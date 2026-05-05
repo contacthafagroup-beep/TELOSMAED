@@ -97,18 +97,6 @@ export function ArticlesFilters() {
           Clear all filters
         </button>
       )}
-
-      {/* Poetry link */}
-      <div className="pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-500 mb-2">Looking for poetry?</p>
-        <a
-          href="/poetry"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-[#203685] hover:text-[#203685]/80 transition-colors"
-        >
-          <span>🎭</span>
-          Browse ግጥም →
-        </a>
-      </div>
     </div>
   )
 }

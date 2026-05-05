@@ -58,7 +58,7 @@ const baseNavigation = [
       },
       {
         name: 'ግጥም',
-        href: '/poetry',
+        href: '/articles?category=POETRY',
         description: 'Spiritual poetry & worship',
         icon: SparklesIcon,
         amharic: true
