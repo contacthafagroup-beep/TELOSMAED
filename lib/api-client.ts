@@ -108,7 +108,14 @@ class ApiClient {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
-    const url = `${API_BASE_URL}/api${endpoint}`
+    // Always use absolute URL — relative URLs fail in some environments
+    const baseUrl = typeof window !== 'undefined'
+      ? window.location.origin
+      : (process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : 'http://localhost:3000')
+
+    const url = `${baseUrl}/api${endpoint}`
     
     const config: RequestInit = {
       headers: {

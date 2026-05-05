@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 
 export default function PoetryPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white">
       <PageHeader
         title="ግጥም"
         subtitle="Poetry"
         description="Discover spiritual poetry and worship writing that inspires and uplifts the soul."
       />
       
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="container-responsive padding-responsive-lg">
         <PoetryGrid />
       </div>
     </div>
