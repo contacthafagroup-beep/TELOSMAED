@@ -12,6 +12,7 @@ const getCategoryLabel = (category: string) => {
     'EDITORIAL': 'የአዘጋጁ ማስታወሻ',
     'PERSONAL': 'ሰውነት',
     'LEADERSHIP': 'የመሪ በትር',
+    'POETRY': 'ግጥም',
   }
   return labels[category] || category
 }
@@ -21,6 +22,7 @@ const getCategoryColor = (category: string) => {
     'EDITORIAL': 'bg-blue-50 text-blue-700 border-blue-200',
     'PERSONAL': 'bg-green-50 text-green-700 border-green-200',
     'LEADERSHIP': 'bg-purple-50 text-purple-700 border-purple-200',
+    'POETRY': 'bg-rose-50 text-rose-700 border-rose-200',
   }
   return colors[category] || 'bg-gray-50 text-gray-700 border-gray-200'
 }
@@ -30,6 +32,7 @@ const getCategoryBg = (category: string) => {
     'EDITORIAL': 'from-[#203685] to-[#2F56B0]',
     'PERSONAL': 'from-emerald-600 to-emerald-700',
     'LEADERSHIP': 'from-purple-600 to-purple-700',
+    'POETRY': 'from-rose-500 to-rose-600',
   }
   return bgs[category] || 'from-gray-500 to-gray-600'
 }
