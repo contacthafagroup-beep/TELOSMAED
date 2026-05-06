@@ -56,6 +56,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Preload hero image for instant display */}
+        <link rel="preload" as="image" href="/images/hero-cover.png" />
+      </head>
       <body className={`${inter.variable} ${crimsonText.variable} ${playfairDisplay.variable} font-sans antialiased`}>
         <ThemeProvider>
           <ReadingProgress />

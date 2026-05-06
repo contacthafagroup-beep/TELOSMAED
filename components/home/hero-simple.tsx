@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { 
   ArrowRightIcon, 
   PlayIcon, 
@@ -13,46 +14,34 @@ import {
 export function Hero() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [videoData, setVideoData] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
 
-  // Fetch video from API
+  // Fetch video in background — don't block hero render
   useEffect(() => {
     fetch('/api/hero/video')
       .then(res => res.json())
-      .then((videoData) => {
-        // Only set video if it's active
-        if (videoData.isActive) {
-          setVideoData(videoData)
-        }
-        setLoading(false)
+      .then((data) => {
+        if (data.isActive) setVideoData(data)
       })
-      .catch(err => {
-        console.error('Failed to load hero data:', err)
-        setLoading(false)
-      })
+      .catch(() => {})
   }, [])
 
-  if (loading) {
-    return (
-      <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-center justify-center">
-        <div className="text-lg text-gray-600">Loading...</div>
-      </section>
-    )
-  }
-
   return (
-    <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-start justify-center bg-gray-50 pt-0">
-      {/* Hero Image Container with Margins and Border Radius */}
-      <div className="relative mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 w-full max-w-7xl h-[85vh] sm:h-[55vh] lg:h-[85vh] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/hero-cover.png')",
+    <section className="relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[100vh] flex items-start justify-center bg-gray-900 pt-0">
+      {/* Hero Image — use Next.js Image with priority for instant load */}
+      <div className="absolute mx-6 sm:mx-8 lg:mx-12 mt-0 mb-4 sm:mb-6 lg:mb-8 inset-0 rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
+        <Image
+          src="/images/hero-cover.png"
+          alt="TELOS MAED Hero"
+          fill
+          priority
+          quality={85}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
           }}
         />
         {/* Overlay for better text readability - Removed for clarity */}
         {/* <div className="absolute inset-0 bg-white/10 lg:bg-white/5" /> */}
-        
         {/* Subtle brand color accents */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(8)].map((_, i) => (
