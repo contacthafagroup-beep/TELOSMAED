@@ -38,10 +38,6 @@ export function Hero() {
           className="object-cover object-center"
           sizes="100vw"
         />
-          }}
-        />
-        {/* Overlay for better text readability - Removed for clarity */}
-        {/* <div className="absolute inset-0 bg-white/10 lg:bg-white/5" /> */}
         {/* Subtle brand color accents */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(8)].map((_, i) => (
