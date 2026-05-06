@@ -97,7 +97,7 @@ export default async function ArticlesPage() {
 
           {/* Articles Grid */}
           <div className="lg:col-span-3">
-            <ArticlesGridClient content={content} />
+            <ArticlesGridClient content={content as any} />
           </div>
         </div>
       </div>
