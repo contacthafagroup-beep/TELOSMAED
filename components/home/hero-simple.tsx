@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
@@ -128,7 +128,7 @@ export function Hero() {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                "ßè¿ßëàßï▒ßê│ßèò ßêüßêë ßîïßê¡ ßê╡ßìïßë▒ßèô ßê¡ßï¥ßêÿßë▒ ßè¿ßììßë│ßïìßê¥ ßîÑßêìßëàßèÉßë▒ßê¥ ßê¥ßèò ßï½ßêàßêì ßêÿßêåßèæßèò ßêêßê¢ßê╡ßë░ßïïßêìßìÑ ßè¿ßêÿßë│ßïêßëàßê¥ ßï¿ßêÜßï½ßêìßìêßïìßèò ßï¿ßè¡ßê¡ßê╡ßë╢ßê╡ßèò ßììßëàßê¡ ßêêßê¢ßïêßëà ßë╡ßëáßê¿ßë▒ ßïÿßèòßï╡ßìÑ ßèÑßê╡ßè¿ ßèÑßîìßïÜßèáßëÑßêößê¡ßê¥ ßììßî╣ßê¥ ßêÖßêïßë╡ ßï░ßê¡ßê│ßë╜ßêü ßë╡ßê₧ßêë ßïÿßèòßï╡ßìó"
+                "ከቅዱሳን ሁሉ ጋር ስፋቱና ርዝመቱ ከፍታውም ጥልቅነቱም ምን ያህል መሆኑን ለማስተዋል፥ ከመታወቅም የሚያልፈውን የክርስቶስን ፍቅር ለማወቅ ትበረቱ ዘንድ፥ እስከ እግዚአብሔርም ፍጹም ሙላት ደርሳችሁ ትሞሉ ዘንድ።"
               </motion.p>
               <motion.p 
                 className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-white mt-2 sm:mt-3 drop-shadow-sm text-center"
@@ -136,7 +136,7 @@ export function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
               >
-                ΓÇö ßèñßìîßê╢ßèò 3ßìÑ18-19
+                — ኤፌሶን 3፥18-19
               </motion.p>
             </motion.div>
 
