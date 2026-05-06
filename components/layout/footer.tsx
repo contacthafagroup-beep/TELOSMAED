@@ -131,7 +131,6 @@ export function Footer() {
                 {[
                   { name: 'Home', href: '/' },
                   { name: 'Articles', href: '/articles' },
-                  { name: 'Poetry', href: '/poetry' },
                   { name: 'About', href: '/about' },
                   { name: 'Submit', href: '/submit' },
                   { name: 'Contact', href: '/contact' },
