@@ -3,7 +3,6 @@ import { Suspense } from 'react'
 import { ArticlesFilters } from '@/components/articles/articles-filters'
 import { ArticlesGridClient } from '@/components/articles/articles-grid-client'
 import { PageHeader } from '@/components/ui/page-header'
-import { db } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,75 +11,7 @@ export const metadata: Metadata = {
   description: 'Explore our collection of faith-based articles covering leadership, personal growth, and spiritual insights.',
 }
 
-async function getAllContent() {
-  try {
-    const [articles, poems] = await Promise.all([
-      db.article.findMany({
-        where: { published: true },
-        include: {
-          author: { select: { id: true, name: true, avatar: true } },
-          _count: { select: { comments: true, articleLikes: true, bookmarks: true } },
-        },
-        orderBy: { createdAt: 'desc' },
-      }),
-      db.poem.findMany({
-        where: { published: true },
-        include: {
-          author: { select: { id: true, name: true, avatar: true } },
-          _count: { select: { comments: true } },
-        },
-        orderBy: { createdAt: 'desc' },
-      }),
-    ])
-
-    const mappedArticles = articles.map(a => ({
-      id: a.id,
-      title: a.title,
-      titleAm: (a as any).titleAm || null,
-      slug: a.slug,
-      excerpt: a.excerpt || null,
-      excerptAm: (a as any).excerptAm || null,
-      category: a.category,
-      featured: a.featured,
-      publishedAt: a.publishedAt?.toISOString() || null,
-      createdAt: a.createdAt.toISOString(),
-      coverImage: (a as any).coverImage || null,
-      author: a.author,
-      _count: a._count,
-      isPoem: false,
-    }))
-
-    const mappedPoems = poems.map(p => ({
-      id: p.id,
-      title: p.title,
-      titleAm: (p as any).titleAm || null,
-      slug: p.slug,
-      excerpt: null,
-      excerptAm: null,
-      category: 'POETRY',
-      featured: p.featured,
-      publishedAt: p.publishedAt?.toISOString() || null,
-      createdAt: p.createdAt.toISOString(),
-      coverImage: null,
-      author: p.author,
-      _count: { comments: p._count.comments, articleLikes: 0, bookmarks: 0 },
-      isPoem: true,
-    }))
-
-    return [...mappedArticles, ...mappedPoems].sort((a, b) => {
-      const dateA = new Date(a.publishedAt || a.createdAt).getTime()
-      const dateB = new Date(b.publishedAt || b.createdAt).getTime()
-      return dateB - dateA
-    })
-  } catch (error) {
-    console.error('Failed to fetch content:', error)
-    return []
-  }
-}
-
-export default async function ArticlesPage() {
-  const content = await getAllContent()
-
+export default function ArticlesPage() {
   return (
     <div className="min-h-screen bg-white">
       <PageHeader
@@ -97,10 +28,10 @@ export default async function ArticlesPage() {
             </Suspense>
           </div>
 
-          {/* Articles Grid */}
+          {/* Articles Grid — fetches its own data client-side like the home page */}
           <div className="lg:col-span-3">
             <Suspense fallback={<div className="text-sm text-gray-400">Loading articles...</div>}>
-              <ArticlesGridClient content={content as any} />
+              <ArticlesGridClient />
             </Suspense>
           </div>
         </div>

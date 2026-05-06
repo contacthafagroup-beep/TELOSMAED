@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -41,48 +41,98 @@ const getCategoryBg = (category: string) => {
 const getInitials = (name: string) =>
   name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
 
-interface ContentItem {
-  id: string
-  title: string
-  titleAm?: string | null
-  slug: string
-  excerpt?: string | null
-  excerptAm?: string | null
-  category: string
-  featured: boolean
-  publishedAt?: string | null
-  createdAt: string
-  coverImage?: string | null
-  author: { id: string; name: string; avatar?: string | null }
-  _count: { comments: number; articleLikes: number; bookmarks: number }
-  isPoem: boolean
-}
-
-interface Props {
-  content: ContentItem[]
-}
-
-export function ArticlesGridClient({ content }: Props) {
+export function ArticlesGridClient() {
   const searchParams = useSearchParams()
   const categoryFilter = searchParams.get('category') || ''
   const featuredFilter = searchParams.get('featured') === 'true'
 
+  const [articles, setArticles] = useState<any[]>([])
+  const [poems, setPoems] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    async function fetchAll() {
+      try {
+        setLoading(true)
+        setError(false)
+
+        // Fetch articles and poems in parallel using the same APIs the home page uses
+        const [articlesRes, poemsRes] = await Promise.all([
+          fetch('/api/articles', { credentials: 'include' }),
+          fetch('/api/poems', { credentials: 'include' }),
+        ])
+
+        const articlesData = articlesRes.ok ? await articlesRes.json() : []
+        const poemsData = poemsRes.ok ? await poemsRes.json() : []
+
+        setArticles(Array.isArray(articlesData) ? articlesData : [])
+        setPoems(Array.isArray(poemsData) ? poemsData : [])
+      } catch (err) {
+        console.error('Failed to fetch content:', err)
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchAll()
+  }, [])
+
+  // Merge articles + poems, tag poems with POETRY category
+  const allContent = useMemo(() => {
+    const mappedPoems = poems.map((p: any) => ({ ...p, category: 'POETRY', isPoem: true }))
+    const mappedArticles = articles.map((a: any) => ({ ...a, isPoem: false }))
+    return [...mappedArticles, ...mappedPoems].sort((a, b) => {
+      const dateA = new Date(a.publishedAt || a.createdAt || 0).getTime()
+      const dateB = new Date(b.publishedAt || b.createdAt || 0).getTime()
+      return dateB - dateA
+    })
+  }, [articles, poems])
+
+  // Apply filters
   const filtered = useMemo(() => {
-    return content.filter(item => {
+    return allContent.filter(item => {
       if (categoryFilter && item.category !== categoryFilter) return false
       if (featuredFilter && !item.featured) return false
       return true
     })
-  }, [content, categoryFilter, featuredFilter])
+  }, [allContent, categoryFilter, featuredFilter])
+
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="animate-pulse flex gap-4 p-4 border border-gray-100 rounded-xl">
+            <div className="w-32 h-24 bg-gray-100 rounded-lg flex-shrink-0" />
+            <div className="flex-1 space-y-2 py-1">
+              <div className="h-3 bg-gray-100 rounded w-20" />
+              <div className="h-5 bg-gray-100 rounded w-3/4" />
+              <div className="h-3 bg-gray-100 rounded w-1/2" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-16">
+        <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
+        <p className="text-gray-500 mb-4">Unable to load articles.</p>
+        <button onClick={() => window.location.reload()} className="px-4 py-2 bg-[#203685] text-white text-sm rounded-lg">
+          Try Again
+        </button>
+      </div>
+    )
+  }
 
   if (filtered.length === 0) {
     return (
       <div className="text-center py-16">
         <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
         <p className="text-gray-500">
-          {content.length === 0
-            ? 'No articles have been published yet.'
-            : 'No content found in this category.'}
+          {allContent.length === 0 ? 'No articles have been published yet.' : 'No content found in this category.'}
         </p>
       </div>
     )
@@ -152,7 +202,7 @@ export function ArticlesGridClient({ content }: Props) {
                         <span className="text-gray-200">·</span>
                         <div className="flex items-center gap-1 text-xs text-gray-400">
                           <CalendarIcon className="h-3 w-3" />
-                          {new Date(item.publishedAt || item.createdAt)
+                          {new Date(item.publishedAt || item.createdAt || Date.now())
                             .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </div>
                       </div>
