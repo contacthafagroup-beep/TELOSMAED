@@ -65,9 +65,6 @@ export function ArticlesFilters() {
               <span className="ml-2 text-sm text-gray-700">
                 {category.amharic}
               </span>
-              <span className="ml-1 text-xs text-gray-500">
-                ({category.english})
-              </span>
             </label>
           ))}
         </div>

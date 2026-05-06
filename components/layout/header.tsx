@@ -448,9 +448,6 @@ export function Header() {
                                     }`}>
                                       {dropdownItem.name}
                                     </div>
-                                    <div className="text-xs text-gray-500">
-                                      {dropdownItem.description}
-                                    </div>
                                   </div>
                                 </Link>
                               ))}
@@ -601,9 +598,6 @@ export function Header() {
                               <div className="flex-1 min-w-0 overflow-hidden">
                                 <div className={`font-medium truncate ${dropdownItem.amharic ? 'font-serif text-sm' : 'text-xs'}`}>
                                   {dropdownItem.name}
-                                </div>
-                                <div className="text-xs text-wisdom dark:text-dark-secondary truncate">
-                                  {dropdownItem.description}
                                 </div>
                               </div>
                             </Link>
