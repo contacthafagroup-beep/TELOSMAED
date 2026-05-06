@@ -79,7 +79,11 @@ export function ArticlesGridClient({ content }: Props) {
     return (
       <div className="text-center py-16">
         <BookOpenIcon className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-        <p className="text-gray-500">No content found.</p>
+        <p className="text-gray-500">
+          {content.length === 0
+            ? 'No articles have been published yet.'
+            : 'No content found in this category.'}
+        </p>
       </div>
     )
   }

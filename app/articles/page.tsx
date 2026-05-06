@@ -21,7 +21,7 @@ async function getAllContent() {
           author: { select: { id: true, name: true, avatar: true } },
           _count: { select: { comments: true, articleLikes: true, bookmarks: true } },
         },
-        orderBy: { publishedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
       }),
       db.poem.findMany({
         where: { published: true },
@@ -29,7 +29,7 @@ async function getAllContent() {
           author: { select: { id: true, name: true, avatar: true } },
           _count: { select: { comments: true } },
         },
-        orderBy: { publishedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
       }),
     ])
 
@@ -99,7 +99,9 @@ export default async function ArticlesPage() {
 
           {/* Articles Grid */}
           <div className="lg:col-span-3">
-            <ArticlesGridClient content={content as any} />
+            <Suspense fallback={<div className="text-sm text-gray-400">Loading articles...</div>}>
+              <ArticlesGridClient content={content as any} />
+            </Suspense>
           </div>
         </div>
       </div>
