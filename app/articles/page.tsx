@@ -5,6 +5,8 @@ import { ArticlesGridClient } from '@/components/articles/articles-grid-client'
 import { PageHeader } from '@/components/ui/page-header'
 import { db } from '@/lib/db'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Articles - TELOS MAED',
   description: 'Explore our collection of faith-based articles covering leadership, personal growth, and spiritual insights.',

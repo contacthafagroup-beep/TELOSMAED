@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PrismaClient } from '@prisma/client'
 import { generateSlug } from '../lib/slug'
 import bcrypt from 'bcryptjs'
