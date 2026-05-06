@@ -24,6 +24,7 @@ const getCategoryLabel = (category: string) => {
     'EDITORIAL': 'የአዘጋጁ ማስታወሻ',
     'PERSONAL': 'ሰውነት',
     'LEADERSHIP': 'የመሪ በትር',
+    'POETRY': 'ግጥም',
   }
   return labels[category] || category
 }
@@ -33,6 +34,7 @@ const getCategoryColor = (category: string) => {
     'EDITORIAL': 'bg-blue-50 text-blue-700 border-blue-200',
     'PERSONAL': 'bg-green-50 text-green-700 border-green-200',
     'LEADERSHIP': 'bg-purple-50 text-purple-700 border-purple-200',
+    'POETRY': 'bg-rose-50 text-rose-700 border-rose-200',
   }
   return colors[category] || 'bg-gray-50 text-gray-700 border-gray-200'
 }
@@ -84,10 +86,7 @@ export default function ArticlePage() {
   const handleShare = async () => {
     if (navigator.share && article) {
       try {
-        await navigator.share({
-          title: article.titleAm || article.title,
-          url: window.location.href,
-        })
+        await navigator.share({ title: article.titleAm || article.title, url: window.location.href })
       } catch {}
     } else {
       await navigator.clipboard.writeText(window.location.href)
@@ -118,6 +117,7 @@ export default function ArticlePage() {
     )
   }
 
+  // Amharic is LTR (left-to-right) — Ethiopic script reads left to right like English
   const title = article.titleAm || article.title
   const content = article.contentAm || article.content
   const excerpt = article.excerptAm || article.excerpt
@@ -125,7 +125,7 @@ export default function ArticlePage() {
   return (
     <article className="min-h-screen bg-white">
 
-      {/* Top bar */}
+      {/* Sticky top bar */}
       <div className="border-b border-[#E3E4E6] bg-white sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-12 flex items-center justify-between">
           <Link href="/articles" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#203685] transition-colors">
@@ -133,18 +133,10 @@ export default function ArticlePage() {
             Articles
           </Link>
           <div className="flex items-center gap-1">
-            <button
-              onClick={handleShare}
-              className="p-2 text-gray-400 hover:text-[#203685] transition-colors rounded-lg hover:bg-gray-50 min-w-[40px] min-h-[40px] flex items-center justify-center"
-              aria-label="Share"
-            >
+            <button onClick={handleShare} className="p-2 text-gray-400 hover:text-[#203685] transition-colors rounded-lg hover:bg-gray-50 min-w-[40px] min-h-[40px] flex items-center justify-center" aria-label="Share">
               <ShareIcon className="h-4 w-4" />
             </button>
-            <button
-              onClick={() => setSaved(!saved)}
-              className="p-2 text-gray-400 hover:text-[#203685] transition-colors rounded-lg hover:bg-gray-50 min-w-[40px] min-h-[40px] flex items-center justify-center"
-              aria-label="Save"
-            >
+            <button onClick={() => setSaved(!saved)} className="p-2 text-gray-400 hover:text-[#203685] transition-colors rounded-lg hover:bg-gray-50 min-w-[40px] min-h-[40px] flex items-center justify-center" aria-label="Save">
               {saved ? <BookmarkIconSolid className="h-4 w-4 text-[#203685]" /> : <BookmarkIcon className="h-4 w-4" />}
             </button>
           </div>
@@ -172,17 +164,14 @@ export default function ArticlePage() {
           )}
         </div>
 
-        {/* Title */}
-        <h1
-          className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4"
-          style={{ direction: 'rtl', textAlign: 'right' }}
-        >
+        {/* Title — Amharic is LTR, no dir attribute needed */}
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4">
           {title}
         </h1>
 
         {/* Excerpt */}
         {excerpt && (
-          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-r-4 border-[#203685] pr-4" style={{ direction: 'rtl', textAlign: 'right' }}>
+          <p className="text-base sm:text-lg text-gray-500 leading-relaxed mb-6 border-l-4 border-[#203685] pl-4">
             {excerpt}
           </p>
         )}
@@ -215,27 +204,19 @@ export default function ArticlePage() {
       {article.coverImage && (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-10">
           <div className="aspect-[16/9] relative rounded-2xl overflow-hidden shadow-sm">
-            <Image
-              src={article.coverImage}
-              alt={title}
-              fill
-              className="object-cover"
-              priority
-            />
+            <Image src={article.coverImage} alt={title} fill className="object-cover" priority />
           </div>
         </div>
       )}
 
-      {/* Article body */}
+      {/* Article body — Amharic is LTR, just needs good font and line height */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-16">
         <div
-          className="text-gray-800 leading-[1.95] text-base sm:text-lg whitespace-pre-wrap"
-          style={{ 
-            fontFamily: "'Noto Serif Ethiopic', 'Nyala', serif", 
+          className="text-gray-800 whitespace-pre-wrap"
+          style={{
             fontSize: '18px',
-            direction: 'rtl',
-            textAlign: 'right',
-            unicodeBidi: 'embed'
+            lineHeight: '2.1',
+            fontFamily: "'Noto Serif Ethiopic', 'Nyala', 'Abyssinica SIL', Georgia, serif",
           }}
         >
           {content}
@@ -252,15 +233,13 @@ export default function ArticlePage() {
           </div>
         )}
 
-        {/* Like / Share actions */}
+        {/* Actions */}
         <div className="flex items-center gap-3 mt-8 pt-6 border-t border-[#E3E4E6]">
           <button
             onClick={handleLike}
             disabled={liked}
             className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 min-h-[44px] ${
-              liked
-                ? 'bg-red-500 text-white'
-                : 'bg-red-50 text-red-600 hover:bg-red-100'
+              liked ? 'bg-red-500 text-white' : 'bg-red-50 text-red-600 hover:bg-red-100'
             }`}
           >
             {liked ? <HeartIconSolid className="h-4 w-4" /> : <HeartIcon className="h-4 w-4" />}
@@ -293,10 +272,7 @@ export default function ArticlePage() {
 
         {/* Back link */}
         <div className="mt-8 text-center">
-          <Link
-            href="/articles"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#203685] text-white text-sm font-semibold rounded-lg hover:bg-[#203685]/90 transition-colors min-h-[48px]"
-          >
+          <Link href="/articles" className="inline-flex items-center gap-2 px-6 py-3 bg-[#203685] text-white text-sm font-semibold rounded-lg hover:bg-[#203685]/90 transition-colors min-h-[48px]">
             <ArrowLeftIcon className="h-4 w-4" />
             Back to All Articles
           </Link>

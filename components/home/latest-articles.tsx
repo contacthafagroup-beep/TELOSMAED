@@ -134,10 +134,10 @@ export function LatestArticles() {
                     {new Date(featured.publishedAt || (featured as any).createdAt || Date.now())
                       .toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-[#203685] transition-colors duration-200 line-clamp-2" dir="rtl">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 leading-snug mb-3 group-hover:text-[#203685] transition-colors duration-200 line-clamp-2">
                     {featured.titleAm || featured.title}
                   </h3>
-                  <p className="text-gray-500 text-sm sm:text-base leading-relaxed line-clamp-3" dir="rtl">
+                  <p className="text-gray-500 text-sm sm:text-base leading-relaxed line-clamp-3">
                     {featured.excerptAm || featured.excerpt || ''}
                   </p>
                 </div>
@@ -197,7 +197,7 @@ export function LatestArticles() {
                         {new Date(article.publishedAt || (article as any).createdAt || Date.now())
                           .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </div>
-                      <h3 className="text-base font-bold text-gray-900 leading-snug mb-2 line-clamp-2 group-hover:text-[#203685] transition-colors duration-200 flex-1" dir="rtl">
+                      <h3 className="text-base font-bold text-gray-900 leading-snug mb-2 line-clamp-2 group-hover:text-[#203685] transition-colors duration-200 flex-1">
                         {article.titleAm || article.title}
                       </h3>
                       <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">

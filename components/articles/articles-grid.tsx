@@ -160,12 +160,12 @@ export function ArticlesGrid() {
                       </div>
                       <h2
                         className="text-sm sm:text-base font-bold text-gray-900 leading-snug line-clamp-2 group-hover:text-[#203685] transition-colors duration-200"
-                        dir="rtl"
+                       
                       >
                         {item.titleAm || item.title}
                       </h2>
                       {(item.excerptAm || item.excerpt) && (
-                        <p className="text-xs text-gray-400 mt-1 line-clamp-1 hidden sm:block" dir="rtl">
+                        <p className="text-xs text-gray-400 mt-1 line-clamp-1 hidden sm:block">
                           {item.excerptAm || item.excerpt}
                         </p>
                       )}
